@@ -1,0 +1,343 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 17,
+  "summary": "One-page, mobile-first website for the local mobile store \"Gadget Zone\" (Thiruvanmiyur, Chennai) with a mature, showroom-style design and simple contact actions (Call/WhatsApp/Instagram).",
+  "architectural_notes": [
+    "Mobile-first layout suitable for WhatsApp and Instagram sharing.",
+    "Use realistic product images only; no illustrations or cartoons.",
+    "WhatsApp integration must only open a direct chat to +91 98400 77591 (no automation/backend).",
+    "No customer data upload, reminders, automation, or backend systems.",
+    "Do not change any other sections, text, layout, or styling beyond the explicitly requested updates.",
+    "Brand logos strip should use muted/grayscale logo assets.",
+    "Sticky bottom action bar must be mobile-only and remain visible while scrolling.",
+    "User requested images be bigger and more colorful; this may require relaxing the current neutral/mature visual constraint if approved.",
+    "Add an ultra-subtle background texture using thin outline mobile-related icons (smartphone/earbuds/charger/smartwatch) in light grey at ~3–5% opacity, softly scattered and non-distracting (texture, not decoration).",
+    "Exception to the 'no sliders/animations' constraint: allow a hero-only image slider with 2–3 slides, using a simple fade transition every 4–5 seconds."
+  ],
+  "known_issues": [
+    "Hero/logo image not visible due to asset filename mismatch: code references \"/assets/generated/Gadget Zone-Logo.png\" but uploaded file is \"Gadget Zone-Logo-1.png\"."
+  ],
+  "isFixRequest": false,
+  "existing_features": [
+    {
+      "id": "feature-create-a-single-clean-one-page-website-for-the-mobile-store-with-a-mature-showroom-style-design-neutral-white-background-calm-typography-minimal-text-no-flashy-elements",
+      "title": "Create a single, clean one-page website for the mobile store with a mature showroom-style design: neutral/white background, calm typography, minimal text, no flashy elements.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-the-hero-section-as-a-large-full-width-banner-with-only-the-following-text-gadget-zone-mobiles-accessories-service-and-thiruvanmiyur-chennai-include-prominent-call-and-whatsapp-buttons",
+      "title": "Implement the hero section as a large, full-width banner with only the following text: \"Gadget Zone\", \"Mobiles • Accessories • Service\", and \"Thiruvanmiyur, Chennai\"; include prominent Call and WhatsApp buttons.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-products-services-grid-displaying-exactly-5-clean-product-style-cards-image-title-only-new-mobile-phones-mobile-accessories-mobile-service-repair-exchange-upgrade-support-emi-finance-options",
+      "title": "Add a “Products & Services” grid displaying exactly 5 clean product-style cards (image + title only): New Mobile Phones, Mobile Accessories, Mobile Service & Repair, Exchange & Upgrade Support, EMI / Finance Options.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-trust-section-that-lists-exactly-these-four-simple-points-genuine-products-reliable-service-easy-emi-options-local-store-support",
+      "title": "Add a Trust section that lists exactly these four simple points: Genuine Products, Reliable Service, Easy EMI Options, Local Store Support.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-contact-visit-section-that-includes-full-address-a-map-link-working-hours-call-button-whatsapp-button-direct-chat-and-an-instagram-icon-linking-to-the-provided-instagram-url",
+      "title": "Add a Contact & Visit section that includes: full address, a map link, working hours, Call button, WhatsApp button (direct chat), and an Instagram icon linking to the provided Instagram URL.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-whatsapp-integration-is-limited-to-opening-a-direct-chat-to-the-store-number-only-do-not-add-any-data-capture-customer-uploads-reminders-automation-or-backend-systems",
+      "title": "Ensure WhatsApp integration is limited to opening a direct chat to the store number only; do not add any data capture, customer uploads, reminders, automation, or backend systems.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-keep-the-page-strictly-simple-do-not-add-animations-sliders-discounts-promotional-sections-or-any-extra-sections-beyond-hero-products-services-trust-and-contact-visit",
+      "title": "Keep the page strictly simple: do not add animations, sliders, discounts, promotional sections, or any extra sections beyond Hero, Products & Services, Trust, and Contact & Visit.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-a-coherent-professional-visual-theme-suitable-for-a-local-showroom-neutral-palette-not-blue-purple-calm-modern-typography-generous-whitespace-and-consistent-spacing-across-all-sections",
+      "title": "Apply a coherent, professional visual theme suitable for a local showroom: neutral palette (not blue/purple), calm modern typography, generous whitespace, and consistent spacing across all sections.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-use-a-placeholder-logo-for-gadget-zone-and-display-it-in-a-clean-minimal-way-appropriate-for-a-professional-retail-site",
+      "title": "Use a placeholder logo for \"Gadget Zone\" and display it in a clean, minimal way appropriate for a professional retail site.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-use-only-realistic-product-photography-no-illustrations-or-cartoons-for-the-hero-banner-and-the-5-product-service-cards-served-as-static-assets-from-frontend-public-assets-generated",
+      "title": "Use only realistic product photography (no illustrations or cartoons) for the hero banner and the 5 product/service cards, served as static assets from frontend/public/assets/generated.",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-replace-the-current-hero-banner-image-with-a-clean-retail-style-photo-showing-mobile-phones-and-mobile-accessories-and-remove-the-current-sofa-image-keep-the-hero-section-layout-text-gradient-overlay-and-call-whatsapp-buttons-unchanged",
+      "title": "Replace the current hero banner image with a clean retail-style photo showing mobile phones and mobile accessories, and remove the current sofa image; keep the hero section layout, text, gradient overlay, and Call/WhatsApp buttons unchanged.",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-brand-logo-strip-immediately-below-the-hero-banner-that-displays-muted-grayscale-logos-for-apple-samsung-motorola-xiaomi-oneplus-realme-and-vivo",
+      "title": "Add a brand logo strip immediately below the hero banner that displays muted/grayscale logos for Apple, Samsung, Motorola, Xiaomi, OnePlus, Realme, and Vivo.",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-enhance-the-existing-why-choose-us-trust-section-by-changing-each-of-the-four-trust-items-from-title-only-to-include-a-a-clean-professional-thumbnail-icon-and-b-the-provided-english-description-text-for-that-item-keep-the-section-heading-and-overall-section-styling-consistent-with-the-current-page",
+      "title": "Enhance the existing “Why Choose Us” (trust) section by changing each of the four trust items from title-only to include: (a) a clean professional thumbnail/icon and (b) the provided English description text for that item; keep the section heading and overall section styling consistent with the current page.",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-new-store-gallery-section-containing-3-5-clean-image-cards-showing-a-mobile-showroom-store-interior-style-layout-placeholders-are-acceptable-the-section-must-fit-the-site-s-existing-minimalist-showroom-aesthetic",
+      "title": "Add a new “Store Gallery” section containing 3–5 clean image cards showing a mobile showroom/store interior style layout; placeholders are acceptable; the section must fit the site’s existing minimalist showroom aesthetic.",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-mobile-only-sticky-bottom-action-bar-that-remains-visible-while-scrolling-and-contains-exactly-three-buttons-in-this-order-call-whatsapp-map-these-buttons-must-use-the-existing-phone-number-whatsapp-direct-chat-link-and-google-maps-link-already-used-elsewhere-in-the-page",
+      "title": "Add a mobile-only sticky bottom action bar that remains visible while scrolling and contains exactly three buttons in this order: Call | WhatsApp | Map; these buttons must use the existing phone number, WhatsApp direct chat link, and Google Maps link already used elsewhere in the page.",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-only-the-brand-logo-strip-container-at-xpath-html-1-body-1-div-1-div-1-section-2-div-1-div-1-so-the-brand-logo-images-appear-bigger-and-more-colorful-without-changing-any-other-sections-of-the-page",
+      "title": "Update ONLY the Brand Logo Strip container at XPath /html[1]/body[1]/div[1]/div[1]/section[2]/div[1]/div[1] so the brand logo images appear bigger and more colorful, without changing any other sections of the page.",
+      "reqIds": [
+        "REQ-16"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-replace-the-brand-logo-strip-image-assets-currently-referenced-in-frontend-src-app-tsx-brands-array-with-new-color-logo-files-under-frontend-public-assets-generated-and-adjust-the-img-styling-in-the-brand-logo-strip-so-the-logos-are-not-artificially-faded-remove-reduce-opacity-60-default",
+      "title": "Replace the Brand Logo Strip image assets currently referenced in frontend/src/App.tsx (brands array) with new color logo files under frontend/public/assets/generated, and adjust the <img> styling in the Brand Logo Strip so the logos are not artificially faded (remove/reduce opacity-60 default).",
+      "reqIds": [
+        "REQ-17"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-mature-ultra-subtle-background-texture-across-the-page-using-a-thin-outline-icon-pattern-smartphone-earbuds-charger-smartwatch-rendered-in-light-grey-at-extremely-low-opacity-3-5-softly-scattered-and-non-distracting-should-read-as-texture-not-decoration",
+      "title": "Add a mature, ultra-subtle background texture across the page using a thin-outline icon pattern (smartphone, earbuds, charger, smartwatch) rendered in light grey at extremely low opacity (3–5%), softly scattered, and non-distracting (should read as texture, not decoration).",
+      "reqIds": [
+        "REQ-18"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-introduce-clean-section-separation-by-alternating-very-light-grey-section-backgrounds-while-keeping-all-cards-and-content-surfaces-white-for-clarity-apply-only-background-color-changes-to-sections-no-changes-to-text-layout-spacing-or-content",
+      "title": "Introduce clean section separation by alternating very-light-grey section backgrounds while keeping all cards and content surfaces white for clarity; apply only background color changes to sections (no changes to text, layout, spacing, or content).",
+      "reqIds": [
+        "REQ-19"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-the-new-background-texture-and-section-background-alternation-in-a-way-that-preserves-the-existing-one-page-structure-and-behavior-including-hero-brand-strip-products-services-trust-gallery-contact-footer-and-sticky-action-bar-and-does-not-introduce-any-new-decorative-elements-beyond-the-requested-subtle-texture-and-light-grey-section-alternation",
+      "title": "Apply the new background texture and section background alternation in a way that preserves the existing one-page structure and behavior (including hero, brand strip, products/services, trust, gallery, contact, footer, and sticky action bar) and does not introduce any new decorative elements beyond the requested subtle texture and light-grey section alternation.",
+      "reqIds": [
+        "REQ-20"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-replace-only-the-image-inside-the-selected-element-at-xpath-html-1-body-1-div-1-div-1-section-1-div-2-div-1-the-hero-section-logo-container-with-the-user-uploaded-file-gadget-zone-logo-png-by-adding-it-as-a-static-asset-under-frontend-public-assets-generated-and-updating-the-img-src-in-frontend-src-app-tsx-accordingly-do-not-change-any-other-hero-content-layout-text-buttons-or-styling",
+      "title": "Replace ONLY the image inside the selected element at XPath /html[1]/body[1]/div[1]/div[1]/section[1]/div[2]/div[1] (the hero-section logo container) with the user-uploaded file \"Gadget Zone-Logo.png\" by adding it as a static asset under frontend/public/assets/generated and updating the <img> src in frontend/src/App.tsx accordingly; do not change any other hero content, layout, text, buttons, or styling.",
+      "reqIds": [
+        "REQ-21"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-convert-the-existing-hero-section-in-frontend-src-app-tsx-into-a-clean-professional-slider-with-a-maximum-of-2-3-slides-using-only-high-quality-retail-style-photography-related-to-1-mobile-phones-2-mobile-accessories-and-3-mobile-service-repair",
+      "title": "Convert the existing Hero section in frontend/src/App.tsx into a clean, professional slider with a maximum of 2–3 slides, using only high-quality retail-style photography related to (1) mobile phones, (2) mobile accessories, and (3) mobile service/repair.",
+      "reqIds": [
+        "REQ-22"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-keep-the-hero-overlay-content-exactly-the-same-on-every-slide-existing-logo-image-headings-text-gradient-overlay-and-the-existing-call-now-and-whatsapp-buttons-with-their-current-links-and-styling",
+      "title": "Keep the hero overlay content exactly the same on every slide: existing logo image, headings/text, gradient overlay, and the existing Call Now and WhatsApp buttons with their current links and styling.",
+      "reqIds": [
+        "REQ-23"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-slow-automatic-slide-transition-every-4-5-seconds-using-a-simple-fade-effect-only-with-no-user-controls-no-arrows-no-dots-and-no-additional-animations-beyond-the-fade",
+      "title": "Implement a slow automatic slide transition (every 4–5 seconds) using a simple fade effect only, with no user controls (no arrows, no dots) and no additional animations beyond the fade.",
+      "reqIds": [
+        "REQ-24"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-do-not-change-any-other-sections-or-content-on-the-page-beyond-the-hero-image-area-behavior-required-to-support-the-slider",
+      "title": "Do not change any other sections or content on the page beyond the hero image area behavior required to support the slider.",
+      "reqIds": [
+        "REQ-25"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-the-new-hero-slide-image-assets-as-static-files-under-frontend-public-assets-generated-and-reference-them-from-the-slider-implementation-in-frontend-src-app-tsx",
+      "title": "Add the new hero slide image assets as static files under frontend/public/assets/generated and reference them from the slider implementation in frontend/src/App.tsx.",
+      "reqIds": [
+        "REQ-26"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-fix-the-broken-hero-logo-by-ensuring-the-uploaded-file-gadget-zone-logo-1-png-is-available-as-a-static-asset-under-frontend-public-assets-generated-and-updating-the-hero-logo-img-in-frontend-src-app-tsx-to-reference-assets-generated-gadget-zone-logo-1-png-instead-of-the-currently-referenced-assets-generated-gadget-zone-logo-png",
+      "title": "Fix the broken hero logo by ensuring the uploaded file \"Gadget Zone-Logo-1.png\" is available as a static asset under frontend/public/assets/generated and updating the hero logo <img> in frontend/src/App.tsx to reference \"/assets/generated/Gadget Zone-Logo-1.png\" instead of the currently-referenced \"/assets/generated/Gadget Zone-Logo.png\".",
+      "reqIds": [
+        "REQ-27"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-increase-the-displayed-size-of-the-hero-logo-image-element-at-xpath-html-1-body-1-div-1-div-1-section-1-div-2-div-1-img-1-by-updating-only-that-img-element-s-tailwind-sizing-classes-in-frontend-src-app-tsx-i-e-increase-its-height-on-mobile-and-desktop-without-changing-its-src-alt-text-container-layout-or-any-other-page-elements",
+      "title": "Increase the displayed size of the hero logo image element at XPath /html[1]/body[1]/div[1]/div[1]/section[1]/div[2]/div[1]/img[1] by updating only that <img> element’s Tailwind sizing classes in frontend/src/App.tsx (i.e., increase its height on mobile and desktop) without changing its src, alt text, container layout, or any other page elements.",
+      "reqIds": [
+        "REQ-28"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Create a clean, professional one-page website for Gadget Zone with mature, showroom-style design (neutral background, calm typography, minimal text, realistic product images only).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Hero section: full-width banner with minimal text (Gadget Zone; Mobiles • Accessories • Service; Thiruvanmiyur, Chennai) plus click-to-call and click-to-WhatsApp buttons.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Products & Services grid: clean product-style cards (image + title only) for New Mobile Phones, Mobile Accessories, Mobile Service & Repair, Exchange & Upgrade Support, EMI / Finance Options.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Trust section with simple points: Genuine Products, Reliable Service, Easy EMI Options, Local Store Support.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Contact & Visit section: full address, map link, working hours, Call button, WhatsApp button (direct chat), and Instagram icon/link.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Use a placeholder logo (to be updated later).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Replace hero banner image with a clean retail-style photo showing mobile phones and accessories (remove current sofa image); keep hero layout/buttons unchanged.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Add a muted/grayscale brand logo strip below the hero with Apple, Samsung, Motorola, Xiaomi, OnePlus, Realme, and Vivo logos.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Enhance the “Why Choose Gadget Zone” section by adding short descriptions and clean professional thumbnails/icons for the four trust points.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-10",
+      "summary": "Add a Store Gallery section with 3–5 clean image cards showing a mobile showroom/store interior layout (placeholders allowed).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-11",
+      "summary": "Add a mobile-only sticky bottom action bar with three persistent buttons: Call | WhatsApp | Map (visible while scrolling).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-12",
+      "summary": "Update imagery to be bigger and more colorful (likely the hero/banner image), compared to the current neutral/mature look.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-13",
+      "summary": "Apply mature background treatment: add ultra-subtle (3–5% opacity) light-grey outline-icon pattern as texture, plus alternating very-light-grey section backgrounds while keeping cards/content areas white; do not change any text/layout/content and avoid clip art/illustrations/gradients/animations.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-14",
+      "summary": "Convert the hero banner into a clean, professional slider with 2–3 slides (mobile phones/accessories/service-repair images), keeping the same hero text/layout/Call+WhatsApp buttons on all slides; slow auto transition (4–5s) with simple fade; no arrows/dots/promotional text/offers; do not change any other sections.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-15",
+      "summary": "Increase the displayed size of the hero/logo image (make the logo larger on the page).",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Gadget Zone",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

@@ -1,0 +1,23 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Increase hero logo image size",
+  "requirements": [
+    {
+      "id": "REQ-28",
+      "summary": "Increase the displayed size of the hero logo image by updating only its Tailwind height classes in App.tsx.",
+      "acceptanceCriteria": [
+        "Only the hero logo <img> (XPath /html[1]/body[1]/div[1]/div[1]/section[1]/div[2]/div[1]/img[1]) changes; no other elements’ code or styling is modified.",
+        "The logo renders visibly larger than before at both mobile and md+ breakpoints (i.e., its Tailwind height classes are increased from the current values).",
+        "The logo image source path and alt text remain unchanged, and the hero overlay content (headings, buttons, gradient overlay, slider behavior) remains unchanged."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Locate the hero logo <img> element (currently using Tailwind classes \"h-16 md:h-20 mx-auto mb-6\") and increase only its Tailwind height sizing classes for mobile and md+ (e.g., bump to larger h-* values). Do not change src, alt, container structure, margins, or any other elements/styles."
+        }
+      ]
+    }
+  ]
+}

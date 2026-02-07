@@ -1,0 +1,38 @@
+{
+  "kind": "build_request",
+  "title": "Increase hero logo image size",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-28",
+      "text": "Increase the displayed size of the hero logo image element at XPath /html[1]/body[1]/div[1]/div[1]/section[1]/div[2]/div[1]/img[1] by updating only that <img> element’s Tailwind sizing classes in frontend/src/App.tsx (i.e., increase its height on mobile and desktop) without changing its src, alt text, container layout, or any other page elements.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "Increase the size of the logo"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Only the hero logo <img> (XPath /html[1]/body[1]/div[1]/div[1]/section[1]/div[2]/div[1]/img[1]) changes; no other elements’ code or styling is modified.",
+        "The logo renders visibly larger than before at both mobile and md+ breakpoints (i.e., its Tailwind height classes are increased from the current values).",
+        "The logo image source path and alt text remain unchanged, and the hero overlay content (headings, buttons, gradient overlay, slider behavior) remains unchanged."
+      ]
+    }
+  ],
+  "constraints": [
+    "Apply the user instruction ONLY to the selected element at XPath /html[1]/body[1]/div[1]/div[1]/section[1]/div[2]/div[1]/img[1].",
+    "Do not change any other sections, content, layout, links, or styling beyond what is required to increase the logo size."
+  ],
+  "nonGoals": [
+    "Changing the logo image file, filename, or src path.",
+    "Adjusting the hero slider timing/transition or adding any new controls/animations.",
+    "Modifying typography, spacing, or button styles anywhere else on the page."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  }
+}
