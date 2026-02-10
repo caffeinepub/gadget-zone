@@ -1,23 +1,28 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 17,
-  "summary": "One-page, mobile-first website for the local mobile store \"Gadget Zone\" (Thiruvanmiyur, Chennai) with a mature, showroom-style design and simple contact actions (Call/WhatsApp/Instagram).",
+  "projectStateVersion": 29,
+  "summary": "One-page, mobile-first website for the local mobile store \"Gadget Zone\" (Thiruvanmiyur, Chennai) with a mature, showroom-style design, simple contact actions (Call/WhatsApp/Instagram), plus a minimal educational section near the bottom: “Mobile Care & Smart Usage Guide (2026)” with a numbered facts list and show-more toggle.",
   "architectural_notes": [
     "Mobile-first layout suitable for WhatsApp and Instagram sharing.",
     "Use realistic product images only; no illustrations or cartoons.",
     "WhatsApp integration must only open a direct chat to +91 98400 77591 (no automation/backend).",
     "No customer data upload, reminders, automation, or backend systems.",
     "Do not change any other sections, text, layout, or styling beyond the explicitly requested updates.",
-    "Brand logos strip should use muted/grayscale logo assets.",
     "Sticky bottom action bar must be mobile-only and remain visible while scrolling.",
-    "User requested images be bigger and more colorful; this may require relaxing the current neutral/mature visual constraint if approved.",
     "Add an ultra-subtle background texture using thin outline mobile-related icons (smartphone/earbuds/charger/smartwatch) in light grey at ~3–5% opacity, softly scattered and non-distracting (texture, not decoration).",
-    "Exception to the 'no sliders/animations' constraint: allow a hero-only image slider with 2–3 slides, using a simple fade transition every 4–5 seconds."
+    "Exception to the 'no sliders/animations' constraint: allow a hero-only image slider with 2–3 slides, using a simple fade transition every 4–5 seconds.",
+    "Add an embedded Google Map iframe near the Contact section; map click should open the existing Google Maps link in a new tab/window.",
+    "Add a minimal business highlights strip with simple icons for location, hours, call, and WhatsApp; do not alter existing layout/styling outside inserting this strip."
   ],
   "known_issues": [
-    "Hero/logo image not visible due to asset filename mismatch: code references \"/assets/generated/Gadget Zone-Logo.png\" but uploaded file is \"Gadget Zone-Logo-1.png\"."
+    "Hero/logo image not visible due to asset filename mismatch: code references \"/assets/generated/Gadget Zone-Logo.png\" but uploaded file is \"Gadget Zone-Logo-1.png\".",
+    "Deployed update is not working as expected (user reports issue; likely related to map interaction/click-through mentioned previously).",
+    "Brand Logo Section: logos are not uniform in size/centering; spacing/aspect-ratio consistency needs fixing without adding background boxes/effects.",
+    "Business Info Strip: icon+text area is not fully clickable per item; Location/Call/WhatsApp actions and subtle hover/tap feedback need fixing without redesign/animations.",
+    "Hero logo is still not clearly visible: it is clipped/cut off at the top and bottom, and the logo background does not blend/merge with the website background; needs adjustment so the full logo is visible without cutting."
   ],
-  "isFixRequest": false,
+  "isFixRequest": true,
+  "imageRequirements": "## Edit Images\n- Remove solid background and add safe padding so the logo cannot appear visually clipped (Gadget Zone-Logo-1.png > gadget-zone-logo-transparent-padded.dim_1000x400.png)",
   "existing_features": [
     {
       "id": "feature-create-a-single-clean-one-page-website-for-the-mobile-store-with-a-mature-showroom-style-design-neutral-white-background-calm-typography-minimal-text-no-flashy-elements",
@@ -242,6 +247,102 @@
         "REQ-28"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-add-an-embedded-google-map-inside-the-existing-contact-visit-section-in-frontend-src-app-tsx-that-shows-the-store-location-for-the-existing-address-string-krishnamurthy-salai-73-kalki-lattice-brg-rd-thiruvanmiyur-chennai-tamil-nadu-600041-the-embedded-map-must-be-placed-near-the-existing-address-map-link-ui-and-must-be-clickable-tappable-so-that-it-opens-the-existing-google-maps-link-already-used-on-the-page-mapurl",
+      "title": "Add an embedded Google Map inside the existing “Contact & Visit” section in frontend/src/App.tsx that shows the store location for the existing address string (KRISHNAMURTHY SALAI, 73 KALKI, Lattice Brg Rd, Thiruvanmiyur, Chennai, Tamil Nadu 600041). The embedded map must be placed near the existing address/map link UI and must be clickable/tappable so that it opens the existing Google Maps link already used on the page (mapUrl).",
+      "reqIds": [
+        "REQ-29"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-clean-minimal-professional-business-highlights-strip-icons-short-text-without-changing-the-current-design-or-layout-of-existing-sections-containing-exactly-these-four-items-in-english-1-location-thiruvanmiyur-chennai-2-working-hours-10-am-9-pm-3-call-for-enquiries-4-whatsapp-support-use-existing-icon-libraries-already-used-in-the-project-e-g-lucide-react-and-keep-styling-consistent-with-the-current-neutral-showroom-aesthetic",
+      "title": "Add a clean, minimal, professional “business highlights” strip (icons + short text) without changing the current design or layout of existing sections, containing exactly these four items in English: (1) Location: Thiruvanmiyur, Chennai (2) Working Hours: 10 AM – 9 PM (3) Call for Enquiries (4) WhatsApp Support. Use existing icon libraries already used in the project (e.g., lucide-react) and keep styling consistent with the current neutral showroom aesthetic.",
+      "reqIds": [
+        "REQ-30"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-existing-whatsapp-action-s-in-frontend-src-app-tsx-to-support-click-to-chat-with-prefilled-message-options-using-whatsapp-s-url-text-parameter-no-automation-no-backend-provide-user-selectable-options-for-these-exact-messages-hi-i-m-looking-to-buy-a-new-mobile-hi-i-need-mobile-service-or-repair-hi-i-want-to-know-about-accessories-the-implementation-must-remain-strictly-click-to-chat-wa-me-and-must-not-add-any-data-capture-reminders-or-automation",
+      "title": "Update the existing WhatsApp action(s) in frontend/src/App.tsx to support click-to-chat with prefilled message options, using WhatsApp’s URL text parameter (no automation, no backend). Provide user-selectable options for these exact messages: “Hi, I’m looking to buy a new mobile.”, “Hi, I need mobile service or repair.”, “Hi, I want to know about accessories.” The implementation must remain strictly click-to-chat (wa.me) and must not add any data capture, reminders, or automation.",
+      "reqIds": [
+        "REQ-31"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-basic-seo-metadata-by-updating-frontend-index-html-to-set-1-page-title-to-gadget-zone-mobile-store-in-thiruvanmiyur-chennai-and-2-a-meta-description-that-mentions-mobiles-accessories-service-emi-and-the-thiruvanmiyur-chennai-location-english-text",
+      "title": "Add basic SEO metadata by updating frontend/index.html to set: (1) page title to “Gadget Zone – Mobile Store in Thiruvanmiyur, Chennai” and (2) a meta description that mentions mobiles, accessories, service, EMI, and the Thiruvanmiyur, Chennai location (English text).",
+      "reqIds": [
+        "REQ-32"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-only-the-anchor-element-at-xpath-html-1-body-1-div-1-div-1-section-7-div-1-div-1-div-2-a-1-so-that-its-href-points-to-exactly-this-url-https-maps-app-goo-gl-gzzfwdamtsqw4nkd9",
+      "title": "Update ONLY the anchor element at XPath /html[1]/body[1]/div[1]/div[1]/section[7]/div[1]/div[1]/div[2]/a[1] so that its href points to exactly this URL: https://maps.app.goo.gl/gZZFWDAMTsQW4nkD9.",
+      "reqIds": [
+        "REQ-33"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-google-maps-link-handling-in-frontend-src-app-tsx-so-that-all-map-actions-including-the-embedded-map-click-overlay-and-the-mobile-sticky-map-button-open-exactly-this-url-in-a-new-tab-window-https-maps-app-goo-gl-gzzfwdamtsqw4nkd9",
+      "title": "Update the Google Maps link handling in frontend/src/App.tsx so that all “Map” actions (including the embedded map click overlay and the mobile sticky “Map” button) open exactly this URL in a new tab/window: https://maps.app.goo.gl/gZZFWDAMTsQW4nkD9.",
+      "reqIds": [
+        "REQ-34"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-make-the-embedded-map-in-the-contact-visit-section-render-reliably-without-requiring-a-google-maps-embed-api-key-i-e-do-not-use-an-embed-url-that-depends-on-an-api-key-that-may-be-restricted-while-keeping-the-embedded-map-clickable-tappable-via-the-existing-overlay-link-behavior",
+      "title": "Make the embedded map in the Contact & Visit section render reliably without requiring a Google Maps Embed API key (i.e., do not use an embed URL that depends on an API key that may be restricted), while keeping the embedded map clickable/tappable via the existing overlay link behavior.",
+      "reqIds": [
+        "REQ-35"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-in-frontend-src-app-tsx-add-a-new-educational-section-titled-mobile-care-smart-usage-guide-2026-placed-near-the-bottom-of-the-page-immediately-before-the-existing-footer-the-section-must-render-the-provided-25-facts-exactly-as-given-as-a-clean-numbered-text-list-no-cards-icons-boxes-emojis-or-colored-backgrounds-use-a-two-column-layout-on-desktop-and-a-single-column-layout-on-mobile-show-only-facts-1-8-by-default-and-include-a-toggle-labeled-show-more-to-reveal-facts-9-25-when-expanded-allow-collapsing-back-e-g-by-changing-the-same-control-to-show-less-do-not-modify-any-existing-sections-layout-or-styling-outside-what-is-required-to-insert-this-new-section",
+      "title": "In frontend/src/App.tsx, add a new educational section titled “Mobile Care & Smart Usage Guide (2026)” placed near the bottom of the page immediately before the existing Footer. The section must render the provided 25 facts exactly as given as a clean numbered text list (no cards, icons, boxes, emojis, or colored backgrounds). Use a two-column layout on desktop and a single-column layout on mobile. Show only facts 1–8 by default, and include a toggle labeled “Show more” to reveal facts 9–25; when expanded, allow collapsing back (e.g., by changing the same control to “Show less”). Do not modify any existing sections, layout, or styling outside what is required to insert this new section.",
+      "reqIds": [
+        "REQ-36"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-fix-the-brand-logo-strip-in-frontend-src-app-tsx-so-all-brand-logos-render-with-a-uniform-footprint-and-clean-alignment-give-each-logo-the-same-fixed-height-and-width-container-center-align-the-logo-within-that-container-preserve-each-logo-s-original-aspect-ratio-no-stretching-distortion-and-ensure-consistent-spacing-between-logos-keep-the-section-visually-clean-and-professional-with-no-background-boxes-or-heavy-visual-effects",
+      "title": "Fix the Brand Logo Strip in frontend/src/App.tsx so all brand logos render with a uniform footprint and clean alignment: give each logo the same fixed height and width container, center-align the logo within that container, preserve each logo’s original aspect ratio (no stretching/distortion), and ensure consistent spacing between logos; keep the section visually clean and professional with no background boxes or heavy visual effects.",
+      "reqIds": [
+        "REQ-37"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-business-info-business-highlights-strip-in-frontend-src-components-businesshighlightsstrip-tsx-so-the-entire-icon-text-area-is-clickable-for-each-item-with-correct-actions-and-subtle-interaction-feedback-location-opens-the-existing-google-maps-link-used-in-frontend-src-app-tsx-maps-link-https-maps-app-goo-gl-gzzfwdamtsqw4nkd9-in-a-new-tab-call-triggers-the-phone-dialer-using-the-existing-phone-number-919840077591-whatsapp-opens-a-whatsapp-chat-using-the-existing-whatsapp-number-919840077591-via-click-to-chat-wa-me-only-working-hours-remains-informational-but-still-has-the-same-subtle-hover-tap-feedback-do-not-redesign-the-strip-or-modify-layout-content-styling-elsewhere-beyond-what-is-required-to-make-the-items-fully-clickable-with-feedback",
+      "title": "Update the Business Info / Business Highlights Strip in frontend/src/components/BusinessHighlightsStrip.tsx so the entire icon + text area is clickable for each item, with correct actions and subtle interaction feedback: Location opens the existing Google Maps link used in frontend/src/App.tsx (MAPS_LINK: https://maps.app.goo.gl/gZZFWDAMTsQW4nkD9) in a new tab; Call triggers the phone dialer using the existing phone number (+919840077591); WhatsApp opens a WhatsApp chat using the existing WhatsApp number (919840077591) via click-to-chat (wa.me) only; Working Hours remains informational but still has the same subtle hover/tap feedback. Do not redesign the strip or modify layout/content/styling elsewhere beyond what is required to make the items fully clickable with feedback.",
+      "reqIds": [
+        "REQ-38"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-in-the-hero-section-of-frontend-src-app-tsx-update-only-the-hero-logo-img-rendering-so-the-full-logo-is-always-clearly-visible-not-clipped-at-the-top-or-bottom-across-mobile-and-desktop-ensure-the-logo-preserves-its-aspect-ratio-and-is-not-cropped-by-any-sizing-overflow-behavior",
+      "title": "In the Hero section of frontend/src/App.tsx, update ONLY the hero logo <img> rendering so the full logo is always clearly visible (not clipped at the top or bottom) across mobile and desktop. Ensure the logo preserves its aspect ratio and is not cropped by any sizing/overflow behavior.",
+      "reqIds": [
+        "REQ-39"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-make-the-hero-logo-image-blend-with-the-website-background-by-using-a-logo-asset-with-a-transparent-background-or-otherwise-matching-the-site-background-and-update-the-hero-logo-img-in-frontend-src-app-tsx-to-reference-the-updated-static-asset-under-frontend-public-assets-generated",
+      "title": "Make the hero logo image blend with the website background by using a logo asset with a transparent background (or otherwise matching the site background), and update the hero logo <img> in frontend/src/App.tsx to reference the updated static asset under frontend/public/assets/generated.",
+      "reqIds": [
+        "REQ-40"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -332,6 +433,42 @@
     {
       "id": "AR-15",
       "summary": "Increase the displayed size of the hero/logo image (make the logo larger on the page).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-16",
+      "summary": "Add an embedded Google Map near the Contact section showing the exact store location; clicking/tapping the map should open Google Maps.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-17",
+      "summary": "Add a minimal, professional business highlights strip with icons for: Location (Thiruvanmiyur, Chennai), Working Hours (10 AM – 9 PM), Call for Enquiries, WhatsApp Support; do not change the current design/layout beyond adding this strip.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-18",
+      "summary": "Improve WhatsApp button to support prefilled click-to-chat messages (e.g., buying new mobile / service & repair / accessories) while remaining click-to-chat only with no automation or backend.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-19",
+      "summary": "Add basic SEO: set page title to “Gadget Zone – Mobile Store in Thiruvanmiyur, Chennai” and add a meta description covering mobiles, accessories, service, EMI, and location.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-20",
+      "summary": "Update/replace the Google Maps link used on the site to https://maps.app.goo.gl/gZZFWDAMTsQW4nkD9 (including any Map buttons and the embedded map click-through).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-21",
+      "summary": "Add a new minimal educational section titled “Mobile Care & Smart Usage Guide (2026)” placed near the bottom before the footer; display the provided 25 facts as a clean numbered text list (no cards/icons/boxes/emojis/colored backgrounds) in a two-column layout on desktop and single column on mobile, showing only the first 8 facts by default with a “Show more” toggle to reveal facts 9–25; do not modify any existing sections, layout, or styling.",
       "reqIds": [],
       "status": "pending"
     }

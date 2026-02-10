@@ -1,21 +1,42 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Increase hero logo image size",
+  "title": "Fix hero logo clipping and update to transparent padded logo asset",
   "requirements": [
     {
-      "id": "REQ-28",
-      "summary": "Increase the displayed size of the hero logo image by updating only its Tailwind height classes in App.tsx.",
+      "id": "REQ-39",
+      "summary": "Adjust only the Hero logo <img> sizing/fit behavior to ensure the full logo is visible (no top/bottom clipping) across viewports while preserving aspect ratio.",
       "acceptanceCriteria": [
-        "Only the hero logo <img> (XPath /html[1]/body[1]/div[1]/div[1]/section[1]/div[2]/div[1]/img[1]) changes; no other elements’ code or styling is modified.",
-        "The logo renders visibly larger than before at both mobile and md+ breakpoints (i.e., its Tailwind height classes are increased from the current values).",
-        "The logo image source path and alt text remain unchanged, and the hero overlay content (headings, buttons, gradient overlay, slider behavior) remains unchanged."
+        "On common viewport sizes (mobile and desktop), the hero logo renders fully with no top/bottom clipping.",
+        "The logo preserves its aspect ratio (no stretching) and is not visually cropped.",
+        "No changes are made to hero headings/text, gradient overlay, slider behavior, or Call/WhatsApp buttons beyond what is necessary to fix the logo visibility."
       ],
       "file_operations": [
         {
           "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Locate the hero logo <img> element (currently using Tailwind classes \"h-16 md:h-20 mx-auto mb-6\") and increase only its Tailwind height sizing classes for mobile and md+ (e.g., bump to larger h-* values). Do not change src, alt, container structure, margins, or any other elements/styles."
+          "description": "Update ONLY the Hero section logo <img> rendering to prevent any cropping: use aspect-ratio-safe sizing (e.g., h-auto/w-auto with max-height constraints), ensure object-fit is non-cropping (object-contain), and avoid any implicit overflow/cropping behavior on the logo element itself. Do not modify hero text, slider, overlay gradient, or action buttons beyond what is necessary for logo visibility."
+        }
+      ]
+    },
+    {
+      "id": "REQ-40",
+      "summary": "Replace the hero logo with a transparent-background, padded static asset and update the Hero logo <img> to reference it from frontend/public/assets/generated.",
+      "acceptanceCriteria": [
+        "The hero logo background visually blends with the page/hero background (no visible solid background box behind the logo).",
+        "The updated logo file is served as a static asset from frontend/public/assets/generated and referenced by the hero logo <img> in frontend/src/App.tsx.",
+        "No other sections or assets are modified beyond what is required to update the hero logo asset reference."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/public/assets/generated/gadget-zone-logo-transparent-padded.dim_1000x400.png",
+          "operation": "create",
+          "description": "Add the updated logo asset with transparent background and safe padding (per imageRequirements edit: \"Gadget Zone-Logo-1.png > gadget-zone-logo-transparent-padded.dim_1000x400.png\") so it blends with the hero/site background and has built-in padding to reduce perceived clipping."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Update the Hero section logo <img> src to reference the new static asset at frontend/public/assets/generated/gadget-zone-logo-transparent-padded.dim_1000x400.png (served under the app's static assets path), keeping all other hero content/functionality unchanged."
         }
       ]
     }

@@ -1,23 +1,36 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-07T15:12:33.408Z",
+  "generatedAt": "2026-02-10T04:17:12.237Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 1,
-    "implemented": 1,
+    "total": 2,
+    "implemented": 2,
     "items": [
       {
-        "id": "REQ-28",
-        "summary": "Increase the displayed size of the hero logo image element at XPath /html[1]/body[1]/div[1]/div[1]/section[1]/div[2]/div[1]/img[1] by updating only that <img> element’s Tailwind sizing classes in frontend/src/App.tsx (i.e., increase its height on mobile and desktop) without changing its src, alt text, container layout, or any other page elements.",
+        "id": "REQ-39",
+        "summary": "In the Hero section of frontend/src/App.tsx, update ONLY the hero logo <img> rendering so the full logo is always clearly visible (not clipped at the top or bottom) across mobile and desktop. Ensure the logo preserves its aspect ratio and is not cropped by any sizing/overflow behavior.",
         "status": "implemented",
         "plannedFiles": [
           "frontend/src/App.tsx"
         ],
         "matchedFiles": [
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-40",
+        "summary": "Make the hero logo image blend with the website background by using a logo asset with a transparent background (or otherwise matching the site background), and update the hero logo <img> in frontend/src/App.tsx to reference the updated static asset under frontend/public/assets/generated.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/public/assets/generated/gadget-zone-logo-transparent-padded.dim_1000x400.png",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/public/assets/generated/gadget-zone-logo-transparent-padded.dim_1000x400.png",
           "frontend/src/App.tsx"
         ]
       }
@@ -28,6 +41,7 @@
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
+    "frontend/public/assets/generated/gadget-zone-logo-transparent-padded.dim_1000x400.png",
     "frontend/src/App.tsx",
     "project_state.json",
     "scratch/component-selection.json",

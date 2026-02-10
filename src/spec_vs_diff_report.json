@@ -1,50 +1,46 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-07T15:12:33.406Z",
-  "summary": "REQ-28 aims to increase only the hero logo <img> size by changing only that element’s Tailwind sizing classes in frontend/src/App.tsx, without any other changes. The diff summary indicates the logo size was increased, but also shows additional, unrelated file modifications that violate the “only that <img> changes” constraint/AC.",
+  "generatedAt": "2026-02-10T04:17:12.233Z",
+  "summary": "The diff does not provide sufficient direct evidence that the hero logo <img> in frontend/src/App.tsx was updated to prevent clipping or that a new transparent/padded logo asset was added under frontend/public/assets/generated. Additionally, there is evidence of changes unrelated to the requested hero-logo-only scope (e.g., Google Maps link standardization and inclusion of an educational section), though it’s unclear whether these were newly introduced or pre-existing due to truncation.",
   "missing_requirements": [
     {
-      "id": "REQ-28",
-      "requirement": "Only the hero logo <img> element at the specified XPath is changed; no other elements’ code/styling is modified (update only that <img> element’s Tailwind sizing classes in frontend/src/App.tsx).",
-      "reason": "The diff indicates additional files besides frontend/src/App.tsx were modified, which conflicts with the requirement/AC that only the targeted <img> change be made.",
+      "id": "REQ-39",
+      "requirement": "Update ONLY the hero logo <img> rendering in frontend/src/App.tsx so the full logo is always visible (no top/bottom clipping) across mobile/desktop, preserving aspect ratio and avoiding cropping.",
+      "reason": "The provided App.tsx diff is truncated before the hero logo <img> markup, so there is no concrete diff evidence showing the <img> sizing/object-fit/overflow changes needed to guarantee no clipping or cropping.",
       "evidence": [
-        "frontend-file-summaries.txt",
-        "project_state.json"
+        "frontend/src/App.tsx (truncated)"
+      ]
+    },
+    {
+      "id": "REQ-40",
+      "requirement": "Use a transparent-background (or background-matching) logo asset and update the hero logo <img> in frontend/src/App.tsx to reference the updated static asset under frontend/public/assets/generated.",
+      "reason": "No new asset file is shown as added under frontend/public/assets/generated (Added: 0), and the truncated App.tsx diff does not show the hero logo <img> src being updated to the specified new transparent/padded asset.",
+      "evidence": [
+        "<file-diff>: Added: 0",
+        "frontend/src/App.tsx (truncated)"
       ]
     }
   ],
   "hallucinated_features": [
     {
-      "description": "Updates to global styling/theme utilities (e.g., OKLCH color system changes, new section-alt token, bg-texture utility).",
-      "reason": "Not requested; BuildRequest explicitly restricts changes to only increasing the hero logo <img> size via its Tailwind sizing classes.",
+      "description": "Changes beyond the hero logo fix, including “consistent use of the exact Google Maps short link across all map interactions”.",
+      "reason": "The BuildRequest explicitly constrained changes to only what is necessary for hero logo visibility/background blending and listed map behavior/links as non-goals. The diff shows MAPS_LINK being defined and referenced in App.tsx and the summary file claims this cross-map standardization.",
       "evidence": [
-        "frontend-file-summaries.txt (mentions frontend/src/index.css changes)"
+        "frontend/src/App.tsx (truncated): MAPS_LINK constant present",
+        "frontend-file-summaries.txt: \"consistent use of the exact Google Maps short link across all map interactions\""
       ]
     },
     {
-      "description": "Tailwind configuration changes (extended neutral palette, custom typography, refined spacing).",
-      "reason": "Not requested and would affect styling beyond the selected hero logo <img> element.",
+      "description": "Addition/maintenance of a “Mobile Care & Smart Usage Guide” section.",
+      "reason": "The BuildRequest forbids modifying other page sections/content beyond what is required for the hero logo fix and forbids adding new sections. The diff shows an import for MobileCareSmartUsageGuideSection and the summary file states the page includes that educational section.",
       "evidence": [
-        "frontend-file-summaries.txt (mentions frontend/tailwind.config.js changes)"
-      ]
-    },
-    {
-      "description": "Addition of a new background texture SVG asset for subtle patterned background.",
-      "reason": "Not requested; would be a new visual/styling element beyond increasing the hero logo size.",
-      "evidence": [
-        "frontend-file-summaries.txt (mentions frontend/public/assets/generated/bg-mobile-outline-texture.dim_1200x1200.svg)"
-      ]
-    },
-    {
-      "description": "Repository metadata/state update unrelated to changing the hero logo <img> sizing classes.",
-      "reason": "Not requested by REQ-28; requirement calls for updating only the <img> element’s Tailwind sizing classes in frontend/src/App.tsx.",
-      "evidence": [
-        "project_state.json"
+        "frontend/src/App.tsx (truncated): import { MobileCareSmartUsageGuideSection } ...",
+        "frontend-file-summaries.txt: \"Mobile Care & Smart Usage Guide section\""
       ]
     }
   ],
-  "confidence": 0.68,
+  "confidence": 0.58,
   "changed_files": [
     "frontend-file-summaries.txt",
     "frontend/src/App.tsx",

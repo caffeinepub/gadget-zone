@@ -1,15 +1,23 @@
 import { useState, useEffect } from 'react';
-import { Phone, MessageCircle, MapPin } from 'lucide-react';
+import { Phone, MapPin } from 'lucide-react';
 import { SiInstagram } from 'react-icons/si';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { BusinessHighlightsStrip } from '@/components/BusinessHighlightsStrip';
+import { WhatsAppQuickMessages } from '@/components/WhatsAppQuickMessages';
+import { MobileCareSmartUsageGuideSection } from '@/components/MobileCareSmartUsageGuideSection';
 
 function App() {
   const phoneNumber = '+919840077591';
   const whatsappNumber = '919840077591';
   const instagramUrl = 'https://www.instagram.com/gadget_zone_ind';
   const address = 'KRISHNAMURTHY SALAI, 73 KALKI, Lattice Brg Rd, Thiruvanmiyur, Chennai, Tamil Nadu 600041';
-  const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+  
+  // Single source of truth for the Google Maps link
+  const MAPS_LINK = 'https://maps.app.goo.gl/gZZFWDAMTsQW4nkD9';
+  
+  // Keyless Google Maps embed URL using the store address
+  const mapEmbedUrl = `https://www.google.com/maps?q=${encodeURIComponent(address)}&output=embed`;
 
   const heroSlides = [
     '/assets/generated/hero-mobiles-accessories.dim_1600x900.jpg',
@@ -109,11 +117,11 @@ function App() {
         </div>
         
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-          <div className="mb-8">
+          <div className="mb-8 flex items-center justify-center">
             <img
-              src="/assets/Gadget Zone-Logo-1.png"
+              src="/assets/generated/gadget-zone-logo-transparent-padded.dim_1000x400.png"
               alt="Gadget Zone"
-              className="h-24 md:h-32 mx-auto mb-6"
+              className="w-full max-w-[280px] md:max-w-[400px] h-auto object-contain"
             />
           </div>
           
@@ -141,17 +149,12 @@ function App() {
               </a>
             </Button>
             
-            <Button
-              asChild
-              size="lg"
+            <WhatsAppQuickMessages
+              whatsappNumber={whatsappNumber}
               variant="outline"
+              size="lg"
               className="w-full sm:w-auto min-w-[180px] bg-transparent text-white border-white hover:bg-white/10 hover:text-white font-normal"
-            >
-              <a href={`https://wa.me/${whatsappNumber}`} target="_blank" rel="noopener noreferrer">
-                <MessageCircle className="mr-2 h-5 w-5" />
-                WhatsApp
-              </a>
-            </Button>
+            />
           </div>
         </div>
       </section>
@@ -159,19 +162,25 @@ function App() {
       {/* Brand Logo Strip */}
       <section className="py-8 md:py-12 px-4 section-alt-bg border-y border-border">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
+          <div className="flex flex-wrap items-center justify-center gap-6 md:gap-8">
             {brands.map((brand) => (
-              <div key={brand.name} className="flex items-center justify-center">
+              <div 
+                key={brand.name} 
+                className="w-24 h-16 md:w-32 md:h-20 flex items-center justify-center"
+              >
                 <img
                   src={brand.logo}
                   alt={brand.name}
-                  className="h-12 md:h-16 w-auto object-contain hover:scale-105 transition-transform"
+                  className="max-w-full max-h-full object-contain"
                 />
               </div>
             ))}
           </div>
         </div>
       </section>
+
+      {/* Business Highlights Strip */}
+      <BusinessHighlightsStrip />
 
       {/* Products & Services Section */}
       <section className="py-16 md:py-24 px-4">
@@ -272,10 +281,34 @@ function App() {
                 variant="link"
                 className="mt-2 text-primary"
               >
-                <a href={mapUrl} target="_blank" rel="noopener noreferrer">
+                <a href={MAPS_LINK} target="_blank" rel="noopener noreferrer">
                   View on Map
                 </a>
               </Button>
+            </div>
+
+            {/* Embedded Google Map */}
+            <div className="relative w-full h-[300px] md:h-[400px] rounded-lg overflow-hidden border border-border">
+              <a
+                href={MAPS_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="absolute inset-0 z-10 cursor-pointer"
+                aria-label="Open in Google Maps"
+              >
+                <span className="sr-only">Open in Google Maps</span>
+              </a>
+              <iframe
+                src={mapEmbedUrl}
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Gadget Zone Location"
+                className="pointer-events-none"
+              />
             </div>
 
             {/* Working Hours */}
@@ -299,17 +332,12 @@ function App() {
                 </a>
               </Button>
               
-              <Button
-                asChild
-                size="lg"
+              <WhatsAppQuickMessages
+                whatsappNumber={whatsappNumber}
                 variant="outline"
+                size="lg"
                 className="w-full sm:w-auto min-w-[180px] font-normal"
-              >
-                <a href={`https://wa.me/${whatsappNumber}`} target="_blank" rel="noopener noreferrer">
-                  <MessageCircle className="mr-2 h-5 w-5" />
-                  WhatsApp
-                </a>
-              </Button>
+              />
             </div>
 
             {/* Social Media */}
@@ -328,13 +356,16 @@ function App() {
         </div>
       </section>
 
+      {/* Mobile Care & Smart Usage Guide Section */}
+      <MobileCareSmartUsageGuideSection />
+
       {/* Footer */}
       <footer className="py-8 px-4 border-t border-border">
         <div className="max-w-7xl mx-auto text-center">
           <p className="text-sm text-muted-foreground">
-            © 2026. Built with love using{' '}
+            © {new Date().getFullYear()}. Built with love using{' '}
             <a
-              href="https://caffeine.ai"
+              href={`https://caffeine.ai/?utm_source=Caffeine-footer&utm_medium=referral&utm_content=${encodeURIComponent(typeof window !== 'undefined' ? window.location.hostname : 'gadget-zone')}`}
               target="_blank"
               rel="noopener noreferrer"
               className="text-foreground hover:underline"
@@ -359,23 +390,21 @@ function App() {
             </a>
           </Button>
           
-          <Button
-            asChild
+          <WhatsAppQuickMessages
+            whatsappNumber={whatsappNumber}
             variant="ghost"
-            className="h-14 rounded-none border-r border-border font-normal"
-          >
-            <a href={`https://wa.me/${whatsappNumber}`} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center justify-center gap-1">
-              <MessageCircle className="h-5 w-5" />
-              <span className="text-xs">WhatsApp</span>
-            </a>
-          </Button>
+            size="default"
+            className="h-14 rounded-none border-r border-border font-normal flex-col gap-1"
+            showIcon={true}
+            label="WhatsApp"
+          />
           
           <Button
             asChild
             variant="ghost"
             className="h-14 rounded-none font-normal"
           >
-            <a href={mapUrl} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center justify-center gap-1">
+            <a href={MAPS_LINK} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center justify-center gap-1">
               <MapPin className="h-5 w-5" />
               <span className="text-xs">Map</span>
             </a>

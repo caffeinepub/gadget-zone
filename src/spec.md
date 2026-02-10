@@ -1,9 +1,10 @@
 # Specification
 
 ## Summary
-**Goal:** Make the hero section’s logo image display larger on both mobile and desktop.
+**Goal:** Ensure the hero logo is fully visible (no top/bottom clipping) on mobile and desktop, and make the logo background blend with the hero/site background.
 
 **Planned changes:**
-- Update only the Tailwind height sizing classes on the hero logo `<img>` element in `frontend/src/App.tsx` (XPath `/html[1]/body[1]/div[1]/div[1]/section[1]/div[2]/div[1]/img[1]`) to increase its rendered size at mobile and `md+` breakpoints.
+- Update ONLY the Hero section logo `<img>` rendering in `frontend/src/App.tsx` to prevent any cropping/clipping while preserving the logo’s aspect ratio across viewport sizes.
+- Replace the hero logo asset with a transparent-background (or background-matching) version served from `frontend/public/assets/generated`, and update the Hero logo `<img>` to reference the updated asset.
 
-**User-visible outcome:** The hero logo appears noticeably larger on mobile and desktop, with all other hero content and behavior unchanged.
+**User-visible outcome:** The hero logo displays completely (not cut off) on mobile and desktop and visually blends into the hero background without a visible solid box behind it.

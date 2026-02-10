@@ -2,8 +2,8 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-increase-the-displayed-size-of-the-hero-logo-image-element-at-xpath-html-1-body-1-div-1-div-1-section-1-div-2-div-1-img-1-by-updating-only-that-img-element-s-tailwind-sizing-classes-in-frontend-src-app-tsx-i-e-increase-its-height-on-mobile-and-desktop-without-changing-its-src-alt-text-container-layout-or-any-other-page-elements",
-      "featureTitle": "Increase the displayed size of the hero logo image element at XPath /html[1]/body[1]/div[1]/div[1]/section[1]/div[2]/div[1]/img[1] by updating only that <img> element’s Tailwind sizing classes in frontend/src/App.tsx (i.e., increase its height on mobile and desktop) without changing its src, alt text, container layout, or any other page elements.",
+      "featureId": "feature-in-the-hero-section-of-frontend-src-app-tsx-update-only-the-hero-logo-img-rendering-so-the-full-logo-is-always-clearly-visible-not-clipped-at-the-top-or-bottom-across-mobile-and-desktop-ensure-the-logo-preserves-its-aspect-ratio-and-is-not-cropped-by-any-sizing-overflow-behavior",
+      "featureTitle": "In the Hero section of frontend/src/App.tsx, update ONLY the hero logo <img> rendering so the full logo is always clearly visible (not clipped at the top or bottom) across mobile and desktop. Ensure the logo preserves its aspect ratio and is not cropped by any sizing/overflow behavior.",
       "files": [
         "frontend/src/App.tsx"
       ],
@@ -15,7 +15,25 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-28"
+        "REQ-39"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-make-the-hero-logo-image-blend-with-the-website-background-by-using-a-logo-asset-with-a-transparent-background-or-otherwise-matching-the-site-background-and-update-the-hero-logo-img-in-frontend-src-app-tsx-to-reference-the-updated-static-asset-under-frontend-public-assets-generated",
+      "featureTitle": "Make the hero logo image blend with the website background by using a logo asset with a transparent background (or otherwise matching the site background), and update the hero logo <img> in frontend/src/App.tsx to reference the updated static asset under frontend/public/assets/generated.",
+      "files": [
+        "frontend/src/App.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-40"
       ],
       "confidence": "high"
     }
