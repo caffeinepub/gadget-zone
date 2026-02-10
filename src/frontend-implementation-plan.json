@@ -1,42 +1,22 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Fix hero logo clipping and update to transparent padded logo asset",
+  "title": "Update hero logo img src and className in App hero section",
   "requirements": [
     {
-      "id": "REQ-39",
-      "summary": "Adjust only the Hero logo <img> sizing/fit behavior to ensure the full logo is visible (no top/bottom clipping) across viewports while preserving aspect ratio.",
+      "id": "REQ-48",
+      "summary": "Update only the Hero section logo <img> in frontend/src/App.tsx to use the exact required src and className without changing any other attributes or any other code.",
       "acceptanceCriteria": [
-        "On common viewport sizes (mobile and desktop), the hero logo renders fully with no top/bottom clipping.",
-        "The logo preserves its aspect ratio (no stretching) and is not visually cropped.",
-        "No changes are made to hero headings/text, gradient overlay, slider behavior, or Call/WhatsApp buttons beyond what is necessary to fix the logo visibility."
+        "In frontend/src/App.tsx, the hero logo <img> (XPath /html[1]/body[1]/div[1]/div[1]/section[1]/div[2]/div[1]/img[1]) has src exactly \"/assets/Gadget Zone-Logo-1.png\".",
+        "That same <img> has className exactly \"h-24 md:h-32 mx-auto mb-6\".",
+        "No other attributes on that <img> are changed (including alt).",
+        "No other code/markup/styling anywhere else in the project is modified as part of this change."
       ],
       "file_operations": [
         {
           "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Update ONLY the Hero section logo <img> rendering to prevent any cropping: use aspect-ratio-safe sizing (e.g., h-auto/w-auto with max-height constraints), ensure object-fit is non-cropping (object-contain), and avoid any implicit overflow/cropping behavior on the logo element itself. Do not modify hero text, slider, overlay gradient, or action buttons beyond what is necessary for logo visibility."
-        }
-      ]
-    },
-    {
-      "id": "REQ-40",
-      "summary": "Replace the hero logo with a transparent-background, padded static asset and update the Hero logo <img> to reference it from frontend/public/assets/generated.",
-      "acceptanceCriteria": [
-        "The hero logo background visually blends with the page/hero background (no visible solid background box behind the logo).",
-        "The updated logo file is served as a static asset from frontend/public/assets/generated and referenced by the hero logo <img> in frontend/src/App.tsx.",
-        "No other sections or assets are modified beyond what is required to update the hero logo asset reference."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/public/assets/generated/gadget-zone-logo-transparent-padded.dim_1000x400.png",
-          "operation": "create",
-          "description": "Add the updated logo asset with transparent background and safe padding (per imageRequirements edit: \"Gadget Zone-Logo-1.png > gadget-zone-logo-transparent-padded.dim_1000x400.png\") so it blends with the hero/site background and has built-in padding to reduce perceived clipping."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Update the Hero section logo <img> src to reference the new static asset at frontend/public/assets/generated/gadget-zone-logo-transparent-padded.dim_1000x400.png (served under the app's static assets path), keeping all other hero content/functionality unchanged."
+          "description": "Locate ONLY the Hero section logo <img> element (the one inside the Hero section content wrapper, matching XPath /html[1]/body[1]/div[1]/div[1]/section[1]/div[2]/div[1]/img[1]) and change ONLY its src to \"/assets/Gadget Zone-Logo-1.png\" and ONLY its className to \"h-24 md:h-32 mx-auto mb-6\". Do not change alt or any other props/attributes on that <img>, and do not modify any other elements or files."
         }
       ]
     }

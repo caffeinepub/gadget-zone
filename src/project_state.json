@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 29,
+  "projectStateVersion": 41,
   "summary": "One-page, mobile-first website for the local mobile store \"Gadget Zone\" (Thiruvanmiyur, Chennai) with a mature, showroom-style design, simple contact actions (Call/WhatsApp/Instagram), plus a minimal educational section near the bottom: “Mobile Care & Smart Usage Guide (2026)” with a numbered facts list and show-more toggle.",
   "architectural_notes": [
     "Mobile-first layout suitable for WhatsApp and Instagram sharing.",
@@ -19,10 +19,13 @@
     "Deployed update is not working as expected (user reports issue; likely related to map interaction/click-through mentioned previously).",
     "Brand Logo Section: logos are not uniform in size/centering; spacing/aspect-ratio consistency needs fixing without adding background boxes/effects.",
     "Business Info Strip: icon+text area is not fully clickable per item; Location/Call/WhatsApp actions and subtle hover/tap feedback need fixing without redesign/animations.",
-    "Hero logo is still not clearly visible: it is clipped/cut off at the top and bottom, and the logo background does not blend/merge with the website background; needs adjustment so the full logo is visible without cutting."
+    "Hero logo is still not clearly visible: it is clipped/cut off at the top and bottom, and the logo background does not blend/merge with the website background; needs adjustment so the full logo is visible without cutting.",
+    "User confirms the hero logo is still clipped (not fully visible) and the logo background is still not blended with the site background after the latest build.",
+    "User reports brand logos 1,2,3,5,6 are still clipped/cut off at the top and bottom (logo strip rendering issue persists).",
+    "User reports the logo was resized and is now not visible properly (visibility/layout regression after resize).",
+    "Hero logo asset path may still be incorrect: user indicates the intended src is \"/assets/Gadget Zone-Logo-1.png\" (not under \"/assets/generated/\")."
   ],
   "isFixRequest": true,
-  "imageRequirements": "## Edit Images\n- Remove solid background and add safe padding so the logo cannot appear visually clipped (Gadget Zone-Logo-1.png > gadget-zone-logo-transparent-padded.dim_1000x400.png)",
   "existing_features": [
     {
       "id": "feature-create-a-single-clean-one-page-website-for-the-mobile-store-with-a-mature-showroom-style-design-neutral-white-background-calm-typography-minimal-text-no-flashy-elements",
@@ -343,6 +346,70 @@
         "REQ-40"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-in-the-hero-section-of-frontend-src-app-tsx-update-only-the-hero-logo-rendering-so-the-entire-logo-is-always-fully-visible-not-clipped-cut-off-on-both-mobile-and-desktop-preserving-the-logo-s-aspect-ratio-and-preventing-any-cropping-from-sizing-overflow-behavior",
+      "title": "In the Hero section of frontend/src/App.tsx, update ONLY the hero logo rendering so the entire logo is always fully visible (not clipped/cut off) on both mobile and desktop, preserving the logo’s aspect ratio and preventing any cropping from sizing/overflow behavior.",
+      "reqIds": [
+        "REQ-41"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-make-the-hero-logo-background-blend-with-the-website-background-by-ensuring-the-hero-logo-image-asset-used-in-frontend-src-app-tsx-has-a-truly-transparent-background-no-solid-box-halo-and-updating-the-referenced-static-asset-under-frontend-public-assets-generated-accordingly",
+      "title": "Make the hero logo background blend with the website background by ensuring the hero logo image asset used in frontend/src/App.tsx has a truly transparent background (no solid box/halo) and updating the referenced static asset under frontend/public/assets/generated accordingly.",
+      "reqIds": [
+        "REQ-42"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-fix-the-brand-logo-strip-in-frontend-src-app-tsx-so-that-the-affected-brand-logos-user-reports-logos-1-2-3-5-6-are-not-cut-off-at-the-top-or-bottom-ensure-each-logo-renders-fully-within-its-footprint-on-both-mobile-and-desktop-by-adjusting-only-the-brand-logo-strip-container-and-image-sizing-fit-styles-do-not-modify-other-page-sections",
+      "title": "Fix the Brand Logo Strip in frontend/src/App.tsx so that the affected brand logos (user reports logos 1,2,3,5,6) are not cut off at the top or bottom. Ensure each logo renders fully within its footprint on both mobile and desktop by adjusting only the Brand Logo Strip container and image sizing/fit styles (do not modify other page sections).",
+      "reqIds": [
+        "REQ-43"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-brand-logo-strip-image-asset-references-in-the-brands-array-in-frontend-src-app-tsx-to-use-newly-padded-non-cropped-logo-image-files-under-frontend-public-assets-generated-for-the-affected-logos-so-the-source-images-themselves-contain-sufficient-transparent-padding-to-prevent-any-apparent-clipping",
+      "title": "Update the Brand Logo Strip image asset references in the brands array in frontend/src/App.tsx to use newly padded/non-cropped logo image files (under frontend/public/assets/generated) for the affected logos, so the source images themselves contain sufficient transparent padding to prevent any apparent clipping.",
+      "reqIds": [
+        "REQ-44"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-correct-the-hero-section-logo-so-it-is-clearly-visible-again-by-updating-only-the-img-element-at-xpath-html-1-body-1-div-1-div-1-section-1-div-2-div-1-img-1-adjust-only-this-image-element-s-tailwind-sizing-fit-visibility-related-classes-so-the-full-logo-is-readable-and-not-visually-lost-after-the-recent-resize-while-preserving-aspect-ratio-no-stretching-and-preventing-any-cropping-clipping-on-both-mobile-and-desktop",
+      "title": "Correct the Hero section logo so it is clearly visible again by updating ONLY the <img> element at XPath /html[1]/body[1]/div[1]/div[1]/section[1]/div[2]/div[1]/img[1]. Adjust only this image element’s Tailwind sizing/fit/visibility-related classes so the full logo is readable and not visually “lost” after the recent resize, while preserving aspect ratio (no stretching) and preventing any cropping/clipping on both mobile and desktop.",
+      "reqIds": [
+        "REQ-45"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-reduce-the-displayed-size-of-the-hero-section-logo-image-by-updating-only-the-img-element-at-xpath-html-1-body-1-div-1-div-1-section-1-div-2-div-1-img-1-in-frontend-src-app-tsx-shrink-the-logo-uniformly-evenly-from-all-sides-by-adjusting-only-this-img-element-s-tailwind-sizing-classes-e-g-max-height-max-width-constraints-while-preserving-aspect-ratio-no-stretching-and-keeping-object-fit-as-contain-do-not-change-the-image-src-alt-text-its-parent-container-or-any-other-page-elements",
+      "title": "Reduce the displayed size of the Hero section logo image by updating ONLY the <img> element at XPath /html[1]/body[1]/div[1]/div[1]/section[1]/div[2]/div[1]/img[1] in frontend/src/App.tsx. Shrink the logo uniformly (evenly from all sides) by adjusting only this <img> element’s Tailwind sizing classes (e.g., max-height/max-width constraints) while preserving aspect ratio (no stretching) and keeping object-fit as contain. Do not change the image src, alt text, its parent container, or any other page elements.",
+      "reqIds": [
+        "REQ-46"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-in-frontend-src-app-tsx-update-only-the-hero-logo-img-element-at-xpath-html-1-body-1-div-1-div-1-section-1-div-2-div-1-img-1-so-that-it-exactly-uses-src-assets-gadget-zone-logo-1-png-and-has-classname-h-24-md-h-32-mx-auto-mb-6-do-not-change-any-other-attributes-elements-or-any-other-parts-of-the-page",
+      "title": "In frontend/src/App.tsx, update ONLY the Hero logo <img> element at XPath /html[1]/body[1]/div[1]/div[1]/section[1]/div[2]/div[1]/img[1] so that it exactly uses src=\"/assets/Gadget Zone-Logo-1.png\" and has className=\"h-24 md:h-32 mx-auto mb-6\". Do not change any other attributes/elements or any other parts of the page.",
+      "reqIds": [
+        "REQ-47"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-in-frontend-src-app-tsx-update-only-the-hero-section-logo-img-element-at-xpath-html-1-body-1-div-1-div-1-section-1-div-2-div-1-img-1-so-that-it-exactly-uses-src-assets-gadget-zone-logo-1-png-and-has-classname-h-24-md-h-32-mx-auto-mb-6-do-not-change-any-other-attributes-of-this-img-element-e-g-alt-and-do-not-change-any-other-elements-layout-text-buttons-styling-or-sections",
+      "title": "In frontend/src/App.tsx, update ONLY the Hero section logo <img> element at XPath /html[1]/body[1]/div[1]/div[1]/section[1]/div[2]/div[1]/img[1] so that it exactly uses src=\"/assets/Gadget Zone-Logo-1.png\" and has className=\"h-24 md:h-32 mx-auto mb-6\". Do not change any other attributes of this <img> element (e.g., alt) and do not change any other elements, layout, text, buttons, styling, or sections.",
+      "reqIds": [
+        "REQ-48"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -469,6 +536,12 @@
     {
       "id": "AR-21",
       "summary": "Add a new minimal educational section titled “Mobile Care & Smart Usage Guide (2026)” placed near the bottom before the footer; display the provided 25 facts as a clean numbered text list (no cards/icons/boxes/emojis/colored backgrounds) in a two-column layout on desktop and single column on mobile, showing only the first 8 facts by default with a “Show more” toggle to reveal facts 9–25; do not modify any existing sections, layout, or styling.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-22",
+      "summary": "Reduce the hero/logo image size evenly from all sides (shrink uniformly without changing other layout/styling).",
       "reqIds": [],
       "status": "pending"
     }

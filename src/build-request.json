@@ -1,69 +1,42 @@
 {
   "kind": "build_request",
-  "title": "Fix hero logo clipping and make logo background blend with site",
+  "title": "Apply exact hero logo <img> src + className on the selected element",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-39",
-      "text": "In the Hero section of frontend/src/App.tsx, update ONLY the hero logo <img> rendering so the full logo is always clearly visible (not clipped at the top or bottom) across mobile and desktop. Ensure the logo preserves its aspect ratio and is not cropped by any sizing/overflow behavior.",
+      "id": "REQ-48",
+      "text": "In frontend/src/App.tsx, update ONLY the Hero section logo <img> element at XPath /html[1]/body[1]/div[1]/div[1]/section[1]/div[2]/div[1]/img[1] so that it exactly uses src=\"/assets/Gadget Zone-Logo-1.png\" and has className=\"h-24 md:h-32 mx-auto mb-6\". Do not change any other attributes of this <img> element (e.g., alt) and do not change any other elements, layout, text, buttons, styling, or sections.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-1"
+          "msg-4",
+          "msg-5"
         ],
         "quotes": [
-          "Still the logo aren't clearly visible. The are cut from top and bottom ... I want logo to be clearly visible without any cutting."
+          "yes",
+          "Use the XPath expression to identify the element to edit. The user instructions should be applied ONLY to the element selected in this prompt."
         ]
       },
       "acceptanceCriteria": [
-        "On common viewport sizes (mobile and desktop), the hero logo renders fully with no top/bottom clipping.",
-        "The logo preserves its aspect ratio (no stretching) and is not visually cropped.",
-        "No changes are made to hero headings/text, gradient overlay, slider behavior, or Call/WhatsApp buttons beyond what is necessary to fix the logo visibility."
-      ]
-    },
-    {
-      "id": "REQ-40",
-      "text": "Make the hero logo image blend with the website background by using a logo asset with a transparent background (or otherwise matching the site background), and update the hero logo <img> in frontend/src/App.tsx to reference the updated static asset under frontend/public/assets/generated.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-1"
-        ],
-        "quotes": [
-          "... even BG of logo is not merged with website BG."
-        ]
-      },
-      "acceptanceCriteria": [
-        "The hero logo background visually blends with the page/hero background (no visible solid background box behind the logo).",
-        "The updated logo file is served as a static asset from frontend/public/assets/generated and referenced by the hero logo <img> in frontend/src/App.tsx.",
-        "No other sections or assets are modified beyond what is required to update the hero logo asset reference."
+        "In frontend/src/App.tsx, the hero logo <img> (XPath /html[1]/body[1]/div[1]/div[1]/section[1]/div[2]/div[1]/img[1]) has src exactly \"/assets/Gadget Zone-Logo-1.png\".",
+        "That same <img> has className exactly \"h-24 md:h-32 mx-auto mb-6\".",
+        "No other attributes on that <img> are changed (including alt).",
+        "No other code/markup/styling anywhere else in the project is modified as part of this change."
       ]
     }
   ],
   "constraints": [
-    "Do not modify any other page sections or content beyond what is required to fix the hero logo visibility/background blending.",
-    "Keep the hero overlay content (logo placement, headings, gradient overlay, Call/WhatsApp buttons) functionally the same; only adjust what is necessary to prevent clipping and to blend the logo background.",
-    "Do not add any new sections, promotional content, or animations beyond the existing hero fade slider."
+    "Apply changes ONLY to the selected element at XPath /html[1]/body[1]/div[1]/div[1]/section[1]/div[2]/div[1]/img[1].",
+    "Do not modify any other hero content (headings, text, gradient overlay, Call/WhatsApp buttons) or any other page sections.",
+    "Do not add new sections, animations, promotional elements, or backend logic."
   ],
   "nonGoals": [
-    "Redesigning the hero section layout or changing the hero text.",
-    "Changing the hero slider timing, adding controls (arrows/dots), or adding new animations.",
-    "Changing WhatsApp/Call/Map behavior or links."
+    "Generating or editing any image assets.",
+    "Changing the hero slider behavior or timing.",
+    "Fixing any other known issues (brand logo strip clipping, business highlights interactions, map embedding/links) unless directly required by the single selected <img> change."
   ],
   "imageRequirements": {
     "required": [],
-    "edits": [
-      "Remove solid background and add safe padding so the logo cannot appear visually clipped (Gadget Zone-Logo-1.png > gadget-zone-logo-transparent-padded.dim_1000x400.png)"
-    ]
-  },
-  "userProfileUpdate": {
-    "goalsToAdd": [],
-    "goalsToRemove": [],
-    "preferencesToAdd": [],
-    "preferencesToRemove": [],
-    "miscToAdd": [],
-    "miscToRemove": [],
-    "fieldsToSet": {},
-    "fieldsToDelete": []
+    "edits": []
   }
 }

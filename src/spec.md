@@ -1,10 +1,10 @@
 # Specification
 
 ## Summary
-**Goal:** Ensure the hero logo is fully visible (no top/bottom clipping) on mobile and desktop, and make the logo background blend with the hero/site background.
+**Goal:** Update only the Hero section logo image element to use the exact requested image source and Tailwind className.
 
 **Planned changes:**
-- Update ONLY the Hero section logo `<img>` rendering in `frontend/src/App.tsx` to prevent any cropping/clipping while preserving the logo’s aspect ratio across viewport sizes.
-- Replace the hero logo asset with a transparent-background (or background-matching) version served from `frontend/public/assets/generated`, and update the Hero logo `<img>` to reference the updated asset.
+- In `frontend/src/App.tsx`, modify only the Hero logo `<img>` at XPath `/html[1]/body[1]/div[1]/div[1]/section[1]/div[2]/div[1]/img[1]` to set `src="/assets/Gadget Zone-Logo-1.png"`.
+- On that same `<img>`, set `className="h-24 md:h-32 mx-auto mb-6"` without changing any other attributes (e.g., `alt`) or any other part of the UI.
 
-**User-visible outcome:** The hero logo displays completely (not cut off) on mobile and desktop and visually blends into the hero background without a visible solid box behind it.
+**User-visible outcome:** The Hero section displays the specified logo image at the intended size and spacing, with no other visual or layout changes.

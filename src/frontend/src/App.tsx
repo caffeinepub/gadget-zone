@@ -82,12 +82,12 @@ function App() {
   ];
 
   const brands = [
-    { name: 'Apple', logo: '/assets/generated/logo-apple-color.dim_256x128.png' },
-    { name: 'Samsung', logo: '/assets/generated/logo-samsung-color.dim_256x128.png' },
-    { name: 'Motorola', logo: '/assets/generated/logo-motorola-color.dim_256x128.png' },
+    { name: 'Apple', logo: '/assets/generated/logo-apple-color-padded.dim_256x128.png' },
+    { name: 'Samsung', logo: '/assets/generated/logo-samsung-color-padded.dim_256x128.png' },
+    { name: 'Motorola', logo: '/assets/generated/logo-motorola-color-padded.dim_256x128.png' },
     { name: 'Xiaomi', logo: '/assets/generated/logo-xiaomi-color.dim_256x128.png' },
-    { name: 'OnePlus', logo: '/assets/generated/logo-oneplus-color.dim_256x128.png' },
-    { name: 'Realme', logo: '/assets/generated/logo-realme-color.dim_256x128.png' },
+    { name: 'OnePlus', logo: '/assets/generated/logo-oneplus-color-padded.dim_256x128.png' },
+    { name: 'Realme', logo: '/assets/generated/logo-realme-color-padded.dim_256x128.png' },
     { name: 'Vivo', logo: '/assets/generated/logo-vivo-color.dim_256x128.png' },
   ];
 
@@ -117,11 +117,11 @@ function App() {
         </div>
         
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-          <div className="mb-8 flex items-center justify-center">
+          <div className="mb-8 flex items-center justify-center w-full">
             <img
-              src="/assets/generated/gadget-zone-logo-transparent-padded.dim_1000x400.png"
+              src="/assets/Gadget Zone-Logo-1.png"
               alt="Gadget Zone"
-              className="w-full max-w-[280px] md:max-w-[400px] h-auto object-contain"
+              className="h-24 md:h-32 mx-auto mb-6"
             />
           </div>
           
@@ -160,18 +160,18 @@ function App() {
       </section>
 
       {/* Brand Logo Strip */}
-      <section className="py-8 md:py-12 px-4 section-alt-bg border-y border-border">
+      <section className="py-10 md:py-14 px-4 section-alt-bg border-y border-border">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-wrap items-center justify-center gap-6 md:gap-8">
+          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-10">
             {brands.map((brand) => (
               <div 
                 key={brand.name} 
-                className="w-24 h-16 md:w-32 md:h-20 flex items-center justify-center"
+                className="w-32 h-24 md:w-40 md:h-28 p-2 flex items-center justify-center"
               >
                 <img
                   src={brand.logo}
                   alt={brand.name}
-                  className="max-w-full max-h-full object-contain"
+                  className="w-full h-full object-contain"
                 />
               </div>
             ))}

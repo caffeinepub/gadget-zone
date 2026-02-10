@@ -2,8 +2,8 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-in-the-hero-section-of-frontend-src-app-tsx-update-only-the-hero-logo-img-rendering-so-the-full-logo-is-always-clearly-visible-not-clipped-at-the-top-or-bottom-across-mobile-and-desktop-ensure-the-logo-preserves-its-aspect-ratio-and-is-not-cropped-by-any-sizing-overflow-behavior",
-      "featureTitle": "In the Hero section of frontend/src/App.tsx, update ONLY the hero logo <img> rendering so the full logo is always clearly visible (not clipped at the top or bottom) across mobile and desktop. Ensure the logo preserves its aspect ratio and is not cropped by any sizing/overflow behavior.",
+      "featureId": "feature-in-frontend-src-app-tsx-update-only-the-hero-section-logo-img-element-at-xpath-html-1-body-1-div-1-div-1-section-1-div-2-div-1-img-1-so-that-it-exactly-uses-src-assets-gadget-zone-logo-1-png-and-has-classname-h-24-md-h-32-mx-auto-mb-6-do-not-change-any-other-attributes-of-this-img-element-e-g-alt-and-do-not-change-any-other-elements-layout-text-buttons-styling-or-sections",
+      "featureTitle": "In frontend/src/App.tsx, update ONLY the Hero section logo <img> element at XPath /html[1]/body[1]/div[1]/div[1]/section[1]/div[2]/div[1]/img[1] so that it exactly uses src=\"/assets/Gadget Zone-Logo-1.png\" and has className=\"h-24 md:h-32 mx-auto mb-6\". Do not change any other attributes of this <img> element (e.g., alt) and do not change any other elements, layout, text, buttons, styling, or sections.",
       "files": [
         "frontend/src/App.tsx"
       ],
@@ -15,25 +15,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-39"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-make-the-hero-logo-image-blend-with-the-website-background-by-using-a-logo-asset-with-a-transparent-background-or-otherwise-matching-the-site-background-and-update-the-hero-logo-img-in-frontend-src-app-tsx-to-reference-the-updated-static-asset-under-frontend-public-assets-generated",
-      "featureTitle": "Make the hero logo image blend with the website background by using a logo asset with a transparent background (or otherwise matching the site background), and update the hero logo <img> in frontend/src/App.tsx to reference the updated static asset under frontend/public/assets/generated.",
-      "files": [
-        "frontend/src/App.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-40"
+        "REQ-48"
       ],
       "confidence": "high"
     }
