@@ -1,36 +1,36 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-10T12:17:11.828Z",
-  "summary": "The BuildRequest requires a very narrow change: update only one specific Hero <img> in frontend/src/App.tsx (exact src and className) and make no other changes anywhere. The diff evidence is truncated and does not show the targeted <img> element, so the required change cannot be verified from the provided diff summary. Additionally, files other than App.tsx were modified, which conflicts with the “no other code/markup/styling anywhere else” acceptance criterion.",
+  "generatedAt": "2026-02-10T13:33:26.918Z",
+  "summary": "App.tsx adds a service-to-content mapping and state for a selected service plus a ref intended for a bottom description section, and project summaries describe clickable service cards that scroll to a fixed bottom description section. However, the diff evidence is insufficient/unclear for the required bottom-section Call/WhatsApp actions, mobile sticky-bar non-obscuring behavior, and the requirement for *exact* description strings (mapping currently stores descriptions as arrays of sentences rather than the single exact strings provided).",
   "missing_requirements": [
     {
-      "id": "REQ-48",
-      "requirement": "In frontend/src/App.tsx, update ONLY the Hero section logo <img> at XPath /html[1]/body[1]/div[1]/div[1]/section[1]/div[2]/div[1]/img[1] to have src=\"/assets/Gadget Zone-Logo-1.png\" and className=\"h-24 md:h-32 mx-auto mb-6\", without changing any other attributes (e.g., alt) and without modifying anything else in the project.",
-      "reason": "The diff for frontend/src/App.tsx is truncated and does not include the Hero <img> markup; therefore there is no direct evidence that the specified <img> src/className were updated exactly, nor that no other attributes on that <img> were left unchanged.",
+      "id": "REQ-53",
+      "requirement": "Implement the exact bottom-section content mapping (English) so each selected item shows the exact provided heading and description text (no paraphrasing).",
+      "reason": "In App.tsx, each service description is stored as an array of sentence strings rather than the single exact description string specified; without evidence of concatenation into the exact provided text, the 'exact text' acceptance criterion is not demonstrably met.",
       "evidence": [
-        "frontend/src/App.tsx (truncated)"
-      ]
-    }
-  ],
-  "hallucinated_features": [
-    {
-      "description": "Modified additional project files beyond the single targeted <img> change (frontend-file-summaries.txt and project_state.json).",
-      "reason": "The BuildRequest/AC explicitly require that no other code/markup/styling anywhere else in the project is modified as part of this change, but the diff lists other modified files.",
-      "evidence": [
-        "frontend-file-summaries.txt",
-        "project_state.json"
+        "frontend/src/App.tsx"
       ]
     },
     {
-      "description": "Claims of unrelated changes/features (e.g., global CSS OKLCH system, tailwind config changes, added SVG texture asset, SEO meta changes, components like BusinessHighlightsStrip / WhatsAppQuickMessages / MobileCareSmartUsageGuideSection, map link standardization).",
-      "reason": "These items are not requested and are listed in frontend-file-summaries.txt as part of the project, conflicting with the constraint to only change the selected <img>. The diff summary does not show corresponding file modifications for those paths (only the summary file itself was modified), making them appear as unrequested additions/claims.",
+      "id": "REQ-54",
+      "requirement": "Include Call and WhatsApp buttons below the description in the shared bottom section (tel:+919840077591 and existing wa.me click-to-chat via WhatsAppQuickMessages).",
+      "reason": "The provided App.tsx excerpt shows phoneNumber/whatsappNumber constants and imports WhatsAppQuickMessages, but does not show the bottom section rendering Call and WhatsApp actions/buttons as required (truncation prevents verification).",
       "evidence": [
-        "frontend-file-summaries.txt"
+        "frontend/src/App.tsx"
+      ]
+    },
+    {
+      "id": "REQ-55",
+      "requirement": "Ensure click-to-scroll does not interfere with the existing mobile sticky bottom action bar; bottom section remains readable and not obscured after scrolling on mobile.",
+      "reason": "No evidence is shown of scroll-offset handling, spacing, or other measures ensuring the scrolled-to bottom description section is not hidden behind the mobile sticky action bar (truncation prevents verification).",
+      "evidence": [
+        "frontend/src/App.tsx"
       ]
     }
   ],
-  "confidence": 0.68,
+  "hallucinated_features": [],
+  "confidence": 0.58,
   "changed_files": [
     "frontend-file-summaries.txt",
     "frontend/src/App.tsx",

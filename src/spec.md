@@ -1,10 +1,12 @@
 # Specification
 
 ## Summary
-**Goal:** Update only the Hero section logo image element to use the exact requested image source and Tailwind className.
+**Goal:** Add a single shared bottom description section that updates based on which Products & Services item is clicked, and smoothly scroll to it.
 
 **Planned changes:**
-- In `frontend/src/App.tsx`, modify only the Hero logo `<img>` at XPath `/html[1]/body[1]/div[1]/div[1]/section[1]/div[2]/div[1]/img[1]` to set `src="/assets/Gadget Zone-Logo-1.png"`.
-- On that same `<img>`, set `className="h-24 md:h-32 mx-auto mb-6"` without changing any other attributes (e.g., `alt`) or any other part of the UI.
+- Add one shared description section at the bottom of the one-page layout in `frontend/src/App.tsx`, placed immediately before the existing Footer, with internal content (heading + description) that updates based on the selected Products & Services item.
+- Make the 5 existing Products & Services items clickable so click (1) smoothly scrolls to the shared bottom section and (2) updates the bottom section heading/description using the exact provided English text mapping.
+- Add Call and WhatsApp actions below the description in the bottom section, using `tel:+919840077591` and the existing WhatsApp click-to-chat (wa.me) behavior via the existing `WhatsAppQuickMessages` component.
+- Ensure the mobile scroll-to-section result keeps the bottom section readable and not obscured by the existing mobile sticky bottom action bar, without changing the bar’s structure/behavior.
 
-**User-visible outcome:** The Hero section displays the specified logo image at the intended size and spacing, with no other visual or layout changes.
+**User-visible outcome:** Users can click any Products & Services item to be smoothly taken to a bottom description area that shows the correct heading and description for that item, with Call and WhatsApp buttons available underneath.

@@ -1,11 +1,51 @@
-import { useState, useEffect } from 'react';
-import { Phone, MapPin } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { Phone, MapPin, MessageCircle } from 'lucide-react';
 import { SiInstagram } from 'react-icons/si';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { BusinessHighlightsStrip } from '@/components/BusinessHighlightsStrip';
 import { WhatsAppQuickMessages } from '@/components/WhatsAppQuickMessages';
 import { MobileCareSmartUsageGuideSection } from '@/components/MobileCareSmartUsageGuideSection';
+
+// Service content mapping
+const serviceContent = {
+  'New Mobile Phones': {
+    heading: 'New Mobile Phones',
+    description: [
+      'Explore the latest smartphones from top brands with warranty support.',
+      'Choose from a wide range of models based on performance, camera, battery, and budget.',
+      'EMI options available on eligible models.',
+    ],
+  },
+  'Mobile Accessories': {
+    heading: 'Mobile Accessories',
+    description: [
+      'Find quality mobile accessories including chargers, cables, earphones, cases, screen guards, and power banks.',
+      'Both original and high-quality compatible accessories available.',
+    ],
+  },
+  'Mobile Service & Repair': {
+    heading: 'Mobile Service & Repair',
+    description: [
+      'Professional repair services for screen replacement, battery issues, charging port problems, speaker and mic issues, and software support.',
+      'Quick diagnosis with transparent pricing and service warranty.',
+    ],
+  },
+  'Exchange & Upgrade Support': {
+    heading: 'Exchange & Upgrade Support',
+    description: [
+      'Upgrade your old phone to a new one with easy exchange options.',
+      'Get fair value for your existing device and seamless assistance during the upgrade process.',
+    ],
+  },
+  'EMI / Finance Options': {
+    heading: 'EMI / Finance Options',
+    description: [
+      'Easy EMI and finance options available on selected mobile phones.',
+      'Flexible plans with minimal documentation to make your purchase affordable.',
+    ],
+  },
+};
 
 function App() {
   const phoneNumber = '+919840077591';
@@ -26,6 +66,8 @@ function App() {
   ];
 
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [selectedService, setSelectedService] = useState<keyof typeof serviceContent>('New Mobile Phones');
+  const descriptionSectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -37,23 +79,23 @@ function App() {
 
   const services = [
     {
-      title: 'New Mobile Phones',
-      image: '/assets/generated/card-new-mobiles.dim_1200x800.jpg',
+      title: 'New Mobile Phones' as keyof typeof serviceContent,
+      image: '/assets/generated/card-new-mobiles-premium.dim_1200x800.jpg',
     },
     {
-      title: 'Mobile Accessories',
+      title: 'Mobile Accessories' as keyof typeof serviceContent,
       image: '/assets/generated/card-accessories.dim_1200x800.jpg',
     },
     {
-      title: 'Mobile Service & Repair',
+      title: 'Mobile Service & Repair' as keyof typeof serviceContent,
       image: '/assets/generated/card-service-repair.dim_1200x800.jpg',
     },
     {
-      title: 'Exchange & Upgrade Support',
+      title: 'Exchange & Upgrade Support' as keyof typeof serviceContent,
       image: '/assets/generated/card-exchange-upgrade.dim_1200x800.jpg',
     },
     {
-      title: 'EMI / Finance Options',
+      title: 'EMI / Finance Options' as keyof typeof serviceContent,
       image: '/assets/generated/card-emi-finance.dim_1200x800.jpg',
     },
   ];
@@ -96,6 +138,25 @@ function App() {
     '/assets/generated/gallery-02.dim_1200x800.jpg',
     '/assets/generated/gallery-03.dim_1200x800.jpg',
   ];
+
+  const handleServiceClick = (serviceTitle: keyof typeof serviceContent) => {
+    setSelectedService(serviceTitle);
+    
+    // Smooth scroll to description section with offset for mobile sticky bar
+    if (descriptionSectionRef.current) {
+      const isMobile = window.innerWidth < 768;
+      const offset = isMobile ? 80 : 20; // Extra offset on mobile for sticky bar
+      const elementPosition = descriptionSectionRef.current.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth',
+      });
+    }
+  };
+
+  const currentContent = serviceContent[selectedService];
 
   return (
     <div className="min-h-screen bg-background bg-texture pb-20 md:pb-0">
@@ -191,7 +252,20 @@ function App() {
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {services.map((service, index) => (
-              <Card key={index} className="overflow-hidden border-border hover:shadow-lg transition-shadow bg-card">
+              <Card 
+                key={index} 
+                className="overflow-hidden border-border hover:shadow-lg transition-shadow bg-card cursor-pointer"
+                onClick={() => handleServiceClick(service.title)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    handleServiceClick(service.title);
+                  }
+                }}
+                tabIndex={0}
+                role="button"
+                aria-label={`View details about ${service.title}`}
+              >
                 <div className="aspect-[3/2] overflow-hidden">
                   <img
                     src={service.image}
@@ -358,6 +432,56 @@ function App() {
 
       {/* Mobile Care & Smart Usage Guide Section */}
       <MobileCareSmartUsageGuideSection />
+
+      {/* Service Description Section - Fixed at Bottom */}
+      <section 
+        ref={descriptionSectionRef}
+        className="py-16 md:py-20 px-4 section-alt-bg border-t border-border"
+      >
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-light text-center mb-6 text-foreground">
+            {currentContent.heading}
+          </h2>
+          
+          <div className="space-y-3 mb-8">
+            {currentContent.description.map((paragraph, index) => (
+              <p key={index} className="text-base text-muted-foreground leading-relaxed text-center">
+                {paragraph}
+              </p>
+            ))}
+          </div>
+
+          {/* Contact Actions */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Button
+              asChild
+              size="lg"
+              className="w-full sm:w-auto min-w-[180px] font-normal"
+            >
+              <a href={`tel:${phoneNumber}`}>
+                <Phone className="mr-2 h-5 w-5" />
+                Call Now
+              </a>
+            </Button>
+            
+            <Button
+              asChild
+              variant="outline"
+              size="lg"
+              className="w-full sm:w-auto min-w-[180px] font-normal"
+            >
+              <a 
+                href={`https://wa.me/${whatsappNumber}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <MessageCircle className="mr-2 h-5 w-5" />
+                WhatsApp
+              </a>
+            </Button>
+          </div>
+        </div>
+      </section>
 
       {/* Footer */}
       <footer className="py-8 px-4 border-t border-border">

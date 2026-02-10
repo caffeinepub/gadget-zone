@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 41,
-  "summary": "One-page, mobile-first website for the local mobile store \"Gadget Zone\" (Thiruvanmiyur, Chennai) with a mature, showroom-style design, simple contact actions (Call/WhatsApp/Instagram), plus a minimal educational section near the bottom: “Mobile Care & Smart Usage Guide (2026)” with a numbered facts list and show-more toggle.",
+  "projectStateVersion": 45,
+  "summary": "One-page, mobile-first website for the local mobile store \"Gadget Zone\" (Thiruvanmiyur, Chennai) with a mature, showroom-style design, simple contact actions (Call/WhatsApp/Instagram), plus a minimal educational section near the bottom: “Mobile Care & Smart Usage Guide (2026)” with a numbered facts list and show-more toggle, and a fixed bottom shared description section that updates based on which Products & Services item the user selects (with smooth scroll-to-section and Call/WhatsApp buttons).",
   "architectural_notes": [
     "Mobile-first layout suitable for WhatsApp and Instagram sharing.",
     "Use realistic product images only; no illustrations or cartoons.",
@@ -25,7 +25,7 @@
     "User reports the logo was resized and is now not visible properly (visibility/layout regression after resize).",
     "Hero logo asset path may still be incorrect: user indicates the intended src is \"/assets/Gadget Zone-Logo-1.png\" (not under \"/assets/generated/\")."
   ],
-  "isFixRequest": true,
+  "isFixRequest": false,
   "existing_features": [
     {
       "id": "feature-create-a-single-clean-one-page-website-for-the-mobile-store-with-a-mature-showroom-style-design-neutral-white-background-calm-typography-minimal-text-no-flashy-elements",
@@ -410,6 +410,62 @@
         "REQ-48"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-add-a-new-premium-realistic-poster-style-product-photo-asset-for-the-new-mobile-phones-card-2-3-modern-flagship-looking-smartphones-slim-bezels-modern-design-placed-neatly-on-a-clean-table-retail-display-surface-with-soft-natural-showroom-lighting-and-a-minimal-elegant-background-light-grey-beige-soft-neutral-gradient-the-phones-must-be-brand-neutral-with-no-visible-brand-logos-no-neon-colors-no-flashy-effects-no-illustrations-cartoons-save-the-image-as-a-static-file-under-frontend-public-assets-generated",
+      "title": "Add a new premium, realistic poster-style product photo asset for the “New Mobile Phones” card: 2–3 modern flagship-looking smartphones (slim bezels, modern design), placed neatly on a clean table/retail display surface, with soft natural showroom lighting, and a minimal elegant background (light grey/beige/soft neutral gradient). The phones must be brand-neutral with no visible brand logos; no neon colors, no flashy effects, no illustrations/cartoons. Save the image as a static file under frontend/public/assets/generated.",
+      "reqIds": [
+        "REQ-49"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-only-the-selected-new-mobile-phones-card-image-so-it-uses-the-new-asset-without-changing-any-other-layout-text-buttons-sections-other-images-specifically-ensure-the-img-at-xpath-html-1-body-1-div-1-div-1-section-4-div-1-div-1-div-1-div-1-img-1-renders-the-new-image-by-updating-only-the-corresponding-image-source-for-the-new-mobile-phones-entry-in-the-services-array-in-frontend-src-app-tsx",
+      "title": "Update ONLY the selected “New Mobile Phones” card image so it uses the new asset, without changing any other layout/text/buttons/sections/other images. Specifically, ensure the <img> at XPath /html[1]/body[1]/div[1]/div[1]/section[4]/div[1]/div[1]/div[1]/div[1]/img[1] renders the new image by updating only the corresponding image source for the “New Mobile Phones” entry in the services array in frontend/src/App.tsx.",
+      "reqIds": [
+        "REQ-50"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-in-frontend-src-app-tsx-add-a-single-shared-description-section-at-the-bottom-of-the-page-that-always-stays-at-the-bottom-placed-as-the-last-content-section-immediately-before-the-existing-footer-and-ensure-only-its-internal-content-updates-based-on-which-products-services-item-is-selected",
+      "title": "In frontend/src/App.tsx, add a single shared description section at the bottom of the page that always stays at the bottom (placed as the last content section immediately before the existing Footer), and ensure only its internal content updates based on which Products & Services item is selected.",
+      "reqIds": [
+        "REQ-51"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-in-frontend-src-app-tsx-make-each-of-the-5-existing-products-services-items-new-mobile-phones-mobile-accessories-mobile-service-repair-exchange-upgrade-support-emi-finance-options-clickable-so-that-clicking-any-item-1-smoothly-scrolls-the-page-to-the-bottom-shared-description-section-and-2-updates-the-bottom-section-heading-description-text-to-match-the-clicked-item",
+      "title": "In frontend/src/App.tsx, make each of the 5 existing Products & Services items (New Mobile Phones, Mobile Accessories, Mobile Service & Repair, Exchange & Upgrade Support, EMI / Finance Options) clickable so that clicking any item (1) smoothly scrolls the page to the bottom shared description section and (2) updates the bottom section heading + description text to match the clicked item.",
+      "reqIds": [
+        "REQ-52"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-the-exact-bottom-section-content-mapping-english-in-frontend-src-app-tsx-so-the-shared-bottom-section-renders-the-following-heading-description-for-each-selected-item-exactly-as-provided-1-new-mobile-phones-heading-new-mobile-phones-description-explore-the-latest-smartphones-from-top-brands-with-warranty-support-choose-from-a-wide-range-of-models-based-on-performance-camera-battery-and-budget-emi-options-available-on-eligible-models-2-mobile-accessories-heading-mobile-accessories-description-find-quality-mobile-accessories-including-chargers-cables-earphones-cases-screen-guards-and-power-banks-both-original-and-high-quality-compatible-accessories-available-3-mobile-service-repair-heading-mobile-service-repair-description-professional-repair-services-for-screen-replacement-battery-issues-charging-port-problems-speaker-and-mic-issues-and-software-support-quick-diagnosis-with-transparent-pricing-and-service-warranty-4-exchange-upgrade-support-heading-exchange-upgrade-support-description-upgrade-your-old-phone-to-a-new-one-with-easy-exchange-options-get-fair-value-for-your-existing-device-and-seamless-assistance-during-the-upgrade-process-5-emi-finance-options-heading-emi-finance-options-description-easy-emi-and-finance-options-available-on-selected-mobile-phones-flexible-plans-with-minimal-documentation-to-make-your-purchase-affordable",
+      "title": "Implement the exact bottom-section content mapping (English) in frontend/src/App.tsx so the shared bottom section renders the following heading/description for each selected item exactly as provided: (1) New Mobile Phones: heading \"New Mobile Phones\"; description \"Explore the latest smartphones from top brands with warranty support. Choose from a wide range of models based on performance, camera, battery, and budget. EMI options available on eligible models.\" (2) Mobile Accessories: heading \"Mobile Accessories\"; description \"Find quality mobile accessories including chargers, cables, earphones, cases, screen guards, and power banks. Both original and high-quality compatible accessories available.\" (3) Mobile Service & Repair: heading \"Mobile Service & Repair\"; description \"Professional repair services for screen replacement, battery issues, charging port problems, speaker and mic issues, and software support. Quick diagnosis with transparent pricing and service warranty.\" (4) Exchange & Upgrade Support: heading \"Exchange & Upgrade Support\"; description \"Upgrade your old phone to a new one with easy exchange options. Get fair value for your existing device and seamless assistance during the upgrade process.\" (5) EMI / Finance Options: heading \"EMI / Finance Options\"; description \"Easy EMI and finance options available on selected mobile phones. Flexible plans with minimal documentation to make your purchase affordable.\"",
+      "reqIds": [
+        "REQ-53"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-in-the-shared-bottom-description-section-frontend-src-app-tsx-include-call-and-whatsapp-buttons-below-the-description-using-the-existing-phonenumber-919840077591-and-existing-whatsapp-behavior-wa-me-click-to-chat-via-the-existing-whatsappquickmessages-component-without-adding-any-data-capture-reminders-automation-or-backend-logic",
+      "title": "In the shared bottom description section (frontend/src/App.tsx), include Call and WhatsApp buttons below the description, using the existing phoneNumber (+919840077591) and existing WhatsApp behavior (wa.me click-to-chat via the existing WhatsAppQuickMessages component) without adding any data capture, reminders, automation, or backend logic.",
+      "reqIds": [
+        "REQ-54"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-the-new-click-to-scroll-behavior-does-not-break-the-existing-one-page-structure-and-does-not-interfere-with-the-existing-mobile-only-sticky-bottom-action-bar-the-bottom-section-must-remain-readable-after-scrolling-on-mobile-not-obscured-by-the-sticky-action-bar",
+      "title": "Ensure the new click-to-scroll behavior does not break the existing one-page structure and does not interfere with the existing mobile-only sticky bottom action bar; the bottom section must remain readable after scrolling on mobile (not obscured by the sticky action bar).",
+      "reqIds": [
+        "REQ-55"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -542,6 +598,18 @@
     {
       "id": "AR-22",
       "summary": "Reduce the hero/logo image size evenly from all sides (shrink uniformly without changing other layout/styling).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-23",
+      "summary": "Replace only the “New Mobiles” (Products & Services) section image with a premium, realistic poster-style photo of 2–3 modern brand-neutral flagship smartphones on a clean retail/table surface; soft natural showroom lighting; minimal elegant neutral background; no flashy effects/neon/cartoons; ensure it blends with the white site background and keeps text readable; do not change any other layout/text/buttons/sections/images.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-24",
+      "summary": "Add a single shared description section fixed at the bottom of the page; clicking any Products & Services item (New Mobile Phones, Mobile Accessories, Mobile Service & Repair, Exchange & Upgrade Support, EMI / Finance Options) should smoothly scroll to the bottom section and dynamically update only its heading/description content, and include Call + WhatsApp buttons; no new pages/popups/cards/accordions and do not change existing layout/fonts/colors/styling.",
       "reqIds": [],
       "status": "pending"
     }

@@ -1,22 +1,85 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Update hero logo img src and className in App hero section",
+  "title": "Fixed bottom shared Products & Services description section with click-to-scroll updates",
   "requirements": [
     {
-      "id": "REQ-48",
-      "summary": "Update only the Hero section logo <img> in frontend/src/App.tsx to use the exact required src and className without changing any other attributes or any other code.",
+      "id": "REQ-51",
+      "summary": "Add one shared description section near the bottom of the one-page layout (immediately before the existing Footer) whose internal content updates based on the selected Products & Services item.",
       "acceptanceCriteria": [
-        "In frontend/src/App.tsx, the hero logo <img> (XPath /html[1]/body[1]/div[1]/div[1]/section[1]/div[2]/div[1]/img[1]) has src exactly \"/assets/Gadget Zone-Logo-1.png\".",
-        "That same <img> has className exactly \"h-24 md:h-32 mx-auto mb-6\".",
-        "No other attributes on that <img> are changed (including alt).",
-        "No other code/markup/styling anywhere else in the project is modified as part of this change."
+        "A single new section exists near the bottom of the one-page layout and is placed immediately before the existing Footer in frontend/src/App.tsx.",
+        "The section is always the bottom-most content area of the page (excluding the existing Footer and the existing mobile sticky action bar).",
+        "No additional pages, popups, cards, or accordions are introduced for this feature.",
+        "No existing global layout, fonts, colors, or styling are changed outside what is required to insert and support this section."
       ],
       "file_operations": [
         {
           "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Locate ONLY the Hero section logo <img> element (the one inside the Hero section content wrapper, matching XPath /html[1]/body[1]/div[1]/div[1]/section[1]/div[2]/div[1]/img[1]) and change ONLY its src to \"/assets/Gadget Zone-Logo-1.png\" and ONLY its className to \"h-24 md:h-32 mx-auto mb-6\". Do not change alt or any other props/attributes on that <img>, and do not modify any other elements or files."
+          "description": "Insert a new shared bottom description <section> as the last content section immediately before the existing <footer>. Add local state for the currently-selected service (defaulting to one of the existing 5 titles) and render only the section’s internal heading/description from that state; do not introduce new pages/popups/cards/accordions. Keep styling changes minimal and localized to this new section only."
+        }
+      ]
+    },
+    {
+      "id": "REQ-52",
+      "summary": "Make each existing Products & Services item clickable to smoothly scroll to the shared bottom section and update that section’s heading/description to match the clicked item.",
+      "acceptanceCriteria": [
+        "Clicking each of the 5 existing service items triggers a smooth scroll to the bottom shared description section.",
+        "After the scroll, the bottom section content reflects the clicked item (correct heading and description).",
+        "Only the bottom section content changes; the Products & Services grid continues to render as image + title only.",
+        "No new animations are added beyond the required smooth scroll behavior."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Update the existing services grid so each of the 5 Cards is interactive (e.g., onClick + keyboard activation) without changing the card’s content (still image + title only). On activation, set the selected service state and trigger smooth scrolling to the shared bottom description section via a ref/id (no additional animations beyond smooth scroll)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-53",
+      "summary": "Implement the exact provided English heading/description mapping for the 5 services and render it in the shared bottom section.",
+      "acceptanceCriteria": [
+        "For each of the 5 service titles, the bottom section renders the exact corresponding heading and description text as provided by the user (no paraphrasing).",
+        "The correct content is shown consistently after repeated clicks across different items."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add a constant mapping keyed by the 5 existing service titles and render the exact user-provided heading/description strings in the bottom section based on selected state. Ensure repeated clicks across items consistently show the correct corresponding text (no paraphrasing, no extra punctuation/wording)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-54",
+      "summary": "Add Call and WhatsApp actions below the bottom-section description using the existing phone number and existing WhatsApp click-to-chat behavior via WhatsAppQuickMessages, with no backend/data-capture logic.",
+      "acceptanceCriteria": [
+        "The bottom section displays a Call button that opens the dialer using tel:+919840077591.",
+        "The bottom section displays a WhatsApp action that uses click-to-chat only (wa.me) with the existing WhatsApp number 919840077591.",
+        "No backend changes are introduced for this feature."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "In the new bottom description section, add a Call button that links to tel:+919840077591 using the existing shadcn-ui Button component (Verify the component's usage instructions before implementing). Add a WhatsApp action using the existing WhatsAppQuickMessages component wired to the existing whatsappNumber so it remains wa.me click-to-chat only (Verify the component's usage instructions before implementing). Do not add any data capture, reminders, automation, or backend logic."
+        }
+      ]
+    },
+    {
+      "id": "REQ-55",
+      "summary": "Ensure click-to-scroll keeps the one-page structure intact and that the bottom section remains readable on mobile without being obscured by the existing mobile sticky bottom action bar.",
+      "acceptanceCriteria": [
+        "On mobile, after clicking a Products & Services item and scrolling to the bottom section, the section’s heading and description are visible and not hidden behind the existing sticky bottom action bar.",
+        "The existing sticky bottom action bar (Call | WhatsApp | Map) remains present and unchanged in structure and behavior."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Adjust the smooth-scroll implementation to account for the existing mobile sticky bottom action bar so the bottom section’s heading/description are not obscured after scrolling (e.g., scroll with a computed offset or align-to-top behavior). Keep the existing mobile-only sticky bottom action bar unchanged in structure/behavior, and avoid global styling changes outside what is strictly required."
         }
       ]
     }
