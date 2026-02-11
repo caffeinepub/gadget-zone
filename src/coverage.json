@@ -1,67 +1,112 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-10T13:33:26.922Z",
+  "generatedAt": "2026-02-11T10:23:26.297Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 5,
-    "implemented": 5,
+    "total": 7,
+    "implemented": 7,
     "items": [
       {
-        "id": "REQ-51",
-        "summary": "In frontend/src/App.tsx, add a single shared description section at the bottom of the page that always stays at the bottom (placed as the last content section immediately before the existing Footer), and ensure only its internal content updates based on which Products & Services item is selected.",
+        "id": "REQ-1",
+        "summary": "Add Google Analytics 4 (GA4) base tracking code (gtag.js) to the <head> so it loads on all pages, using the Measurement ID provided via configuration (do not hardcode the ID).",
         "status": "implemented",
         "plannedFiles": [
+          "frontend/index.html",
+          "frontend/src/lib/googleTracking.ts",
           "frontend/src/App.tsx"
         ],
         "matchedFiles": [
+          "frontend/index.html",
+          "frontend/src/lib/googleTracking.ts",
           "frontend/src/App.tsx"
         ]
       },
       {
-        "id": "REQ-52",
-        "summary": "In frontend/src/App.tsx, make each of the 5 existing Products & Services items (New Mobile Phones, Mobile Accessories, Mobile Service & Repair, Exchange & Upgrade Support, EMI / Finance Options) clickable so that clicking any item (1) smoothly scrolls the page to the bottom shared description section and (2) updates the bottom section heading + description text to match the clicked item.",
+        "id": "REQ-2",
+        "summary": "Ensure GA4 Enhanced Measurement is supported for: page views, scroll tracking, outbound clicks, and site search (when available). Do not disable enhanced measurement in code.",
         "status": "implemented",
         "plannedFiles": [
+          "frontend/src/lib/ga4.ts",
+          "frontend/src/lib/spaPageViews.ts",
           "frontend/src/App.tsx"
         ],
         "matchedFiles": [
+          "frontend/src/lib/ga4.ts",
+          "frontend/src/lib/spaPageViews.ts",
           "frontend/src/App.tsx"
         ]
       },
       {
-        "id": "REQ-53",
-        "summary": "Implement the exact bottom-section content mapping (English) in frontend/src/App.tsx so the shared bottom section renders the following heading/description for each selected item exactly as provided: (1) New Mobile Phones: heading \"New Mobile Phones\"; description \"Explore the latest smartphones from top brands with warranty support. Choose from a wide range of models based on performance, camera, battery, and budget. EMI options available on eligible models.\" (2) Mobile Accessories: heading \"Mobile Accessories\"; description \"Find quality mobile accessories including chargers, cables, earphones, cases, screen guards, and power banks. Both original and high-quality compatible accessories available.\" (3) Mobile Service & Repair: heading \"Mobile Service & Repair\"; description \"Professional repair services for screen replacement, battery issues, charging port problems, speaker and mic issues, and software support. Quick diagnosis with transparent pricing and service warranty.\" (4) Exchange & Upgrade Support: heading \"Exchange & Upgrade Support\"; description \"Upgrade your old phone to a new one with easy exchange options. Get fair value for your existing device and seamless assistance during the upgrade process.\" (5) EMI / Finance Options: heading \"EMI / Finance Options\"; description \"Easy EMI and finance options available on selected mobile phones. Flexible plans with minimal documentation to make your purchase affordable.\"",
+        "id": "REQ-3",
+        "summary": "Track any click on a WhatsApp button/link as a custom GA4 event with event name \"whatsapp_click\" and include the current page URL as an event parameter.",
         "status": "implemented",
         "plannedFiles": [
+          "frontend/src/lib/clickTracking.ts",
           "frontend/src/App.tsx"
         ],
         "matchedFiles": [
+          "frontend/src/lib/clickTracking.ts",
           "frontend/src/App.tsx"
         ]
       },
       {
-        "id": "REQ-54",
-        "summary": "In the shared bottom description section (frontend/src/App.tsx), include Call and WhatsApp buttons below the description, using the existing phoneNumber (+919840077591) and existing WhatsApp behavior (wa.me click-to-chat via the existing WhatsAppQuickMessages component) without adding any data capture, reminders, automation, or backend logic.",
+        "id": "REQ-4",
+        "summary": "Track any click on telephone links (tel:) as a custom GA4 event with event name \"call_click\" and include the current page URL as an event parameter.",
         "status": "implemented",
         "plannedFiles": [
+          "frontend/src/lib/clickTracking.ts",
+          "frontend/src/components/BusinessHighlightsStrip.tsx",
+          "frontend/src/components/WhatsAppQuickMessages.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/lib/clickTracking.ts",
+          "frontend/src/components/WhatsAppQuickMessages.tsx"
+        ]
+      },
+      {
+        "id": "REQ-5",
+        "summary": "Track scroll depth at 25%, 50%, 75%, and 100% as a custom GA4 event with event name \"scroll_depth\" and include the depth percentage and current page URL as parameters.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/lib/scrollDepthTracking.ts",
           "frontend/src/App.tsx"
         ],
         "matchedFiles": [
+          "frontend/src/lib/scrollDepthTracking.ts",
           "frontend/src/App.tsx"
         ]
       },
       {
-        "id": "REQ-55",
-        "summary": "Ensure the new click-to-scroll behavior does not break the existing one-page structure and does not interfere with the existing mobile-only sticky bottom action bar; the bottom section must remain readable after scrolling on mobile (not obscured by the sticky action bar).",
+        "id": "REQ-6",
+        "summary": "Ensure UTM parameters (traffic source/medium/campaign) are properly captured by GA4 without being overwritten by custom code.",
         "status": "implemented",
         "plannedFiles": [
+          "frontend/index.html",
+          "frontend/src/lib/ga4.ts"
+        ],
+        "matchedFiles": [
+          "frontend/index.html",
+          "frontend/src/lib/ga4.ts"
+        ]
+      },
+      {
+        "id": "REQ-7",
+        "summary": "Implement all analytics additions without modifying layout/styling and without noticeable performance regressions.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/index.html",
+          "frontend/src/lib/clickTracking.ts",
+          "frontend/src/lib/scrollDepthTracking.ts",
           "frontend/src/App.tsx"
         ],
         "matchedFiles": [
+          "frontend/index.html",
+          "frontend/src/lib/clickTracking.ts",
+          "frontend/src/lib/scrollDepthTracking.ts",
           "frontend/src/App.tsx"
         ]
       }
@@ -72,7 +117,14 @@
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
+    "frontend/index.html",
     "frontend/src/App.tsx",
+    "frontend/src/components/WhatsAppQuickMessages.tsx",
+    "frontend/src/lib/clickTracking.ts",
+    "frontend/src/lib/ga4.ts",
+    "frontend/src/lib/googleTracking.ts",
+    "frontend/src/lib/scrollDepthTracking.ts",
+    "frontend/src/lib/spaPageViews.ts",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

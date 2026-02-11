@@ -1,12 +1,15 @@
 # Specification
 
 ## Summary
-**Goal:** Add a single shared bottom description section that updates based on which Products & Services item is clicked, and smoothly scroll to it.
+**Goal:** Add Google Analytics 4 (gtag.js) tracking loaded from the document `<head>` on all pages, with enhanced measurement support and custom events for WhatsApp, calls, and scroll depth.
 
 **Planned changes:**
-- Add one shared description section at the bottom of the one-page layout in `frontend/src/App.tsx`, placed immediately before the existing Footer, with internal content (heading + description) that updates based on the selected Products & Services item.
-- Make the 5 existing Products & Services items clickable so click (1) smoothly scrolls to the shared bottom section and (2) updates the bottom section heading/description using the exact provided English text mapping.
-- Add Call and WhatsApp actions below the description in the bottom section, using `tel:+919840077591` and the existing WhatsApp click-to-chat (wa.me) behavior via the existing `WhatsAppQuickMessages` component.
-- Ensure the mobile scroll-to-section result keeps the bottom section readable and not obscured by the existing mobile sticky bottom action bar, without changing the bar’s structure/behavior.
+- Add GA4 base `gtag.js` snippet to the app so it loads from the document `<head>` on all pages, using a Measurement ID provided via configuration (not hardcoded) and ensuring initialization is idempotent.
+- Ensure GA4 enhanced measurement is not disabled in code and that page views are sent on initial load (and on SPA route changes if applicable), with outbound click tracking supported via enhanced measurement or a safe fallback when GA is enabled.
+- Add custom event tracking:
+  - `whatsapp_click` for any click on WhatsApp links/buttons (including `wa.me` links), including `page_url`.
+  - `call_click` for any click on `tel:` links, including `page_url`.
+  - `scroll_depth` at 25% / 50% / 75% / 100% thresholds (once per threshold per page load), including `depth` and `page_url`, implemented with a performance-safe scroll listener.
+- Ensure UTM parameters remain captured by GA4 (do not overwrite attribution fields; preserve default campaign attribution behavior).
 
-**User-visible outcome:** Users can click any Products & Services item to be smoothly taken to a bottom description area that shows the correct heading and description for that item, with Call and WhatsApp buttons available underneath.
+**User-visible outcome:** Site behavior and design remain unchanged, while GA4 collects page views and enhanced measurement signals, plus custom WhatsApp/call click and scroll-depth analytics events when a Measurement ID is configured.

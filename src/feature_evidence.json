@@ -2,10 +2,12 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-in-frontend-src-app-tsx-add-a-single-shared-description-section-at-the-bottom-of-the-page-that-always-stays-at-the-bottom-placed-as-the-last-content-section-immediately-before-the-existing-footer-and-ensure-only-its-internal-content-updates-based-on-which-products-services-item-is-selected",
-      "featureTitle": "In frontend/src/App.tsx, add a single shared description section at the bottom of the page that always stays at the bottom (placed as the last content section immediately before the existing Footer), and ensure only its internal content updates based on which Products & Services item is selected.",
+      "featureId": "feature-add-google-analytics-4-ga4-base-tracking-code-gtag-js-to-the-head-so-it-loads-on-all-pages-using-the-measurement-id-provided-via-configuration-do-not-hardcode-the-id",
+      "featureTitle": "Add Google Analytics 4 (GA4) base tracking code (gtag.js) to the <head> so it loads on all pages, using the Measurement ID provided via configuration (do not hardcode the ID).",
       "files": [
-        "frontend/src/App.tsx"
+        "frontend/index.html",
+        "frontend/src/App.tsx",
+        "frontend/src/lib/googleTracking.ts"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -15,15 +17,17 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-51"
+        "REQ-1"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-in-frontend-src-app-tsx-make-each-of-the-5-existing-products-services-items-new-mobile-phones-mobile-accessories-mobile-service-repair-exchange-upgrade-support-emi-finance-options-clickable-so-that-clicking-any-item-1-smoothly-scrolls-the-page-to-the-bottom-shared-description-section-and-2-updates-the-bottom-section-heading-description-text-to-match-the-clicked-item",
-      "featureTitle": "In frontend/src/App.tsx, make each of the 5 existing Products & Services items (New Mobile Phones, Mobile Accessories, Mobile Service & Repair, Exchange & Upgrade Support, EMI / Finance Options) clickable so that clicking any item (1) smoothly scrolls the page to the bottom shared description section and (2) updates the bottom section heading + description text to match the clicked item.",
+      "featureId": "feature-ensure-ga4-enhanced-measurement-is-supported-for-page-views-scroll-tracking-outbound-clicks-and-site-search-when-available-do-not-disable-enhanced-measurement-in-code",
+      "featureTitle": "Ensure GA4 Enhanced Measurement is supported for: page views, scroll tracking, outbound clicks, and site search (when available). Do not disable enhanced measurement in code.",
       "files": [
-        "frontend/src/App.tsx"
+        "frontend/src/App.tsx",
+        "frontend/src/lib/ga4.ts",
+        "frontend/src/lib/spaPageViews.ts"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -33,15 +37,16 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-52"
+        "REQ-2"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-implement-the-exact-bottom-section-content-mapping-english-in-frontend-src-app-tsx-so-the-shared-bottom-section-renders-the-following-heading-description-for-each-selected-item-exactly-as-provided-1-new-mobile-phones-heading-new-mobile-phones-description-explore-the-latest-smartphones-from-top-brands-with-warranty-support-choose-from-a-wide-range-of-models-based-on-performance-camera-battery-and-budget-emi-options-available-on-eligible-models-2-mobile-accessories-heading-mobile-accessories-description-find-quality-mobile-accessories-including-chargers-cables-earphones-cases-screen-guards-and-power-banks-both-original-and-high-quality-compatible-accessories-available-3-mobile-service-repair-heading-mobile-service-repair-description-professional-repair-services-for-screen-replacement-battery-issues-charging-port-problems-speaker-and-mic-issues-and-software-support-quick-diagnosis-with-transparent-pricing-and-service-warranty-4-exchange-upgrade-support-heading-exchange-upgrade-support-description-upgrade-your-old-phone-to-a-new-one-with-easy-exchange-options-get-fair-value-for-your-existing-device-and-seamless-assistance-during-the-upgrade-process-5-emi-finance-options-heading-emi-finance-options-description-easy-emi-and-finance-options-available-on-selected-mobile-phones-flexible-plans-with-minimal-documentation-to-make-your-purchase-affordable",
-      "featureTitle": "Implement the exact bottom-section content mapping (English) in frontend/src/App.tsx so the shared bottom section renders the following heading/description for each selected item exactly as provided: (1) New Mobile Phones: heading \"New Mobile Phones\"; description \"Explore the latest smartphones from top brands with warranty support. Choose from a wide range of models based on performance, camera, battery, and budget. EMI options available on eligible models.\" (2) Mobile Accessories: heading \"Mobile Accessories\"; description \"Find quality mobile accessories including chargers, cables, earphones, cases, screen guards, and power banks. Both original and high-quality compatible accessories available.\" (3) Mobile Service & Repair: heading \"Mobile Service & Repair\"; description \"Professional repair services for screen replacement, battery issues, charging port problems, speaker and mic issues, and software support. Quick diagnosis with transparent pricing and service warranty.\" (4) Exchange & Upgrade Support: heading \"Exchange & Upgrade Support\"; description \"Upgrade your old phone to a new one with easy exchange options. Get fair value for your existing device and seamless assistance during the upgrade process.\" (5) EMI / Finance Options: heading \"EMI / Finance Options\"; description \"Easy EMI and finance options available on selected mobile phones. Flexible plans with minimal documentation to make your purchase affordable.\"",
+      "featureId": "feature-track-any-click-on-a-whatsapp-button-link-as-a-custom-ga4-event-with-event-name-whatsapp-click-and-include-the-current-page-url-as-an-event-parameter",
+      "featureTitle": "Track any click on a WhatsApp button/link as a custom GA4 event with event name \"whatsapp_click\" and include the current page URL as an event parameter.",
       "files": [
-        "frontend/src/App.tsx"
+        "frontend/src/App.tsx",
+        "frontend/src/lib/clickTracking.ts"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -51,15 +56,16 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-53"
+        "REQ-3"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-in-the-shared-bottom-description-section-frontend-src-app-tsx-include-call-and-whatsapp-buttons-below-the-description-using-the-existing-phonenumber-919840077591-and-existing-whatsapp-behavior-wa-me-click-to-chat-via-the-existing-whatsappquickmessages-component-without-adding-any-data-capture-reminders-automation-or-backend-logic",
-      "featureTitle": "In the shared bottom description section (frontend/src/App.tsx), include Call and WhatsApp buttons below the description, using the existing phoneNumber (+919840077591) and existing WhatsApp behavior (wa.me click-to-chat via the existing WhatsAppQuickMessages component) without adding any data capture, reminders, automation, or backend logic.",
+      "featureId": "feature-track-any-click-on-telephone-links-tel-as-a-custom-ga4-event-with-event-name-call-click-and-include-the-current-page-url-as-an-event-parameter",
+      "featureTitle": "Track any click on telephone links (tel:) as a custom GA4 event with event name \"call_click\" and include the current page URL as an event parameter.",
       "files": [
-        "frontend/src/App.tsx"
+        "frontend/src/components/WhatsAppQuickMessages.tsx",
+        "frontend/src/lib/clickTracking.ts"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -69,15 +75,16 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-54"
+        "REQ-4"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-ensure-the-new-click-to-scroll-behavior-does-not-break-the-existing-one-page-structure-and-does-not-interfere-with-the-existing-mobile-only-sticky-bottom-action-bar-the-bottom-section-must-remain-readable-after-scrolling-on-mobile-not-obscured-by-the-sticky-action-bar",
-      "featureTitle": "Ensure the new click-to-scroll behavior does not break the existing one-page structure and does not interfere with the existing mobile-only sticky bottom action bar; the bottom section must remain readable after scrolling on mobile (not obscured by the sticky action bar).",
+      "featureId": "feature-track-scroll-depth-at-25-50-75-and-100-as-a-custom-ga4-event-with-event-name-scroll-depth-and-include-the-depth-percentage-and-current-page-url-as-parameters",
+      "featureTitle": "Track scroll depth at 25%, 50%, 75%, and 100% as a custom GA4 event with event name \"scroll_depth\" and include the depth percentage and current page URL as parameters.",
       "files": [
-        "frontend/src/App.tsx"
+        "frontend/src/App.tsx",
+        "frontend/src/lib/scrollDepthTracking.ts"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -87,7 +94,47 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-55"
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-ensure-utm-parameters-traffic-source-medium-campaign-are-properly-captured-by-ga4-without-being-overwritten-by-custom-code",
+      "featureTitle": "Ensure UTM parameters (traffic source/medium/campaign) are properly captured by GA4 without being overwritten by custom code.",
+      "files": [
+        "frontend/index.html",
+        "frontend/src/lib/ga4.ts"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-all-analytics-additions-without-modifying-layout-styling-and-without-noticeable-performance-regressions",
+      "featureTitle": "Implement all analytics additions without modifying layout/styling and without noticeable performance regressions.",
+      "files": [
+        "frontend/index.html",
+        "frontend/src/App.tsx",
+        "frontend/src/lib/clickTracking.ts",
+        "frontend/src/lib/scrollDepthTracking.ts"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
       ],
       "confidence": "high"
     }

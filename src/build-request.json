@@ -1,113 +1,155 @@
 {
   "kind": "build_request",
-  "title": "Add fixed bottom shared description section that updates from Products & Services clicks",
+  "title": "Install GA4 (gtag.js) in <head> with enhanced measurement and custom click/scroll events",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-51",
-      "text": "In frontend/src/App.tsx, add a single shared description section at the bottom of the page that always stays at the bottom (placed as the last content section immediately before the existing Footer), and ensure only its internal content updates based on which Products & Services item is selected.",
+      "id": "REQ-1",
+      "text": "Add Google Analytics 4 (GA4) base tracking code (gtag.js) to the <head> so it loads on all pages, using the Measurement ID provided via configuration (do not hardcode the ID).",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-5"
+          "msg-4"
         ],
         "quotes": [
-          "Create one single description section fixed at the bottom of the page. ... This bottom section should act as a shared information area that updates dynamically based on user interaction."
+          "1) Add GA4 tracking code in the <head> section of all pages.\nI will provide my Measurement ID separately."
         ]
       },
       "acceptanceCriteria": [
-        "A single new section exists near the bottom of the one-page layout and is placed immediately before the existing Footer in frontend/src/App.tsx.",
-        "The section is always the bottom-most content area of the page (excluding the existing Footer and the existing mobile sticky action bar).",
-        "No additional pages, popups, cards, or accordions are introduced for this feature.",
-        "No existing global layout, fonts, colors, or styling are changed outside what is required to insert and support this section."
+        "GA4 script is loaded from the document <head> (not injected into <body>).",
+        "Measurement ID is sourced from configuration (e.g., existing VITE_GA_MEASUREMENT_ID flow) and is not hardcoded in the repo.",
+        "Tracking initialization remains idempotent (no duplicate script tags / no duplicate config calls on re-renders)."
       ]
     },
     {
-      "id": "REQ-52",
-      "text": "In frontend/src/App.tsx, make each of the 5 existing Products & Services items (New Mobile Phones, Mobile Accessories, Mobile Service & Repair, Exchange & Upgrade Support, EMI / Finance Options) clickable so that clicking any item (1) smoothly scrolls the page to the bottom shared description section and (2) updates the bottom section heading + description text to match the clicked item.",
+      "id": "REQ-2",
+      "text": "Ensure GA4 Enhanced Measurement is supported for: page views, scroll tracking, outbound clicks, and site search (when available). Do not disable enhanced measurement in code.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-5"
+          "msg-4"
         ],
         "quotes": [
-          "When a user clicks on any of the following items ... the page should smoothly scroll to this bottom section and update the content inside it based on the selected item."
+          "2) Enable Enhanced Measurement:\n- Page views\n- Scroll tracking\n- Outbound clicks\n- Site search (if available)"
         ]
       },
       "acceptanceCriteria": [
-        "Clicking each of the 5 existing service items triggers a smooth scroll to the bottom shared description section.",
-        "After the scroll, the bottom section content reflects the clicked item (correct heading and description).",
-        "Only the bottom section content changes; the Products & Services grid continues to render as image + title only.",
-        "No new animations are added beyond the required smooth scroll behavior."
+        "The GA4 configuration does not set flags that would disable enhanced measurement features (e.g., no code disables page_view collection or link/scroll measurement).",
+        "A page_view is sent on initial load (and on subsequent SPA route changes if the app uses history navigation).",
+        "Outbound link clicks are tracked either via GA4 enhanced measurement (preferred) or via a safe fallback handler that only fires when GA is enabled."
       ]
     },
     {
-      "id": "REQ-53",
-      "text": "Implement the exact bottom-section content mapping (English) in frontend/src/App.tsx so the shared bottom section renders the following heading/description for each selected item exactly as provided: (1) New Mobile Phones: heading \"New Mobile Phones\"; description \"Explore the latest smartphones from top brands with warranty support. Choose from a wide range of models based on performance, camera, battery, and budget. EMI options available on eligible models.\" (2) Mobile Accessories: heading \"Mobile Accessories\"; description \"Find quality mobile accessories including chargers, cables, earphones, cases, screen guards, and power banks. Both original and high-quality compatible accessories available.\" (3) Mobile Service & Repair: heading \"Mobile Service & Repair\"; description \"Professional repair services for screen replacement, battery issues, charging port problems, speaker and mic issues, and software support. Quick diagnosis with transparent pricing and service warranty.\" (4) Exchange & Upgrade Support: heading \"Exchange & Upgrade Support\"; description \"Upgrade your old phone to a new one with easy exchange options. Get fair value for your existing device and seamless assistance during the upgrade process.\" (5) EMI / Finance Options: heading \"EMI / Finance Options\"; description \"Easy EMI and finance options available on selected mobile phones. Flexible plans with minimal documentation to make your purchase affordable.\"",
+      "id": "REQ-3",
+      "text": "Track any click on a WhatsApp button/link as a custom GA4 event with event name \"whatsapp_click\" and include the current page URL as an event parameter.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-5"
+          "msg-4"
         ],
         "quotes": [
-          "Content to display for each selection: 1. New Mobile Phones ... 5. EMI / Finance Options ..."
+          "3) Track WhatsApp button clicks as a custom event:\nEvent name: whatsapp_click\nTrigger: Any click on WhatsApp button or WhatsApp link\nPass page URL as parameter."
         ]
       },
       "acceptanceCriteria": [
-        "For each of the 5 service titles, the bottom section renders the exact corresponding heading and description text as provided by the user (no paraphrasing).",
-        "The correct content is shown consistently after repeated clicks across different items."
+        "Clicking any WhatsApp link (e.g., https://wa.me/* links, including those rendered by the WhatsApp quick-message popover and the highlights strip) triggers a single GA4 event named \"whatsapp_click\".",
+        "The event includes a parameter containing the current page URL (e.g., page_url: window.location.href).",
+        "No runtime errors occur when GA is not configured/enabled (event calls are safely no-op)."
       ]
     },
     {
-      "id": "REQ-54",
-      "text": "In the shared bottom description section (frontend/src/App.tsx), include Call and WhatsApp buttons below the description, using the existing phoneNumber (+919840077591) and existing WhatsApp behavior (wa.me click-to-chat via the existing WhatsAppQuickMessages component) without adding any data capture, reminders, automation, or backend logic.",
+      "id": "REQ-4",
+      "text": "Track any click on telephone links (tel:) as a custom GA4 event with event name \"call_click\" and include the current page URL as an event parameter.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-5"
+          "msg-4"
         ],
         "quotes": [
-          "Include Call and WhatsApp buttons below the description"
+          "4) Track Call button clicks as a custom event:\nEvent name: call_click\nTrigger: Any click on tel: links\nPass page URL as parameter."
         ]
       },
       "acceptanceCriteria": [
-        "The bottom section displays a Call button that opens the dialer using tel:+919840077591.",
-        "The bottom section displays a WhatsApp action that uses click-to-chat only (wa.me) with the existing WhatsApp number 919840077591.",
-        "No backend changes are introduced for this feature."
+        "Clicking any <a href=\"tel:...\"> link triggers a single GA4 event named \"call_click\".",
+        "The event includes a parameter containing the current page URL (e.g., page_url: window.location.href).",
+        "No runtime errors occur when GA is not configured/enabled (event calls are safely no-op)."
       ]
     },
     {
-      "id": "REQ-55",
-      "text": "Ensure the new click-to-scroll behavior does not break the existing one-page structure and does not interfere with the existing mobile-only sticky bottom action bar; the bottom section must remain readable after scrolling on mobile (not obscured by the sticky action bar).",
+      "id": "REQ-5",
+      "text": "Track scroll depth at 25%, 50%, 75%, and 100% as a custom GA4 event with event name \"scroll_depth\" and include the depth percentage and current page URL as parameters.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-5"
+          "msg-4"
         ],
         "quotes": [
-          "This section must always stay at the bottom of the page"
+          "5) Track scroll depth (25%, 50%, 75%, 100%)\nEvent name: scroll_depth"
         ]
       },
       "acceptanceCriteria": [
-        "On mobile, after clicking a Products & Services item and scrolling to the bottom section, the section’s heading and description are visible and not hidden behind the existing sticky bottom action bar.",
-        "The existing sticky bottom action bar (Call | WhatsApp | Map) remains present and unchanged in structure and behavior."
+        "As the user scrolls, events fire at 25/50/75/100% thresholds at most once per threshold per page load.",
+        "Each event uses name \"scroll_depth\" and includes parameters for depth (25/50/75/100) and the current page URL.",
+        "Scroll listener is implemented in a performance-safe way (throttled/optimized and using passive listeners)."
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Ensure UTM parameters (traffic source/medium/campaign) are properly captured by GA4 without being overwritten by custom code.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "6) Ensure traffic source, medium, and campaign parameters (UTM) are properly captured."
+        ]
+      },
+      "acceptanceCriteria": [
+        "GA4 configuration preserves default campaign attribution behavior (no custom config overwrites source/medium/campaign fields).",
+        "When the page is loaded with utm_source/utm_medium/utm_campaign in the URL, GA4 receives the page_location containing those parameters."
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Implement all analytics additions without modifying layout/styling and without noticeable performance regressions.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "7) Make sure this does NOT affect website design or performance.\n\nDo not modify layout or styling.\nOnly add analytics tracking scripts cleanly."
+        ]
+      },
+      "acceptanceCriteria": [
+        "No CSS/Tailwind class changes are required to implement tracking.",
+        "All added scripts are async/deferred and do not block initial render.",
+        "All tracking code paths are guarded so the site behaves identically when tracking IDs are not configured."
       ]
     }
   ],
   "constraints": [
-    "Do not create new pages, popups, cards, or accordions for this feature.",
-    "Do not change existing layout, fonts, colors, or styling, except what is strictly required to add the new bottom description section and click/scroll/update behavior.",
-    "Keep WhatsApp integration strictly as click-to-chat (wa.me) only; do not add any data capture, reminders, automation, or backend systems.",
-    "Frontend immutable paths must not be edited: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui."
+    "Do not modify layout or styling; only add analytics tracking scripts/handlers.",
+    "Frontend immutable paths must not be edited: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui/*.",
+    "Backend remains a single Motoko actor; no additional backend services/databases."
   ],
   "nonGoals": [
-    "Adding new product/service items beyond the existing 5.",
-    "Redesigning the Products & Services cards or changing them from image + title only.",
-    "Adding user controls like tabs, accordions, modals, or separate detail pages.",
-    "Persisting the selected item to the backend or user accounts."
+    "Setting GA4 Enhanced Measurement toggles in the Google Analytics UI (this build only covers on-site implementation and does not include GA property admin changes).",
+    "Adding any non-Google analytics vendors or third-party authentication."
   ],
   "imageRequirements": {
     "required": [],
     "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
   }
 }

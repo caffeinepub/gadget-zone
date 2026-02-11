@@ -1,39 +1,88 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-10T13:33:26.918Z",
-  "summary": "App.tsx adds a service-to-content mapping and state for a selected service plus a ref intended for a bottom description section, and project summaries describe clickable service cards that scroll to a fixed bottom description section. However, the diff evidence is insufficient/unclear for the required bottom-section Call/WhatsApp actions, mobile sticky-bar non-obscuring behavior, and the requirement for *exact* description strings (mapping currently stores descriptions as arrays of sentences rather than the single exact strings provided).",
+  "generatedAt": "2026-02-11T10:23:26.295Z",
+  "summary": "Diff adds GA4 gtag.js loading via a <head> script, plus helper modules for GA4 events, delegated click tracking (WhatsApp/tel), scroll-depth tracking, and SPA page_view tracking. However, the diff also includes multiple styling/layout-related changes and asset additions that were not requested and may violate the “no layout/styling changes” constraint. It’s also not fully evidenced (due to App.tsx truncation) that the new tracking initializers are actually invoked on app mount.",
   "missing_requirements": [
     {
-      "id": "REQ-53",
-      "requirement": "Implement the exact bottom-section content mapping (English) so each selected item shows the exact provided heading and description text (no paraphrasing).",
-      "reason": "In App.tsx, each service description is stored as an array of sentence strings rather than the single exact description string specified; without evidence of concatenation into the exact provided text, the 'exact text' acceptance criterion is not demonstrably met.",
+      "id": "REQ-2",
+      "requirement": "A page_view is sent on subsequent SPA route changes if the app uses history navigation.",
+      "reason": "SPA page-view tracking utility is implemented, but the diff does not clearly show it being initialized/used (App.tsx is truncated before any useEffect/init logic).",
       "evidence": [
-        "frontend/src/App.tsx"
+        "frontend/src/lib/spaPageViews.ts",
+        "frontend/src/App.tsx (truncated)"
       ]
     },
     {
-      "id": "REQ-54",
-      "requirement": "Include Call and WhatsApp buttons below the description in the shared bottom section (tel:+919840077591 and existing wa.me click-to-chat via WhatsAppQuickMessages).",
-      "reason": "The provided App.tsx excerpt shows phoneNumber/whatsappNumber constants and imports WhatsAppQuickMessages, but does not show the bottom section rendering Call and WhatsApp actions/buttons as required (truncation prevents verification).",
+      "id": "REQ-3",
+      "requirement": "Clicking any WhatsApp link triggers a single GA4 event named \"whatsapp_click\" (safe no-op when GA disabled).",
+      "reason": "Delegated WhatsApp click tracking is implemented, but the diff does not clearly show the click tracking initializer being called from the app lifecycle (App.tsx is truncated).",
       "evidence": [
-        "frontend/src/App.tsx"
+        "frontend/src/lib/clickTracking.ts",
+        "frontend/src/App.tsx (truncated)"
       ]
     },
     {
-      "id": "REQ-55",
-      "requirement": "Ensure click-to-scroll does not interfere with the existing mobile sticky bottom action bar; bottom section remains readable and not obscured after scrolling on mobile.",
-      "reason": "No evidence is shown of scroll-offset handling, spacing, or other measures ensuring the scrolled-to bottom description section is not hidden behind the mobile sticky action bar (truncation prevents verification).",
+      "id": "REQ-4",
+      "requirement": "Clicking any tel: link triggers a single GA4 event named \"call_click\" (safe no-op when GA disabled).",
+      "reason": "Delegated tel: click tracking is implemented, but the diff does not clearly show the click tracking initializer being called from the app lifecycle (App.tsx is truncated).",
       "evidence": [
-        "frontend/src/App.tsx"
+        "frontend/src/lib/clickTracking.ts",
+        "frontend/src/App.tsx (truncated)"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "requirement": "Scroll depth events fire at 25/50/75/100% at most once per threshold per page load, with performance-safe listener.",
+      "reason": "Scroll depth tracking module is implemented, but the diff does not clearly show it being initialized and reset on SPA navigation (App.tsx is truncated).",
+      "evidence": [
+        "frontend/src/lib/scrollDepthTracking.ts",
+        "frontend/src/App.tsx (truncated)"
       ]
     }
   ],
-  "hallucinated_features": [],
-  "confidence": 0.58,
+  "hallucinated_features": [
+    {
+      "description": "Non-analytics styling/theme changes (global CSS and Tailwind config updates) despite the constraint to not modify layout or styling.",
+      "reason": "BuildRequest explicitly restricts changes to analytics scripts/handlers only; the diff summary indicates modifications to styling-related files.",
+      "evidence": [
+        "frontend-file-summaries.txt (mentions modifications to frontend/src/index.css and frontend/tailwind.config.js)"
+      ]
+    },
+    {
+      "description": "Addition of multiple new/updated visual assets (background texture SVGs, logos, service card images) not related to analytics tracking.",
+      "reason": "These asset additions are not requested by any requirement and go beyond “only add analytics tracking scripts/handlers.”",
+      "evidence": [
+        "frontend-file-summaries.txt (mentions added/updated assets under frontend/public/assets/generated/*)"
+      ]
+    },
+    {
+      "description": "SEO/meta tag updates in frontend/index.html beyond GA4 insertion.",
+      "reason": "REQ-1 only asks to add GA4 base tracking code to <head>; diff summary indicates broader SEO-optimized meta changes.",
+      "evidence": [
+        "frontend/index.html"
+      ]
+    },
+    {
+      "description": "Google Tag Manager (GTM) noscript iframe added/maintained and GTM initialization utilities updated, even though GTM was not requested.",
+      "reason": "BuildRequest focuses on GA4 gtag.js installation and custom events; GTM is not mentioned as a requirement.",
+      "evidence": [
+        "frontend/src/lib/googleTracking.ts",
+        "frontend/index.html"
+      ]
+    }
+  ],
+  "confidence": 0.62,
   "changed_files": [
     "frontend-file-summaries.txt",
+    "frontend/index.html",
     "frontend/src/App.tsx",
+    "frontend/src/components/WhatsAppQuickMessages.tsx",
+    "frontend/src/lib/clickTracking.ts",
+    "frontend/src/lib/ga4.ts",
+    "frontend/src/lib/googleTracking.ts",
+    "frontend/src/lib/scrollDepthTracking.ts",
+    "frontend/src/lib/spaPageViews.ts",
     "project_state.json"
   ]
 }

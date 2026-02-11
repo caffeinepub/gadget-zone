@@ -1,11 +1,18 @@
 import { useState, useEffect, useRef } from 'react';
-import { Phone, MapPin, MessageCircle } from 'lucide-react';
+import { Phone, MapPin, MessageCircle, ArrowUp, Camera } from 'lucide-react';
 import { SiInstagram } from 'react-icons/si';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { BusinessHighlightsStrip } from '@/components/BusinessHighlightsStrip';
 import { WhatsAppQuickMessages } from '@/components/WhatsAppQuickMessages';
 import { MobileCareSmartUsageGuideSection } from '@/components/MobileCareSmartUsageGuideSection';
+import { TickerBanner } from '@/components/TickerBanner';
+import { SafeImage } from '@/components/SafeImage';
+import { versionAsset } from '@/lib/assetVersion';
+import { initializeTracking } from '@/lib/googleTracking';
+import { initializeSPAPageViews } from '@/lib/spaPageViews';
+import { initializeClickTracking } from '@/lib/clickTracking';
+import { initializeScrollDepthTracking, resetScrollDepthTracking } from '@/lib/scrollDepthTracking';
 
 // Service content mapping
 const serviceContent = {
@@ -45,6 +52,14 @@ const serviceContent = {
       'Flexible plans with minimal documentation to make your purchase affordable.',
     ],
   },
+  'CCTV Sales & Installation': {
+    heading: 'CCTV Sales & Installation',
+    description: [
+      'We provide CCTV camera sales and professional installation services for homes, shops, offices, and commercial spaces.',
+      'Our solutions include indoor and outdoor cameras, DVR/NVR setup, proper wiring, and basic configuration support to ensure reliable monitoring and security.',
+      'Get assistance in selecting the right surveillance setup based on your space and requirement.',
+    ],
+  },
 };
 
 function App() {
@@ -60,14 +75,32 @@ function App() {
   const mapEmbedUrl = `https://www.google.com/maps?q=${encodeURIComponent(address)}&output=embed`;
 
   const heroSlides = [
-    '/assets/generated/hero-mobiles-accessories.dim_1600x900.jpg',
-    '/assets/generated/hero-slide-accessories.dim_1600x900.jpg',
-    '/assets/generated/hero-slide-service-repair.dim_1600x900.jpg',
+    versionAsset('/assets/generated/hero-mobiles-accessories.dim_1600x900.jpg'),
+    versionAsset('/assets/generated/hero-slide-accessories.dim_1600x900.jpg'),
+    versionAsset('/assets/generated/hero-slide-service-repair.dim_1600x900.jpg'),
   ];
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const [selectedService, setSelectedService] = useState<keyof typeof serviceContent>('New Mobile Phones');
+  const [showBackToTop, setShowBackToTop] = useState(false);
   const descriptionSectionRef = useRef<HTMLElement>(null);
+
+  // Initialize all tracking on mount
+  useEffect(() => {
+    initializeTracking();
+    
+    // Initialize SPA page views, click tracking, and scroll depth tracking
+    const cleanupSPA = initializeSPAPageViews();
+    const cleanupClick = initializeClickTracking();
+    const cleanupScroll = initializeScrollDepthTracking();
+    
+    // Cleanup on unmount
+    return () => {
+      cleanupSPA();
+      cleanupClick();
+      cleanupScroll();
+    };
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -76,6 +109,24 @@ function App() {
 
     return () => clearInterval(interval);
   }, [heroSlides.length]);
+
+  // Back to Top scroll listener
+  useEffect(() => {
+    const handleScroll = () => {
+      // Show button after scrolling down 400px
+      setShowBackToTop(window.scrollY > 400);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
 
   const services = [
     {
@@ -97,6 +148,10 @@ function App() {
     {
       title: 'EMI / Finance Options' as keyof typeof serviceContent,
       image: '/assets/generated/card-emi-finance.dim_1200x800.jpg',
+    },
+    {
+      title: 'CCTV Sales & Installation' as keyof typeof serviceContent,
+      image: '/assets/CCTV-IMAGE.png',
     },
   ];
 
@@ -131,6 +186,7 @@ function App() {
     { name: 'OnePlus', logo: '/assets/generated/logo-oneplus-color-padded.dim_256x128.png' },
     { name: 'Realme', logo: '/assets/generated/logo-realme-color-padded.dim_256x128.png' },
     { name: 'Vivo', logo: '/assets/generated/logo-vivo-color.dim_256x128.png' },
+    { name: 'CCTV', logo: '/assets/CCTV-IMAGE.png' },
   ];
 
   const galleryImages = [
@@ -220,21 +276,36 @@ function App() {
         </div>
       </section>
 
+      {/* Ticker Banner */}
+      <TickerBanner />
+
       {/* Brand Logo Strip */}
       <section className="py-10 md:py-14 px-4 section-alt-bg border-y border-border">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-wrap items-center justify-center gap-8 md:gap-10">
             {brands.map((brand) => (
-              <div 
-                key={brand.name} 
-                className="w-32 h-24 md:w-40 md:h-28 p-2 flex items-center justify-center"
+              <button
+                key={brand.name}
+                onClick={() => {
+                  if (brand.name === 'CCTV') {
+                    handleServiceClick('CCTV Sales & Installation');
+                  }
+                }}
+                onKeyDown={(e) => {
+                  if (brand.name === 'CCTV' && (e.key === 'Enter' || e.key === ' ')) {
+                    e.preventDefault();
+                    handleServiceClick('CCTV Sales & Installation');
+                  }
+                }}
+                className="w-32 h-24 md:w-40 md:h-28 p-2 flex items-center justify-center transition-opacity hover:opacity-70 active:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-md"
+                aria-label={brand.name === 'CCTV' ? 'View CCTV Sales & Installation details' : brand.name}
               >
                 <img
                   src={brand.logo}
                   alt={brand.name}
                   className="w-full h-full object-contain"
                 />
-              </div>
+              </button>
             ))}
           </div>
         </div>
@@ -381,51 +452,51 @@ function App() {
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 title="Gadget Zone Location"
-                className="pointer-events-none"
               />
             </div>
 
-            {/* Working Hours */}
-            <div className="text-center">
-              <h3 className="text-lg font-medium mb-3 text-foreground">Working Hours</h3>
-              <p className="text-base text-muted-foreground">
-                10:00 AM – 9:00 PM
-              </p>
-            </div>
-
-            {/* Contact Actions */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-              <Button
-                asChild
-                size="lg"
-                className="w-full sm:w-auto min-w-[180px] font-normal"
-              >
-                <a href={`tel:${phoneNumber}`}>
-                  <Phone className="mr-2 h-5 w-5" />
-                  Call Now
-                </a>
-              </Button>
+            {/* Contact Details */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+              <div className="text-center">
+                <h3 className="text-lg font-medium mb-3 text-foreground">Phone</h3>
+                <Button
+                  asChild
+                  variant="link"
+                  className="text-primary text-base"
+                >
+                  <a href={`tel:${phoneNumber}`}>{phoneNumber}</a>
+                </Button>
+              </div>
               
-              <WhatsAppQuickMessages
-                whatsappNumber={whatsappNumber}
-                variant="outline"
-                size="lg"
-                className="w-full sm:w-auto min-w-[180px] font-normal"
-              />
+              <div className="text-center">
+                <h3 className="text-lg font-medium mb-3 text-foreground">WhatsApp</h3>
+                <WhatsAppQuickMessages
+                  whatsappNumber={whatsappNumber}
+                  variant="link"
+                  size="default"
+                  className="text-primary text-base"
+                  showIcon={false}
+                  label="Chat with us"
+                />
+              </div>
             </div>
+          </div>
+        </div>
+      </section>
 
-            {/* Social Media */}
-            <div className="text-center pt-4">
-              <a
-                href={instagramUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-muted hover:bg-muted/80 transition-colors"
-                aria-label="Instagram"
-              >
-                <SiInstagram className="w-6 h-6 text-foreground" />
-              </a>
-            </div>
+      {/* Service Description Section */}
+      <section ref={descriptionSectionRef} className="py-16 md:py-24 px-4">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-light text-center mb-8 text-foreground">
+            {currentContent.heading}
+          </h2>
+          
+          <div className="space-y-4">
+            {currentContent.description.map((paragraph, index) => (
+              <p key={index} className="text-base text-muted-foreground leading-relaxed">
+                {paragraph}
+              </p>
+            ))}
           </div>
         </div>
       </section>
@@ -433,108 +504,175 @@ function App() {
       {/* Mobile Care & Smart Usage Guide Section */}
       <MobileCareSmartUsageGuideSection />
 
-      {/* Service Description Section - Fixed at Bottom */}
-      <section 
-        ref={descriptionSectionRef}
-        className="py-16 md:py-20 px-4 section-alt-bg border-t border-border"
-      >
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-light text-center mb-6 text-foreground">
-            {currentContent.heading}
-          </h2>
-          
-          <div className="space-y-3 mb-8">
-            {currentContent.description.map((paragraph, index) => (
-              <p key={index} className="text-base text-muted-foreground leading-relaxed text-center">
-                {paragraph}
+      {/* Footer */}
+      <footer className="py-12 px-4 border-t border-border bg-muted/30">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+            {/* About */}
+            <div>
+              <h3 className="text-lg font-medium mb-4 text-foreground">About Gadget Zone</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Your trusted mobile store in Thiruvanmiyur, Chennai. We offer new mobile phones, accessories, repair services, exchange options, EMI facilities, and CCTV solutions.
               </p>
-            ))}
+            </div>
+
+            {/* Quick Links */}
+            <div>
+              <h3 className="text-lg font-medium mb-4 text-foreground">Quick Links</h3>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li>
+                  <button
+                    onClick={() => handleServiceClick('New Mobile Phones')}
+                    className="hover:text-primary transition-colors"
+                  >
+                    New Mobile Phones
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => handleServiceClick('Mobile Accessories')}
+                    className="hover:text-primary transition-colors"
+                  >
+                    Mobile Accessories
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => handleServiceClick('Mobile Service & Repair')}
+                    className="hover:text-primary transition-colors"
+                  >
+                    Service & Repair
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => handleServiceClick('CCTV Sales & Installation')}
+                    className="hover:text-primary transition-colors"
+                  >
+                    CCTV Solutions
+                  </button>
+                </li>
+              </ul>
+            </div>
+
+            {/* Connect */}
+            <div>
+              <h3 className="text-lg font-medium mb-4 text-foreground">Connect With Us</h3>
+              <div className="space-y-3">
+                <Button
+                  asChild
+                  variant="outline"
+                  size="sm"
+                  className="w-full justify-start"
+                >
+                  <a href={`tel:${phoneNumber}`}>
+                    <Phone className="mr-2 h-4 w-4" />
+                    Call Us
+                  </a>
+                </Button>
+                
+                <WhatsAppQuickMessages
+                  whatsappNumber={whatsappNumber}
+                  variant="outline"
+                  size="sm"
+                  className="w-full justify-start"
+                  label="WhatsApp"
+                />
+                
+                <Button
+                  asChild
+                  variant="outline"
+                  size="sm"
+                  className="w-full justify-start"
+                >
+                  <a href={instagramUrl} target="_blank" rel="noopener noreferrer">
+                    <SiInstagram className="mr-2 h-4 w-4" />
+                    Instagram
+                  </a>
+                </Button>
+                
+                <Button
+                  asChild
+                  variant="outline"
+                  size="sm"
+                  className="w-full justify-start"
+                >
+                  <a href={MAPS_LINK} target="_blank" rel="noopener noreferrer">
+                    <MapPin className="mr-2 h-4 w-4" />
+                    Get Directions
+                  </a>
+                </Button>
+              </div>
+            </div>
           </div>
 
-          {/* Contact Actions */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button
-              asChild
-              size="lg"
-              className="w-full sm:w-auto min-w-[180px] font-normal"
-            >
-              <a href={`tel:${phoneNumber}`}>
-                <Phone className="mr-2 h-5 w-5" />
-                Call Now
-              </a>
-            </Button>
-            
-            <Button
-              asChild
-              variant="outline"
-              size="lg"
-              className="w-full sm:w-auto min-w-[180px] font-normal"
-            >
-              <a 
-                href={`https://wa.me/${whatsappNumber}`}
+          {/* Copyright */}
+          <div className="pt-8 border-t border-border text-center text-sm text-muted-foreground">
+            <p>
+              © {new Date().getFullYear()} Gadget Zone. All rights reserved.
+            </p>
+            <p className="mt-2">
+              Built with ❤️ using{' '}
+              <a
+                href={`https://caffeine.ai/?utm_source=Caffeine-footer&utm_medium=referral&utm_content=${encodeURIComponent(window.location.hostname)}`}
                 target="_blank"
                 rel="noopener noreferrer"
+                className="text-primary hover:underline"
               >
-                <MessageCircle className="mr-2 h-5 w-5" />
-                WhatsApp
+                caffeine.ai
               </a>
-            </Button>
+            </p>
           </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="py-8 px-4 border-t border-border">
-        <div className="max-w-7xl mx-auto text-center">
-          <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()}. Built with love using{' '}
-            <a
-              href={`https://caffeine.ai/?utm_source=Caffeine-footer&utm_medium=referral&utm_content=${encodeURIComponent(typeof window !== 'undefined' ? window.location.hostname : 'gadget-zone')}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-foreground hover:underline"
-            >
-              caffeine.ai
-            </a>
-          </p>
         </div>
       </footer>
 
-      {/* Mobile-only Sticky Bottom Action Bar */}
+      {/* Mobile Sticky Action Bar */}
       <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-background border-t border-border shadow-lg">
-        <div className="grid grid-cols-3 gap-0">
+        <div className="grid grid-cols-3 gap-2 p-3">
           <Button
             asChild
-            variant="ghost"
-            className="h-14 rounded-none border-r border-border font-normal"
+            size="sm"
+            variant="outline"
+            className="flex-1"
           >
-            <a href={`tel:${phoneNumber}`} className="flex flex-col items-center justify-center gap-1">
-              <Phone className="h-5 w-5" />
-              <span className="text-xs">Call</span>
+            <a href={`tel:${phoneNumber}`}>
+              <Phone className="h-4 w-4" />
             </a>
           </Button>
           
           <WhatsAppQuickMessages
             whatsappNumber={whatsappNumber}
-            variant="ghost"
-            size="default"
-            className="h-14 rounded-none border-r border-border font-normal flex-col gap-1"
+            variant="default"
+            size="sm"
+            className="flex-1"
             showIcon={true}
-            label="WhatsApp"
+            label=""
           />
           
           <Button
             asChild
-            variant="ghost"
-            className="h-14 rounded-none font-normal"
+            size="sm"
+            variant="outline"
+            className="flex-1"
           >
-            <a href={MAPS_LINK} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center justify-center gap-1">
-              <MapPin className="h-5 w-5" />
-              <span className="text-xs">Map</span>
+            <a href={MAPS_LINK} target="_blank" rel="noopener noreferrer">
+              <MapPin className="h-4 w-4" />
             </a>
           </Button>
         </div>
       </div>
+
+      {/* Floating Back to Top Button */}
+      {showBackToTop && (
+        <Button
+          onClick={scrollToTop}
+          size="icon"
+          className="fixed bottom-24 md:bottom-8 right-4 z-40 rounded-full shadow-lg"
+          aria-label="Back to top"
+        >
+          <ArrowUp className="h-5 w-5" />
+        </Button>
+      )}
     </div>
   );
 }

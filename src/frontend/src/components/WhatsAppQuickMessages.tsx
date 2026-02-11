@@ -8,7 +8,7 @@ import {
 
 interface WhatsAppQuickMessagesProps {
   whatsappNumber: string;
-  variant?: 'default' | 'outline' | 'ghost';
+  variant?: 'default' | 'outline' | 'ghost' | 'link';
   size?: 'default' | 'sm' | 'lg' | 'icon';
   className?: string;
   showIcon?: boolean;

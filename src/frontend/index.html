@@ -1,12 +1,50 @@
-<html lang='en'>
-    <head>
-        <meta charset='UTF-8' />
-        <meta name='viewport' content='width=device-width, initial-scale=1.0' />
-        <title>Gadget Zone – Mobile Store in Thiruvanmiyur, Chennai</title>
-        <meta name='description' content='Gadget Zone - Your trusted mobile store in Thiruvanmiyur, Chennai. Buy new mobiles, accessories, get expert service & repair, exchange & upgrade support, and flexible EMI options. Visit us for genuine products and reliable service.' />
-    </head>
-    <body>
-        <div id='root'></div>
-        <script type='module' src='/src/main.tsx'></script>
-    </body>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gadget Zone - Mobile Store in Thiruvanmiyur, Chennai | New Mobiles, Accessories & Service</title>
+    <meta name="description" content="Gadget Zone is your trusted mobile store in Thiruvanmiyur, Chennai. We offer new mobile phones, accessories, repair services, exchange options, EMI facilities, and CCTV solutions. Visit us for genuine products and expert service." />
+    
+    <!-- Google Analytics 4 (gtag.js) -->
+    <script>
+      (function() {
+        var measurementId = '%VITE_GA_MEASUREMENT_ID%';
+        // Only load GA4 if measurement ID is configured and not a placeholder
+        if (measurementId && measurementId.indexOf('%') === -1 && measurementId.indexOf('G-') === 0) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          window.gtag = gtag;
+          gtag('js', new Date());
+          gtag('config', measurementId, {
+            send_page_view: true
+          });
+          
+          var script = document.createElement('script');
+          script.id = 'ga-head-script';
+          script.async = true;
+          script.src = 'https://www.googletagmanager.com/gtag/js?id=' + measurementId;
+          document.head.appendChild(script);
+        }
+      })();
+    </script>
+    <!-- End Google Analytics 4 -->
+  </head>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+      <iframe 
+        src="https://www.googletagmanager.com/ns.html?id=%VITE_GTM_CONTAINER_ID%" 
+        height="0" 
+        width="0" 
+        style="display:none;visibility:hidden"
+        title="Google Tag Manager"
+      ></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
