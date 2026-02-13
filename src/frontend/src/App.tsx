@@ -186,7 +186,7 @@ function App() {
     { name: 'OnePlus', logo: '/assets/generated/logo-oneplus-color-padded.dim_256x128.png' },
     { name: 'Realme', logo: '/assets/generated/logo-realme-color-padded.dim_256x128.png' },
     { name: 'Vivo', logo: '/assets/generated/logo-vivo-color.dim_256x128.png' },
-    { name: 'CCTV', logo: '/assets/CCTV-IMAGE.png' },
+    { name: 'CCTV', logo: '/assets/Brand-Image%20Feb%2011,%202026,%2004_23_52%20PM.png' },
   ];
 
   const galleryImages = [
@@ -464,7 +464,9 @@ function App() {
                   variant="link"
                   className="text-primary text-base"
                 >
-                  <a href={`tel:${phoneNumber}`}>{phoneNumber}</a>
+                  <a href={`tel:${phoneNumber}`}>
+                    {phoneNumber}
+                  </a>
                 </Button>
               </div>
               
@@ -473,12 +475,25 @@ function App() {
                 <WhatsAppQuickMessages
                   whatsappNumber={whatsappNumber}
                   variant="link"
-                  size="default"
                   className="text-primary text-base"
-                  showIcon={false}
-                  label="Chat with us"
                 />
               </div>
+            </div>
+
+            {/* Instagram */}
+            <div className="text-center pt-4">
+              <h3 className="text-lg font-medium mb-3 text-foreground">Follow Us</h3>
+              <Button
+                asChild
+                variant="outline"
+                size="lg"
+                className="gap-2"
+              >
+                <a href={instagramUrl} target="_blank" rel="noopener noreferrer">
+                  <SiInstagram className="h-5 w-5" />
+                  Instagram
+                </a>
+              </Button>
             </div>
           </div>
         </div>
@@ -498,6 +513,26 @@ function App() {
               </p>
             ))}
           </div>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-10">
+            <Button
+              asChild
+              size="lg"
+              className="w-full sm:w-auto min-w-[180px]"
+            >
+              <a href={`tel:${phoneNumber}`}>
+                <Phone className="mr-2 h-5 w-5" />
+                Call Now
+              </a>
+            </Button>
+            
+            <WhatsAppQuickMessages
+              whatsappNumber={whatsappNumber}
+              variant="outline"
+              size="lg"
+              className="w-full sm:w-auto min-w-[180px]"
+            />
+          </div>
         </div>
       </section>
 
@@ -505,14 +540,14 @@ function App() {
       <MobileCareSmartUsageGuideSection />
 
       {/* Footer */}
-      <footer className="py-12 px-4 border-t border-border bg-muted/30">
+      <footer className="py-12 px-4 section-alt-bg border-t border-border">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
             {/* About */}
             <div>
-              <h3 className="text-lg font-medium mb-4 text-foreground">About Gadget Zone</h3>
+              <h3 className="text-lg font-medium mb-4 text-foreground">Gadget Zone</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Your trusted mobile store in Thiruvanmiyur, Chennai. We offer new mobile phones, accessories, repair services, exchange options, EMI facilities, and CCTV solutions.
+                Your trusted mobile store in Thiruvanmiyur, Chennai. We offer genuine products, expert service, and customer-first support.
               </p>
             </div>
 
@@ -523,7 +558,7 @@ function App() {
                 <li>
                   <button
                     onClick={() => handleServiceClick('New Mobile Phones')}
-                    className="hover:text-primary transition-colors"
+                    className="hover:text-foreground transition-colors"
                   >
                     New Mobile Phones
                   </button>
@@ -531,7 +566,7 @@ function App() {
                 <li>
                   <button
                     onClick={() => handleServiceClick('Mobile Accessories')}
-                    className="hover:text-primary transition-colors"
+                    className="hover:text-foreground transition-colors"
                   >
                     Mobile Accessories
                   </button>
@@ -539,7 +574,7 @@ function App() {
                 <li>
                   <button
                     onClick={() => handleServiceClick('Mobile Service & Repair')}
-                    className="hover:text-primary transition-colors"
+                    className="hover:text-foreground transition-colors"
                   >
                     Service & Repair
                   </button>
@@ -547,74 +582,51 @@ function App() {
                 <li>
                   <button
                     onClick={() => handleServiceClick('CCTV Sales & Installation')}
-                    className="hover:text-primary transition-colors"
+                    className="hover:text-foreground transition-colors"
                   >
-                    CCTV Solutions
+                    CCTV Sales & Installation
                   </button>
                 </li>
               </ul>
             </div>
 
-            {/* Connect */}
+            {/* Contact */}
             <div>
-              <h3 className="text-lg font-medium mb-4 text-foreground">Connect With Us</h3>
-              <div className="space-y-3">
-                <Button
-                  asChild
-                  variant="outline"
-                  size="sm"
-                  className="w-full justify-start"
-                >
-                  <a href={`tel:${phoneNumber}`}>
-                    <Phone className="mr-2 h-4 w-4" />
-                    Call Us
+              <h3 className="text-lg font-medium mb-4 text-foreground">Contact</h3>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li className="flex items-start gap-2">
+                  <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" />
+                  <span>Thiruvanmiyur, Chennai</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Phone className="h-4 w-4 flex-shrink-0" />
+                  <a href={`tel:${phoneNumber}`} className="hover:text-foreground transition-colors">
+                    {phoneNumber}
                   </a>
-                </Button>
-                
-                <WhatsAppQuickMessages
-                  whatsappNumber={whatsappNumber}
-                  variant="outline"
-                  size="sm"
-                  className="w-full justify-start"
-                  label="WhatsApp"
-                />
-                
-                <Button
-                  asChild
-                  variant="outline"
-                  size="sm"
-                  className="w-full justify-start"
-                >
-                  <a href={instagramUrl} target="_blank" rel="noopener noreferrer">
-                    <SiInstagram className="mr-2 h-4 w-4" />
-                    Instagram
+                </li>
+                <li className="flex items-center gap-2">
+                  <MessageCircle className="h-4 w-4 flex-shrink-0" />
+                  <a
+                    href={`https://wa.me/${whatsappNumber}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-foreground transition-colors"
+                  >
+                    WhatsApp
                   </a>
-                </Button>
-                
-                <Button
-                  asChild
-                  variant="outline"
-                  size="sm"
-                  className="w-full justify-start"
-                >
-                  <a href={MAPS_LINK} target="_blank" rel="noopener noreferrer">
-                    <MapPin className="mr-2 h-4 w-4" />
-                    Get Directions
-                  </a>
-                </Button>
-              </div>
+                </li>
+              </ul>
             </div>
           </div>
 
           {/* Copyright */}
           <div className="pt-8 border-t border-border text-center text-sm text-muted-foreground">
             <p>
-              © {new Date().getFullYear()} Gadget Zone. All rights reserved.
-            </p>
-            <p className="mt-2">
-              Built with ❤️ using{' '}
+              © {new Date().getFullYear()} Gadget Zone. All rights reserved. | Built with love using{' '}
               <a
-                href={`https://caffeine.ai/?utm_source=Caffeine-footer&utm_medium=referral&utm_content=${encodeURIComponent(window.location.hostname)}`}
+                href={`https://caffeine.ai/?utm_source=Caffeine-footer&utm_medium=referral&utm_content=${encodeURIComponent(
+                  typeof window !== 'undefined' ? window.location.hostname : 'gadget-zone'
+                )}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary hover:underline"
@@ -626,17 +638,30 @@ function App() {
         </div>
       </footer>
 
-      {/* Mobile Sticky Action Bar */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-background border-t border-border shadow-lg">
+      {/* Back to Top Button */}
+      {showBackToTop && (
+        <Button
+          onClick={scrollToTop}
+          size="icon"
+          className="fixed bottom-24 md:bottom-8 right-4 md:right-8 z-50 rounded-full shadow-lg"
+          aria-label="Back to top"
+        >
+          <ArrowUp className="h-5 w-5" />
+        </Button>
+      )}
+
+      {/* Mobile Sticky Bottom Bar */}
+      <div className="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-background border-t border-border shadow-lg">
         <div className="grid grid-cols-3 gap-2 p-3">
           <Button
             asChild
             size="sm"
             variant="outline"
-            className="flex-1"
+            className="h-12"
           >
             <a href={`tel:${phoneNumber}`}>
-              <Phone className="h-4 w-4" />
+              <Phone className="h-4 w-4 mr-1" />
+              Call
             </a>
           </Button>
           
@@ -644,35 +669,22 @@ function App() {
             whatsappNumber={whatsappNumber}
             variant="default"
             size="sm"
-            className="flex-1"
-            showIcon={true}
-            label=""
+            className="h-12"
           />
           
           <Button
             asChild
             size="sm"
             variant="outline"
-            className="flex-1"
+            className="h-12"
           >
             <a href={MAPS_LINK} target="_blank" rel="noopener noreferrer">
-              <MapPin className="h-4 w-4" />
+              <MapPin className="h-4 w-4 mr-1" />
+              Visit
             </a>
           </Button>
         </div>
       </div>
-
-      {/* Floating Back to Top Button */}
-      {showBackToTop && (
-        <Button
-          onClick={scrollToTop}
-          size="icon"
-          className="fixed bottom-24 md:bottom-8 right-4 z-40 rounded-full shadow-lg"
-          aria-label="Back to top"
-        >
-          <ArrowUp className="h-5 w-5" />
-        </Button>
-      )}
     </div>
   );
 }

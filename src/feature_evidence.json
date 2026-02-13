@@ -2,12 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-add-google-analytics-4-ga4-base-tracking-code-gtag-js-to-the-head-so-it-loads-on-all-pages-using-the-measurement-id-provided-via-configuration-do-not-hardcode-the-id",
-      "featureTitle": "Add Google Analytics 4 (GA4) base tracking code (gtag.js) to the <head> so it loads on all pages, using the Measurement ID provided via configuration (do not hardcode the ID).",
+      "featureId": "feature-update-the-app-to-load-and-configure-google-analytics-4-via-gtag-js-using-measurement-id-g-hbehe5my5y-so-that-ga4-is-enabled-in-production-without-requiring-an-environment-variable-placeholder",
+      "featureTitle": "Update the app to load and configure Google Analytics 4 via gtag.js using measurement ID \"G-HBEHE5MY5Y\" so that GA4 is enabled in production without requiring an environment variable placeholder.",
       "files": [
-        "frontend/index.html",
-        "frontend/src/App.tsx",
-        "frontend/src/lib/googleTracking.ts"
+        "frontend/index.html"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -22,12 +20,11 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-ensure-ga4-enhanced-measurement-is-supported-for-page-views-scroll-tracking-outbound-clicks-and-site-search-when-available-do-not-disable-enhanced-measurement-in-code",
-      "featureTitle": "Ensure GA4 Enhanced Measurement is supported for: page views, scroll tracking, outbound clicks, and site search (when available). Do not disable enhanced measurement in code.",
+      "featureId": "feature-ensure-the-google-analytics-configuration-in-the-codebase-remains-consistent-after-enabling-gtag-js-with-measurement-id-g-hbehe5my5y-i-e-avoid-contradictory-or-duplicate-ga-initialization-paths-between-frontend-index-html-and-frontend-src-lib-tracking-modules",
+      "featureTitle": "Ensure the Google Analytics configuration in the codebase remains consistent after enabling gtag.js with measurement ID \"G-HBEHE5MY5Y\" (i.e., avoid contradictory or duplicate GA initialization paths between frontend/index.html and frontend/src/lib/* tracking modules).",
       "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/lib/ga4.ts",
-        "frontend/src/lib/spaPageViews.ts"
+        "frontend/src/lib/analyticsConfig.ts",
+        "frontend/src/lib/googleTracking.ts"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -38,103 +35,6 @@
       ],
       "testIds": [
         "REQ-2"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-track-any-click-on-a-whatsapp-button-link-as-a-custom-ga4-event-with-event-name-whatsapp-click-and-include-the-current-page-url-as-an-event-parameter",
-      "featureTitle": "Track any click on a WhatsApp button/link as a custom GA4 event with event name \"whatsapp_click\" and include the current page URL as an event parameter.",
-      "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/lib/clickTracking.ts"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-3"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-track-any-click-on-telephone-links-tel-as-a-custom-ga4-event-with-event-name-call-click-and-include-the-current-page-url-as-an-event-parameter",
-      "featureTitle": "Track any click on telephone links (tel:) as a custom GA4 event with event name \"call_click\" and include the current page URL as an event parameter.",
-      "files": [
-        "frontend/src/components/WhatsAppQuickMessages.tsx",
-        "frontend/src/lib/clickTracking.ts"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-4"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-track-scroll-depth-at-25-50-75-and-100-as-a-custom-ga4-event-with-event-name-scroll-depth-and-include-the-depth-percentage-and-current-page-url-as-parameters",
-      "featureTitle": "Track scroll depth at 25%, 50%, 75%, and 100% as a custom GA4 event with event name \"scroll_depth\" and include the depth percentage and current page URL as parameters.",
-      "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/lib/scrollDepthTracking.ts"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-5"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-ensure-utm-parameters-traffic-source-medium-campaign-are-properly-captured-by-ga4-without-being-overwritten-by-custom-code",
-      "featureTitle": "Ensure UTM parameters (traffic source/medium/campaign) are properly captured by GA4 without being overwritten by custom code.",
-      "files": [
-        "frontend/index.html",
-        "frontend/src/lib/ga4.ts"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-6"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-implement-all-analytics-additions-without-modifying-layout-styling-and-without-noticeable-performance-regressions",
-      "featureTitle": "Implement all analytics additions without modifying layout/styling and without noticeable performance regressions.",
-      "files": [
-        "frontend/index.html",
-        "frontend/src/App.tsx",
-        "frontend/src/lib/clickTracking.ts",
-        "frontend/src/lib/scrollDepthTracking.ts"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-7"
       ],
       "confidence": "high"
     }

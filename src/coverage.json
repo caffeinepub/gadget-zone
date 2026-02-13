@@ -1,113 +1,37 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-11T10:23:26.297Z",
+  "generatedAt": "2026-02-12T07:19:40.051Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 7,
-    "implemented": 7,
+    "total": 2,
+    "implemented": 2,
     "items": [
       {
         "id": "REQ-1",
-        "summary": "Add Google Analytics 4 (GA4) base tracking code (gtag.js) to the <head> so it loads on all pages, using the Measurement ID provided via configuration (do not hardcode the ID).",
+        "summary": "Update the app to load and configure Google Analytics 4 via gtag.js using measurement ID \"G-HBEHE5MY5Y\" so that GA4 is enabled in production without requiring an environment variable placeholder.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/index.html",
-          "frontend/src/lib/googleTracking.ts",
-          "frontend/src/App.tsx"
+          "frontend/index.html"
         ],
         "matchedFiles": [
-          "frontend/index.html",
-          "frontend/src/lib/googleTracking.ts",
-          "frontend/src/App.tsx"
+          "frontend/index.html"
         ]
       },
       {
         "id": "REQ-2",
-        "summary": "Ensure GA4 Enhanced Measurement is supported for: page views, scroll tracking, outbound clicks, and site search (when available). Do not disable enhanced measurement in code.",
+        "summary": "Ensure the Google Analytics configuration in the codebase remains consistent after enabling gtag.js with measurement ID \"G-HBEHE5MY5Y\" (i.e., avoid contradictory or duplicate GA initialization paths between frontend/index.html and frontend/src/lib/* tracking modules).",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/lib/ga4.ts",
-          "frontend/src/lib/spaPageViews.ts",
-          "frontend/src/App.tsx"
+          "frontend/src/lib/analyticsConfig.ts",
+          "frontend/src/lib/googleTracking.ts"
         ],
         "matchedFiles": [
-          "frontend/src/lib/ga4.ts",
-          "frontend/src/lib/spaPageViews.ts",
-          "frontend/src/App.tsx"
-        ]
-      },
-      {
-        "id": "REQ-3",
-        "summary": "Track any click on a WhatsApp button/link as a custom GA4 event with event name \"whatsapp_click\" and include the current page URL as an event parameter.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/lib/clickTracking.ts",
-          "frontend/src/App.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/lib/clickTracking.ts",
-          "frontend/src/App.tsx"
-        ]
-      },
-      {
-        "id": "REQ-4",
-        "summary": "Track any click on telephone links (tel:) as a custom GA4 event with event name \"call_click\" and include the current page URL as an event parameter.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/lib/clickTracking.ts",
-          "frontend/src/components/BusinessHighlightsStrip.tsx",
-          "frontend/src/components/WhatsAppQuickMessages.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/lib/clickTracking.ts",
-          "frontend/src/components/WhatsAppQuickMessages.tsx"
-        ]
-      },
-      {
-        "id": "REQ-5",
-        "summary": "Track scroll depth at 25%, 50%, 75%, and 100% as a custom GA4 event with event name \"scroll_depth\" and include the depth percentage and current page URL as parameters.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/lib/scrollDepthTracking.ts",
-          "frontend/src/App.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/lib/scrollDepthTracking.ts",
-          "frontend/src/App.tsx"
-        ]
-      },
-      {
-        "id": "REQ-6",
-        "summary": "Ensure UTM parameters (traffic source/medium/campaign) are properly captured by GA4 without being overwritten by custom code.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/index.html",
-          "frontend/src/lib/ga4.ts"
-        ],
-        "matchedFiles": [
-          "frontend/index.html",
-          "frontend/src/lib/ga4.ts"
-        ]
-      },
-      {
-        "id": "REQ-7",
-        "summary": "Implement all analytics additions without modifying layout/styling and without noticeable performance regressions.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/index.html",
-          "frontend/src/lib/clickTracking.ts",
-          "frontend/src/lib/scrollDepthTracking.ts",
-          "frontend/src/App.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/index.html",
-          "frontend/src/lib/clickTracking.ts",
-          "frontend/src/lib/scrollDepthTracking.ts",
-          "frontend/src/App.tsx"
+          "frontend/src/lib/analyticsConfig.ts",
+          "frontend/src/lib/googleTracking.ts"
         ]
       }
     ]
@@ -118,13 +42,8 @@
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
     "frontend/index.html",
-    "frontend/src/App.tsx",
-    "frontend/src/components/WhatsAppQuickMessages.tsx",
-    "frontend/src/lib/clickTracking.ts",
-    "frontend/src/lib/ga4.ts",
+    "frontend/src/lib/analyticsConfig.ts",
     "frontend/src/lib/googleTracking.ts",
-    "frontend/src/lib/scrollDepthTracking.ts",
-    "frontend/src/lib/spaPageViews.ts",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

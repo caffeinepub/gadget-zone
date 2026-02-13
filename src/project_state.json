@@ -1,67 +1,26 @@
 {
   "schemaVersion": "1.0.0",
   "projectStateVersion": 3,
-  "summary": "Implement Google Analytics 4 (GA4) tracking on the website with enhanced measurement and custom events (WhatsApp clicks, call clicks, scroll depth) without impacting design or performance.",
+  "summary": "Project includes integrating Google Analytics (gtag.js) tracking.",
   "architectural_notes": [
-    "GA4 scripts must be added cleanly without modifying layout or styling.",
-    "GA4 implementation should avoid noticeable performance impact (load asynchronously where applicable)."
+    "Include Google Analytics via gtag.js snippet (measurement ID: G-HBEHE5MY5Y) on site pages."
   ],
   "known_issues": [],
   "isFixRequest": false,
   "existing_features": [
     {
-      "id": "feature-add-google-analytics-4-ga4-base-tracking-code-gtag-js-to-the-head-so-it-loads-on-all-pages-using-the-measurement-id-provided-via-configuration-do-not-hardcode-the-id",
-      "title": "Add Google Analytics 4 (GA4) base tracking code (gtag.js) to the <head> so it loads on all pages, using the Measurement ID provided via configuration (do not hardcode the ID).",
+      "id": "feature-update-the-app-to-load-and-configure-google-analytics-4-via-gtag-js-using-measurement-id-g-hbehe5my5y-so-that-ga4-is-enabled-in-production-without-requiring-an-environment-variable-placeholder",
+      "title": "Update the app to load and configure Google Analytics 4 via gtag.js using measurement ID \"G-HBEHE5MY5Y\" so that GA4 is enabled in production without requiring an environment variable placeholder.",
       "reqIds": [
         "REQ-1"
       ],
       "version": 1
     },
     {
-      "id": "feature-ensure-ga4-enhanced-measurement-is-supported-for-page-views-scroll-tracking-outbound-clicks-and-site-search-when-available-do-not-disable-enhanced-measurement-in-code",
-      "title": "Ensure GA4 Enhanced Measurement is supported for: page views, scroll tracking, outbound clicks, and site search (when available). Do not disable enhanced measurement in code.",
+      "id": "feature-ensure-the-google-analytics-configuration-in-the-codebase-remains-consistent-after-enabling-gtag-js-with-measurement-id-g-hbehe5my5y-i-e-avoid-contradictory-or-duplicate-ga-initialization-paths-between-frontend-index-html-and-frontend-src-lib-tracking-modules",
+      "title": "Ensure the Google Analytics configuration in the codebase remains consistent after enabling gtag.js with measurement ID \"G-HBEHE5MY5Y\" (i.e., avoid contradictory or duplicate GA initialization paths between frontend/index.html and frontend/src/lib/* tracking modules).",
       "reqIds": [
         "REQ-2"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-track-any-click-on-a-whatsapp-button-link-as-a-custom-ga4-event-with-event-name-whatsapp-click-and-include-the-current-page-url-as-an-event-parameter",
-      "title": "Track any click on a WhatsApp button/link as a custom GA4 event with event name \"whatsapp_click\" and include the current page URL as an event parameter.",
-      "reqIds": [
-        "REQ-3"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-track-any-click-on-telephone-links-tel-as-a-custom-ga4-event-with-event-name-call-click-and-include-the-current-page-url-as-an-event-parameter",
-      "title": "Track any click on telephone links (tel:) as a custom GA4 event with event name \"call_click\" and include the current page URL as an event parameter.",
-      "reqIds": [
-        "REQ-4"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-track-scroll-depth-at-25-50-75-and-100-as-a-custom-ga4-event-with-event-name-scroll-depth-and-include-the-depth-percentage-and-current-page-url-as-parameters",
-      "title": "Track scroll depth at 25%, 50%, 75%, and 100% as a custom GA4 event with event name \"scroll_depth\" and include the depth percentage and current page URL as parameters.",
-      "reqIds": [
-        "REQ-5"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-ensure-utm-parameters-traffic-source-medium-campaign-are-properly-captured-by-ga4-without-being-overwritten-by-custom-code",
-      "title": "Ensure UTM parameters (traffic source/medium/campaign) are properly captured by GA4 without being overwritten by custom code.",
-      "reqIds": [
-        "REQ-6"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-implement-all-analytics-additions-without-modifying-layout-styling-and-without-noticeable-performance-regressions",
-      "title": "Implement all analytics additions without modifying layout/styling and without noticeable performance regressions.",
-      "reqIds": [
-        "REQ-7"
       ],
       "version": 1
     }
@@ -69,48 +28,12 @@
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Add GA4 base tracking code (gtag) in the <head> of all pages using a provided Measurement ID",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-2",
-      "summary": "Enable GA4 Enhanced Measurement (page views, scroll tracking, outbound clicks, site search if available)",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-3",
-      "summary": "Track WhatsApp button/link clicks as custom event 'whatsapp_click' including page URL parameter",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-4",
-      "summary": "Track tel: link clicks as custom event 'call_click' including page URL parameter",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-5",
-      "summary": "Track scroll depth at 25%, 50%, 75%, 100% as custom event 'scroll_depth'",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-6",
-      "summary": "Ensure UTM parameters (source/medium/campaign) are captured correctly in GA4 traffic acquisition",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-7",
-      "summary": "Implement analytics scripts in a way that does not modify layout/styling and avoids performance impact",
+      "summary": "Add Google Analytics (gtag.js) tracking with measurement ID G-HBEHE5MY5Y",
       "reqIds": [],
       "status": "pending"
     }
   ],
-  "projectName": "Install GA4 (gtag.js) in <head> with enhanced measurement and custom click/scroll events",
+  "projectName": "Add GA4 gtag.js snippet with measurement ID G-HBEHE5MY5Y",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

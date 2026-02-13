@@ -1,176 +1,42 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "GA4 (gtag.js) head install with enhanced measurement support and custom click/scroll events",
+  "title": "Enable GA4 via gtag.js with hardcoded measurement ID G-HBEHE5MY5Y",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Load GA4 (gtag.js) base code from the document <head> on all pages using a configured Measurement ID (not hardcoded) with idempotent init.",
+      "summary": "Load and configure GA4 gtag.js in production using measurement ID G-HBEHE5MY5Y without env placeholders, while keeping existing SPA tracking working via window.gtag.",
       "acceptanceCriteria": [
-        "GA4 script is loaded from the document <head> (not injected into <body>).",
-        "Measurement ID is sourced from configuration (e.g., existing VITE_GA_MEASUREMENT_ID flow) and is not hardcoded in the repo.",
-        "Tracking initialization remains idempotent (no duplicate script tags / no duplicate config calls on re-renders)."
+        "In the built app HTML head, the gtag.js script is loaded from https://www.googletagmanager.com/gtag/js?id=G-HBEHE5MY5Y.",
+        "On initial page load, window.dataLayer is initialized and gtag('config','G-HBEHE5MY5Y') is called.",
+        "Existing GA4 helper code (e.g., SPA page views and click tracking) continues to function by finding window.gtag defined at runtime.",
+        "No user-facing text is changed as part of this tracking addition."
       ],
       "file_operations": [
         {
           "path": "frontend/index.html",
           "operation": "modify",
-          "description": "Add the GA4 base script tag and inline dataLayer/gtag initialization into the document <head>, using Vite env substitution for the measurement ID (e.g., %VITE_GA_MEASUREMENT_ID%) and guarding so it only runs when configured; keep script async and ensure the script tag id matches the app-side guard to prevent duplicates."
-        },
-        {
-          "path": "frontend/src/lib/googleTracking.ts",
-          "operation": "modify",
-          "description": "Refactor GA initialization so it does not inject GA into the DOM (since GA is loaded in <head>), and keep idempotent guards (e.g., detect an existing head script id and/or a window flag) while preserving existing safe no-op behavior when not configured."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Update the tracking bootstrapping call site so it does not cause duplicate GA initialization/config calls (e.g., keep GTM init if needed, and rely on head-loaded GA for gtag availability)."
+          "description": "Replace the current conditional GA4 loader (which uses %VITE_GA_MEASUREMENT_ID%) with the explicit GA4 gtag.js snippet that loads https://www.googletagmanager.com/gtag/js?id=G-HBEHE5MY5Y and calls gtag('config','G-HBEHE5MY5Y') on initial load; ensure window.dataLayer is initialized and window.gtag is assigned so existing runtime tracking helpers can use it."
         }
       ]
     },
     {
       "id": "REQ-2",
-      "summary": "Support GA4 enhanced measurement by not disabling it, ensure page_view on load and on SPA navigations, and provide safe outbound-click tracking fallback when GA is enabled.",
+      "summary": "Make GA4 initialization deterministic and consistent across index.html and frontend tracking modules, avoiding duplicate or contradictory GA setup.",
       "acceptanceCriteria": [
-        "The GA4 configuration does not set flags that would disable enhanced measurement features (e.g., no code disables page_view collection or link/scroll measurement).",
-        "A page_view is sent on initial load (and on subsequent SPA route changes if the app uses history navigation).",
-        "Outbound link clicks are tracked either via GA4 enhanced measurement (preferred) or via a safe fallback handler that only fires when GA is enabled."
+        "There is a single, deterministic GA4 initialization flow (no double-injection of GA scripts and no conflicting measurement IDs).",
+        "The app does not throw runtime errors in console related to gtag/dataLayer initialization when loading the homepage and navigating within the SPA."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/lib/ga4.ts",
-          "operation": "create",
-          "description": "Create a small GA4 helper module that safely checks whether GA is enabled/configured (via existing analyticsConfig), provides a no-op safe wrapper for calling window.gtag, and includes helpers to send a page_view with page_location=window.location.href without setting any config flags that would disable enhanced measurement."
+          "path": "frontend/src/lib/analyticsConfig.ts",
+          "operation": "modify",
+          "description": "Update the GA configuration to be consistent with the hardcoded measurement ID G-HBEHE5MY5Y (and not depend on VITE_GA_MEASUREMENT_ID), so modules like ga4.ts determine availability consistently with the index.html initialization."
         },
         {
-          "path": "frontend/src/lib/spaPageViews.ts",
-          "operation": "create",
-          "description": "Add a lightweight SPA navigation listener utility (history.pushState/replaceState + popstate) that calls the GA4 helper to send page_view on route changes, with cleanup to restore patched history methods when unmounted."
-        },
-        {
-          "path": "frontend/src/App.tsx",
+          "path": "frontend/src/lib/googleTracking.ts",
           "operation": "modify",
-          "description": "Wire SPA page view tracking on mount using the new SPA pageview utility (ensuring it only attaches once) and keep initial load page_view behavior intact (no code disables enhanced measurement)."
-        }
-      ]
-    },
-    {
-      "id": "REQ-3",
-      "summary": "Track all WhatsApp link/button clicks as a custom GA4 event 'whatsapp_click' including the current page URL, without errors when GA is disabled.",
-      "acceptanceCriteria": [
-        "Clicking any WhatsApp link (e.g., https://wa.me/* links, including those rendered by the WhatsApp quick-message popover and the highlights strip) triggers a single GA4 event named \"whatsapp_click\".",
-        "The event includes a parameter containing the current page URL (e.g., page_url: window.location.href).",
-        "No runtime errors occur when GA is not configured/enabled (event calls are safely no-op)."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/lib/clickTracking.ts",
-          "operation": "create",
-          "description": "Implement document-level delegated click tracking that detects clicks on anchors whose href points to WhatsApp (e.g., wa.me and/or api.whatsapp.com/whatsapp.com) and fires a single GA4 custom event 'whatsapp_click' with params including page_url=window.location.href; ensure the handler is guarded by GA enablement and never throws when gtag is unavailable."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Register the delegated click tracking initializer on app mount and ensure it cleans up on unmount so listeners are not duplicated across re-renders."
-        }
-      ]
-    },
-    {
-      "id": "REQ-4",
-      "summary": "Track all tel: link clicks as a custom GA4 event 'call_click' including the current page URL, without errors when GA is disabled.",
-      "acceptanceCriteria": [
-        "Clicking any <a href=\"tel:...\"> link triggers a single GA4 event named \"call_click\".",
-        "The event includes a parameter containing the current page URL (e.g., page_url: window.location.href).",
-        "No runtime errors occur when GA is not configured/enabled (event calls are safely no-op)."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/lib/clickTracking.ts",
-          "operation": "modify",
-          "description": "Extend delegated click tracking to detect tel: links and fire a single GA4 custom event 'call_click' with params including page_url=window.location.href; keep GA-guarded no-op behavior when not configured."
-        },
-        {
-          "path": "frontend/src/components/BusinessHighlightsStrip.tsx",
-          "operation": "modify",
-          "description": "Ensure the WhatsApp and tel links remain standard <a> links (no styling/layout changes) so the delegated click tracker consistently captures clicks from this strip."
-        },
-        {
-          "path": "frontend/src/components/WhatsAppQuickMessages.tsx",
-          "operation": "modify",
-          "description": "Ensure WhatsApp quick-message actions remain rendered as real <a href=\"https://wa.me/...\"> links (no styling/layout changes) so the delegated click tracker consistently captures clicks from this popover."
-        }
-      ]
-    },
-    {
-      "id": "REQ-5",
-      "summary": "Track scroll depth thresholds (25/50/75/100) as custom GA4 event 'scroll_depth' with depth and page URL, using a performance-safe listener and firing once per threshold per page load.",
-      "acceptanceCriteria": [
-        "As the user scrolls, events fire at 25/50/75/100% thresholds at most once per threshold per page load.",
-        "Each event uses name \"scroll_depth\" and includes parameters for depth (25/50/75/100) and the current page URL.",
-        "Scroll listener is implemented in a performance-safe way (throttled/optimized and using passive listeners)."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/lib/scrollDepthTracking.ts",
-          "operation": "create",
-          "description": "Add a scroll depth tracker that uses a passive scroll listener and rAF-based throttling (or equivalent) to compute scroll percentage and fire 'scroll_depth' events at 25/50/75/100 once per threshold per page load; include params { depth, page_url: window.location.href } and expose a reset mechanism for SPA navigations."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Initialize scroll depth tracking on mount and reset it on SPA route changes (using the SPA navigation utility) so thresholds are per page view; ensure it is guarded when GA is not configured."
-        }
-      ]
-    },
-    {
-      "id": "REQ-6",
-      "summary": "Preserve GA4 default UTM attribution by not overwriting campaign/source/medium and by ensuring page_location includes query parameters.",
-      "acceptanceCriteria": [
-        "GA4 configuration preserves default campaign attribution behavior (no custom config overwrites source/medium/campaign fields).",
-        "When the page is loaded with utm_source/utm_medium/utm_campaign in the URL, GA4 receives the page_location containing those parameters."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/index.html",
-          "operation": "modify",
-          "description": "Ensure the GA4 head initialization uses the default gtag('config', MEASUREMENT_ID) behavior without passing custom campaign/source/medium overrides and without disabling default page_view; leave page URL/query intact for GA4 to capture UTMs."
-        },
-        {
-          "path": "frontend/src/lib/ga4.ts",
-          "operation": "modify",
-          "description": "Ensure manual page_view emissions (used for SPA route changes) include page_location=window.location.href so any query parameters present in the current URL are included, and avoid setting any campaign attribution fields."
-        }
-      ]
-    },
-    {
-      "id": "REQ-7",
-      "summary": "Add analytics tracking without changing layout/styling and without noticeable performance regressions; keep scripts non-blocking and guard all tracking when not configured.",
-      "acceptanceCriteria": [
-        "No CSS/Tailwind class changes are required to implement tracking.",
-        "All added scripts are async/deferred and do not block initial render.",
-        "All tracking code paths are guarded so the site behaves identically when tracking IDs are not configured."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/index.html",
-          "operation": "modify",
-          "description": "Keep GA4 loading non-blocking (async script in <head>) and ensure inline initialization is minimal; do not add any styling/layout-related changes."
-        },
-        {
-          "path": "frontend/src/lib/clickTracking.ts",
-          "operation": "modify",
-          "description": "Ensure click tracking is implemented via a single delegated listener, does minimal work per click, and is fully guarded by GA enablement to avoid runtime errors or behavioral changes when not configured."
-        },
-        {
-          "path": "frontend/src/lib/scrollDepthTracking.ts",
-          "operation": "modify",
-          "description": "Ensure scroll depth tracking is passive and throttled/optimized, does not introduce layout thrashing, and is fully guarded by GA enablement to avoid runtime errors when not configured."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Confirm all analytics initializers are registered once (no duplicates), include proper cleanup for listeners, and do not touch any classes/styling or visual layout."
+          "description": "Ensure GA initialization logic cannot cause a second or conflicting GA setup path (keep GA as head-loaded only, and make initializeGA a verification/no-op that will not inject scripts or reconfigure with a different measurement ID)."
         }
       ]
     }

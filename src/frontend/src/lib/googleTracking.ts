@@ -3,7 +3,7 @@
  * 
  * Provides safe, idempotent initialization for:
  * - Google Tag Manager (GTM)
- * - Google Analytics (gtag.js) - now loaded from <head>
+ * - Google Analytics (gtag.js) - loaded from <head> with hardcoded measurement ID
  * 
  * All functions are safe to call when tracking is not configured.
  */
@@ -54,27 +54,15 @@ export function initializeGTM(): void {
 }
 
 /**
- * Check if GA4 is already loaded from <head>
- * GA4 is now loaded in index.html, so we just verify it's available
+ * Verify GA4 is loaded from <head>
+ * GA4 is now loaded in index.html with hardcoded measurement ID G-HBEHE5MY5Y
+ * This function is a no-op verification that ensures consistency
  */
 export function initializeGA(): void {
-  const { enabled } = analyticsConfig.ga;
-  
-  if (!enabled) {
-    return;
-  }
-
-  // GA4 is loaded from <head> in index.html
-  // This function now just verifies it's available
-  // The head script already handles initialization and config
-  
-  // Guard: check if already loaded from head
-  if (document.getElementById('ga-head-script')) {
-    return; // Already loaded from head
-  }
-  
-  // If for some reason head script didn't load, this is a fallback
-  // but normally this shouldn't execute since GA is in <head>
+  // GA4 is loaded from <head> in index.html with hardcoded measurement ID
+  // This function is now just a no-op for consistency with existing code
+  // The head script already handles all initialization and config
+  // No additional setup or script injection is needed
 }
 
 /**

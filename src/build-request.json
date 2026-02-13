@@ -1,155 +1,56 @@
 {
   "kind": "build_request",
-  "title": "Install GA4 (gtag.js) in <head> with enhanced measurement and custom click/scroll events",
+  "title": "Add GA4 gtag.js snippet with measurement ID G-HBEHE5MY5Y",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Add Google Analytics 4 (GA4) base tracking code (gtag.js) to the <head> so it loads on all pages, using the Measurement ID provided via configuration (do not hardcode the ID).",
+      "text": "Update the app to load and configure Google Analytics 4 via gtag.js using measurement ID \"G-HBEHE5MY5Y\" so that GA4 is enabled in production without requiring an environment variable placeholder.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "msg-9"
         ],
         "quotes": [
-          "1) Add GA4 tracking code in the <head> section of all pages.\nI will provide my Measurement ID separately."
+          "<!-- Google tag (gtag.js) -->\n<script async src=\"https://www.googletagmanager.com/gtag/js?id=G-HBEHE5MY5Y\"></script>\n<script>\n  window.dataLayer = window.dataLayer || [];\n  function gtag(){dataLayer.push(arguments);}\n  gtag('js', new Date());\n\n  gtag('config', 'G-HBEHE5MY5Y');\n</script>"
         ]
       },
       "acceptanceCriteria": [
-        "GA4 script is loaded from the document <head> (not injected into <body>).",
-        "Measurement ID is sourced from configuration (e.g., existing VITE_GA_MEASUREMENT_ID flow) and is not hardcoded in the repo.",
-        "Tracking initialization remains idempotent (no duplicate script tags / no duplicate config calls on re-renders)."
+        "In the built app HTML head, the gtag.js script is loaded from https://www.googletagmanager.com/gtag/js?id=G-HBEHE5MY5Y.",
+        "On initial page load, window.dataLayer is initialized and gtag('config','G-HBEHE5MY5Y') is called.",
+        "Existing GA4 helper code (e.g., SPA page views and click tracking) continues to function by finding window.gtag defined at runtime.",
+        "No user-facing text is changed as part of this tracking addition."
       ]
     },
     {
       "id": "REQ-2",
-      "text": "Ensure GA4 Enhanced Measurement is supported for: page views, scroll tracking, outbound clicks, and site search (when available). Do not disable enhanced measurement in code.",
+      "text": "Ensure the Google Analytics configuration in the codebase remains consistent after enabling gtag.js with measurement ID \"G-HBEHE5MY5Y\" (i.e., avoid contradictory or duplicate GA initialization paths between frontend/index.html and frontend/src/lib/* tracking modules).",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "msg-9"
         ],
         "quotes": [
-          "2) Enable Enhanced Measurement:\n- Page views\n- Scroll tracking\n- Outbound clicks\n- Site search (if available)"
+          "Use English for any user-facing text in the build request."
         ]
       },
       "acceptanceCriteria": [
-        "The GA4 configuration does not set flags that would disable enhanced measurement features (e.g., no code disables page_view collection or link/scroll measurement).",
-        "A page_view is sent on initial load (and on subsequent SPA route changes if the app uses history navigation).",
-        "Outbound link clicks are tracked either via GA4 enhanced measurement (preferred) or via a safe fallback handler that only fires when GA is enabled."
-      ]
-    },
-    {
-      "id": "REQ-3",
-      "text": "Track any click on a WhatsApp button/link as a custom GA4 event with event name \"whatsapp_click\" and include the current page URL as an event parameter.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-4"
-        ],
-        "quotes": [
-          "3) Track WhatsApp button clicks as a custom event:\nEvent name: whatsapp_click\nTrigger: Any click on WhatsApp button or WhatsApp link\nPass page URL as parameter."
-        ]
-      },
-      "acceptanceCriteria": [
-        "Clicking any WhatsApp link (e.g., https://wa.me/* links, including those rendered by the WhatsApp quick-message popover and the highlights strip) triggers a single GA4 event named \"whatsapp_click\".",
-        "The event includes a parameter containing the current page URL (e.g., page_url: window.location.href).",
-        "No runtime errors occur when GA is not configured/enabled (event calls are safely no-op)."
-      ]
-    },
-    {
-      "id": "REQ-4",
-      "text": "Track any click on telephone links (tel:) as a custom GA4 event with event name \"call_click\" and include the current page URL as an event parameter.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-4"
-        ],
-        "quotes": [
-          "4) Track Call button clicks as a custom event:\nEvent name: call_click\nTrigger: Any click on tel: links\nPass page URL as parameter."
-        ]
-      },
-      "acceptanceCriteria": [
-        "Clicking any <a href=\"tel:...\"> link triggers a single GA4 event named \"call_click\".",
-        "The event includes a parameter containing the current page URL (e.g., page_url: window.location.href).",
-        "No runtime errors occur when GA is not configured/enabled (event calls are safely no-op)."
-      ]
-    },
-    {
-      "id": "REQ-5",
-      "text": "Track scroll depth at 25%, 50%, 75%, and 100% as a custom GA4 event with event name \"scroll_depth\" and include the depth percentage and current page URL as parameters.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-4"
-        ],
-        "quotes": [
-          "5) Track scroll depth (25%, 50%, 75%, 100%)\nEvent name: scroll_depth"
-        ]
-      },
-      "acceptanceCriteria": [
-        "As the user scrolls, events fire at 25/50/75/100% thresholds at most once per threshold per page load.",
-        "Each event uses name \"scroll_depth\" and includes parameters for depth (25/50/75/100) and the current page URL.",
-        "Scroll listener is implemented in a performance-safe way (throttled/optimized and using passive listeners)."
-      ]
-    },
-    {
-      "id": "REQ-6",
-      "text": "Ensure UTM parameters (traffic source/medium/campaign) are properly captured by GA4 without being overwritten by custom code.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-4"
-        ],
-        "quotes": [
-          "6) Ensure traffic source, medium, and campaign parameters (UTM) are properly captured."
-        ]
-      },
-      "acceptanceCriteria": [
-        "GA4 configuration preserves default campaign attribution behavior (no custom config overwrites source/medium/campaign fields).",
-        "When the page is loaded with utm_source/utm_medium/utm_campaign in the URL, GA4 receives the page_location containing those parameters."
-      ]
-    },
-    {
-      "id": "REQ-7",
-      "text": "Implement all analytics additions without modifying layout/styling and without noticeable performance regressions.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-4"
-        ],
-        "quotes": [
-          "7) Make sure this does NOT affect website design or performance.\n\nDo not modify layout or styling.\nOnly add analytics tracking scripts cleanly."
-        ]
-      },
-      "acceptanceCriteria": [
-        "No CSS/Tailwind class changes are required to implement tracking.",
-        "All added scripts are async/deferred and do not block initial render.",
-        "All tracking code paths are guarded so the site behaves identically when tracking IDs are not configured."
+        "There is a single, deterministic GA4 initialization flow (no double-injection of GA scripts and no conflicting measurement IDs).",
+        "The app does not throw runtime errors in console related to gtag/dataLayer initialization when loading the homepage and navigating within the SPA."
       ]
     }
   ],
   "constraints": [
-    "Do not modify layout or styling; only add analytics tracking scripts/handlers.",
-    "Frontend immutable paths must not be edited: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui/*.",
-    "Backend remains a single Motoko actor; no additional backend services/databases."
+    "Do not edit files under frontend/src/components/ui or any other immutablePaths listed in SYSTEM_CONTEXT.",
+    "Keep the backend as-is; GA4 tracking must be implemented entirely in the frontend."
   ],
   "nonGoals": [
-    "Setting GA4 Enhanced Measurement toggles in the Google Analytics UI (this build only covers on-site implementation and does not include GA property admin changes).",
-    "Adding any non-Google analytics vendors or third-party authentication."
+    "Adding third-party analytics providers other than Google Analytics (gtag.js).",
+    "Adding cookie consent banners or consent mode configuration.",
+    "Implementing server-side event forwarding or backend tracking."
   ],
   "imageRequirements": {
     "required": [],
     "edits": []
-  },
-  "userProfileUpdate": {
-    "goalsToAdd": [],
-    "goalsToRemove": [],
-    "preferencesToAdd": [],
-    "preferencesToRemove": [],
-    "miscToAdd": [],
-    "miscToRemove": [],
-    "fieldsToSet": {},
-    "fieldsToDelete": []
   }
 }
