@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://gadgetzone-nz9.caffeine.xyz/sitemap.xml

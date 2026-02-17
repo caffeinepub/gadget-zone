@@ -1,142 +1,113 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Gadget Zone – HOT PICK floating button + bottom HOT PICK Motorola section (SEO, image, GA4 tracking)",
+  "title": "Gadget Zone technical SEO fixes with zero visual/layout changes",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Update the floating HOT PICK button label and behavior to smoothly scroll to the bottom HOT PICK section while remaining fixed-position.",
+      "summary": "Update document title and meta description in frontend/index.html to provided values with no UI impact.",
       "acceptanceCriteria": [
-        "A floating button is visible above page content and does not change layout/position based on sections (fixed positioning).",
-        "Button text is exactly \"🔥 HOT PICK\".",
-        "Clicking the button performs smooth scrolling to the HOT PICK section at the bottom of the page."
+        "frontend/index.html <title> is exactly \"Gadget Zone | Mobile Store in Thiruvanmiyur Chennai\"",
+        "frontend/index.html contains a single <meta name=\"description\"> with content exactly \"Gadget Zone is a trusted mobile store in Thiruvanmiyur, Chennai for smartphones, accessories, repairs, EMI options & CCTV solutions.\"",
+        "No visible layout or styling changes occur (meta-only changes)"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/HotFab.tsx",
+          "path": "frontend/index.html",
           "operation": "modify",
-          "description": "Update the floating action button label text to exactly \"🔥 HOT PICK\" and keep fixed FAB styling/positioning (not section-sticky)."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Wire HotFab onClick to smoothly scroll to the dedicated bottom-of-page HOT PICK section (using a ref or section id) without affecting other sections."
+          "description": "Replace the existing <title> and the single <meta name=\"description\"> to exactly match the provided Meta Title and Meta Description; ensure only one description meta remains and do not change any other head/body markup to avoid any visible/layout changes."
         }
       ]
     },
     {
       "id": "REQ-2",
-      "summary": "Track GA4 clicks on the floating HOT PICK button with event name \"hot_pick_click\" and page_url parameter, safely no-oping when GA4 is unavailable.",
+      "summary": "Ensure exactly one H1 ('Gadget Zone') and render the specified main section headings as H2 without changing visual styling or section order.",
       "acceptanceCriteria": [
-        "Each HOT PICK button click triggers a GA4 event named \"hot_pick_click\" when GA4 is available.",
-        "If GA4 is unavailable, clicking the button still scrolls and the app does not error.",
-        "Event parameters include page_url = current window.location.href."
+        "Rendered DOM contains exactly one <h1> and its text content is exactly \"Gadget Zone\"",
+        "Each listed main section title is rendered as an <h2> (not <div>, <p>, etc.), with the same visible styling as before",
+        "No additional <h1> elements exist anywhere on the page",
+        "No sections are moved and no visible typography/spacing changes occur (tag swaps preserve styling)"
       ],
       "file_operations": [
         {
           "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "On HOT PICK FAB click, send a GA4 event named \"hot_pick_click\" with page_url set to window.location.href using the existing safe GA4 wrapper (must not throw if GA4 is unavailable)."
-        },
-        {
-          "path": "frontend/src/lib/ga4.ts",
-          "operation": "modify",
-          "description": "(If needed) confirm sendGA4Event usage covers the required parameters and remains safe/no-op when GA4 is unavailable; avoid breaking existing tracking behavior."
+          "description": "Audit all section title elements and adjust semantic tags only: keep the existing hero heading as the sole <h1> with text exactly \"Gadget Zone\"; change the main section headings to <h2> for: \"Brands We Deal With\", \"Products & Services\", \"Why Choose Us\", \"HOT PICK\", and \"Store Gallery\"; preserve existing className/style props to prevent any visible typography/spacing changes and keep section order unchanged."
         }
       ]
     },
     {
       "id": "REQ-3",
-      "summary": "Add/update a dedicated bottom-of-page HOT PICK content section with the exact required title and ensure it is always rendered last on the page.",
+      "summary": "Add hash-based in-page anchor navigation for service cards, the HOT PICK control, and footer links while preserving current look and behavior.",
       "acceptanceCriteria": [
-        "A HOT PICK section exists at the bottom of the page (last major section rendered in the app).",
-        "The section title text is exactly \"🔥 HOT PICK – Latest Motorola Signature Smartphone\"."
+        "Each service description section has a stable id attribute (e.g., derived from the service name) and clicking its corresponding card updates the URL hash and scrolls to that section",
+        "The floating HOT PICK control includes a real anchor target (href to the HOT PICK section id) and still scrolls to the HOT PICK section when activated",
+        "Footer contains visible links that navigate via hash anchors to Products, Services, and Contact sections (no route changes)",
+        "All anchor additions preserve existing styles and do not reflow or reorder content"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/HotPickSection.tsx",
-          "operation": "create",
-          "description": "Create a dedicated HOT PICK section component that renders the exact title text \"🔥 HOT PICK – Latest Motorola Signature Smartphone\" and exposes a stable anchor/ref target for smooth scrolling."
-        },
-        {
           "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Render the HOT PICK section component as the last major section in the App layout (bottom of the page) and connect the scroll target (ref/id) used by the floating button."
+          "description": "Introduce stable id attributes for the relevant in-page sections (service description sections, HOT PICK section, Products/Services section(s), and Contact section) and wire hash navigation: update service card interactions to include real <a href=\"#...\"> navigation (or equivalent) that updates window.location.hash while keeping existing smooth-scroll and analytics behavior; ensure the target sections scroll into view and content order/layout remain unchanged."
+        },
+        {
+          "path": "frontend/src/components/HotFab.tsx",
+          "operation": "modify",
+          "description": "Update the floating HOT PICK control to be a real anchor (href pointing to the HOT PICK section id, e.g. \"#hot-pick-section\") while preserving the exact visual styling/className and existing click behavior (smooth scroll/analytics handled by the parent)."
         }
       ]
     },
     {
       "id": "REQ-4",
-      "summary": "Render the user-provided SEO text verbatim in the HOT PICK section and add a separate natural keyword paragraph without altering the verbatim block.",
+      "summary": "Add LocalBusiness JSON-LD structured data in the document head without affecting UI.",
       "acceptanceCriteria": [
-        "The provided body text appears in the HOT PICK section exactly as written by the user (including line breaks/paragraph separation and bullet characters \"•\").",
-        "The HOT PICK section also includes the keywords: \"Motorola mobile phone\", \"Motorola Signature phone\", \"Latest Motorola phone\", \"Motorola phone price in Chennai\", \"Buy Motorola phone near me\", and \"Motorola mobile store in Thiruvanmiyur\" in a natural-sounding way (e.g., in an additional short paragraph within the same section).",
-        "No other page sections’ text content is changed as part of this update."
+        "A single JSON-LD <script type=\"application/ld+json\"> is present in the document head",
+        "Schema type is LocalBusiness (or a more specific subtype if already used) and includes name \"Gadget Zone\"",
+        "Schema includes address with locality \"Chennai\" and region \"Tamil Nadu\" and references Thiruvanmiyur",
+        "Schema includes the phone number and a WhatsApp contact URL/identifier based on existing site values (+919840077591 and 919840077591 as used in the UI)",
+        "Schema includes business hours matching the UI (10 AM – 9 PM)",
+        "Schema includes a list of services offered aligned with the existing Products/Services content",
+        "No visible UI changes occur"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/HotPickSection.tsx",
+          "path": "frontend/index.html",
           "operation": "modify",
-          "description": "Implement the HOT PICK body content rendering using a verbatim multi-line block that preserves wording, punctuation, paragraph breaks, and the \"•\" bullets exactly as provided; add an additional short paragraph within the same section to naturally include the specified Motorola-related keywords without modifying the verbatim block."
+          "description": "Add exactly one <script type=\"application/ld+json\"> in the <head> defining LocalBusiness structured data for Gadget Zone, including: name, address (Thiruvanmiyur, Chennai, Tamil Nadu), phone (+919840077591), WhatsApp (https://wa.me/919840077591), business hours (10 AM–9 PM), and a servicesOffered list aligned to the existing Products/Services items; ensure this is head-only and does not change any visible UI."
         }
       ]
     },
     {
       "id": "REQ-5",
-      "summary": "Add Call and WhatsApp enquiry CTAs directly below the HOT PICK content using existing phone/WhatsApp numbers and existing CTA styling patterns.",
+      "summary": "Add a single canonical link tag in the document head matching the sitemap homepage URL (non-www).",
       "acceptanceCriteria": [
-        "Two buttons/CTAs are visible below the HOT PICK text: Call and WhatsApp.",
-        "Call uses a tel: link for the existing phone number already used elsewhere in the app.",
-        "WhatsApp uses a wa.me (or equivalent) link for the existing WhatsApp number already used elsewhere in the app.",
-        "These additions do not remove or change existing call/WhatsApp CTAs in other sections."
+        "frontend/index.html contains exactly one <link rel=\"canonical\">",
+        "Canonical href equals \"https://gadgetzone-nz9.caffeine.xyz/\" (non-www) as per frontend/public/sitemap.xml",
+        "No visible UI changes occur"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/HotPickSection.tsx",
+          "path": "frontend/index.html",
           "operation": "modify",
-          "description": "Add two CTA buttons directly below the HOT PICK text: Call (tel:+919840077591) and WhatsApp (https://wa.me/919840077591), using the app’s existing Button styling patterns and keeping existing CTAs elsewhere unchanged."
+          "description": "Insert (or update) exactly one <link rel=\"canonical\"> in the <head> with href set to \"https://gadgetzone-nz9.caffeine.xyz/\" (matching frontend/public/sitemap.xml); ensure no other canonical tags exist and there are no UI/layout changes."
         }
       ]
     },
     {
       "id": "REQ-6",
-      "summary": "Add and render a static photorealistic Motorola product image in the HOT PICK section from generated assets using existing image conventions.",
+      "summary": "Add Open Graph tags (og:title, og:description, og:image) in frontend/index.html using provided title/description and an existing image asset.",
       "acceptanceCriteria": [
-        "The HOT PICK section displays a single product-style image meeting the specified constraints (white/transparent background; no lifestyle background; phone(s) centered and clearly the focus; premium clean photoshoot look).",
-        "The image is served as a static asset from frontend/public/assets/generated (not fetched via backend).",
-        "The image is rendered using the app’s existing image rendering conventions (e.g., SafeImage or equivalent) and does not break layout on mobile/desktop."
+        "frontend/index.html includes og:title matching \"Gadget Zone | Mobile Store in Thiruvanmiyur Chennai\"",
+        "frontend/index.html includes og:description matching the provided meta description exactly",
+        "frontend/index.html includes og:image referencing an existing image already in the project (no new image generation) and uses an absolute URL when possible (e.g., canonical base + existing asset path)",
+        "No visible UI changes occur"
       ],
       "file_operations": [
         {
-          "path": "frontend/public/assets/generated/hot-pick-motorola-signature.dim_1200x900.png",
-          "operation": "create",
-          "description": "Add the generated static HOT PICK product image asset at this exact path for use in the HOT PICK section."
-        },
-        {
-          "path": "frontend/src/components/HotPickSection.tsx",
+          "path": "frontend/index.html",
           "operation": "modify",
-          "description": "Render the HOT PICK product image using the existing SafeImage component and existing product-section visual patterns; reference the static asset frontend/public/assets/generated/hot-pick-motorola-signature.dim_1200x900.png and ensure responsive layout for mobile/desktop."
-        }
-      ]
-    },
-    {
-      "id": "REQ-7",
-      "summary": "Keep the update isolated to only the HOT PICK floating button and the bottom HOT PICK section, preserving all other sections’ layout and behavior.",
-      "acceptanceCriteria": [
-        "Existing sections (hero, services, tracking initialization, other CTAs, and existing HOT details behavior) continue to function as before.",
-        "No unintended spacing/positioning regressions occur in other sections across mobile and desktop breakpoints.",
-        "HOT PICK section remains the last section on the page after changes."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Limit changes to: (1) HotFab wiring/handler and (2) appending the new/updated HOT PICK bottom section as the final section; avoid modifying other section content/structure beyond minimal integration."
-        },
-        {
-          "path": "frontend/src/components/HotFab.tsx",
-          "operation": "modify",
-          "description": "Ensure only the label/ARIA text and click behavior expectations are updated, keeping the component’s fixed floating behavior intact and not impacting other UI components."
+          "description": "Add Open Graph meta tags in the <head>: og:title (provided title), og:description (provided meta description), and og:image referencing an existing asset with an absolute URL (e.g., \"https://gadgetzone-nz9.caffeine.xyz/assets/generated/gadget-zone-logo.dim_512x512.png\"); do not create/modify images and ensure no visible UI/layout changes."
         }
       ]
     }

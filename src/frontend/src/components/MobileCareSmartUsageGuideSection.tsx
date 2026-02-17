@@ -46,9 +46,14 @@ export function MobileCareSmartUsageGuideSection() {
   return (
     <section className="py-16 md:py-24 px-4">
       <div className="max-w-5xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-light text-center mb-12 text-foreground">
+        <h2 className="text-3xl md:text-4xl font-light text-center mb-6 text-foreground">
           Mobile Care & Smart Usage Guide (2026)
         </h2>
+
+        {/* Service area mention for geo SEO */}
+        <p className="text-center text-base text-muted-foreground mb-12 max-w-3xl mx-auto">
+          Expert mobile care tips from Gadget Zone, serving customers across Thiruvanmiyur, Adyar, Besant Nagar, Thoraipakkam, Velachery, Perungudi, OMR, and ECR in Chennai.
+        </p>
 
         <ol className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3 text-base text-foreground leading-relaxed list-decimal list-inside">
           {visibleFacts.map((fact, index) => (

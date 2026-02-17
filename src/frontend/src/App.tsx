@@ -22,7 +22,7 @@ const serviceContent = {
   'New Mobile Phones': {
     heading: 'New Mobile Phones',
     description: [
-      'Explore the latest smartphones from top brands with warranty support.',
+      'Explore the latest smartphones from top brands at our mobile shop in Thiruvanmiyur with warranty support.',
       'Choose from a wide range of models based on performance, camera, battery, and budget.',
       'EMI options available on eligible models.',
     ],
@@ -30,35 +30,35 @@ const serviceContent = {
   'Mobile Accessories': {
     heading: 'Mobile Accessories',
     description: [
-      'Find quality mobile accessories including chargers, cables, earphones, cases, screen guards, and power banks.',
-      'Both original and high-quality compatible accessories available.',
+      'Find quality mobile accessories near Thiruvanmiyur including chargers, cables, earphones, cases, screen guards, and power banks.',
+      'Both original and high-quality compatible accessories available at our mobile store in Chennai.',
     ],
   },
   'Mobile Service & Repair': {
     heading: 'Mobile Service & Repair',
     description: [
-      'Professional repair services for screen replacement, battery issues, charging port problems, speaker and mic issues, and software support.',
+      'Professional mobile repair service in Thiruvanmiyur for screen replacement, battery issues, charging port problems, speaker and mic issues, and software support.',
       'Quick diagnosis with transparent pricing and service warranty.',
     ],
   },
   'Exchange & Upgrade Support': {
     heading: 'Exchange & Upgrade Support',
     description: [
-      'Upgrade your old phone to a new one with easy exchange options.',
+      'Upgrade your old phone to a new one with easy exchange options at our mobile store in Chennai.',
       'Get fair value for your existing device and seamless assistance during the upgrade process.',
     ],
   },
   'EMI / Finance Options': {
     heading: 'EMI / Finance Options',
     description: [
-      'Easy EMI and finance options available on selected mobile phones.',
+      'Easy EMI and finance options available on selected mobile phones at Gadget Zone.',
       'Flexible plans with minimal documentation to make your purchase affordable.',
     ],
   },
-  'CCTV Sales & Installation': {
-    heading: 'CCTV Sales & Installation',
+  'CCTV Solutions': {
+    heading: 'CCTV Solutions',
     description: [
-      'We provide CCTV camera sales and professional installation services for homes, shops, offices, and commercial spaces.',
+      'We provide CCTV camera sales and professional installation services at our CCTV shop in Thiruvanmiyur, Chennai for homes, shops, offices, and commercial spaces.',
       'Our solutions include indoor and outdoor cameras, DVR/NVR setup, proper wiring, and basic configuration support to ensure reliable monitoring and security.',
       'Get assistance in selecting the right surveillance setup based on your space and requirement.',
     ],
@@ -107,7 +107,7 @@ const hotProductDetails: Record<string, { title: string; description: string[] }
       'Quick approval process and partnerships with leading financial institutions ensure you get the best rates. Make your dream phone affordable today.',
     ],
   },
-  'CCTV Sales & Installation': {
+  'CCTV Solutions': {
     title: 'Professional Security Solutions',
     description: [
       'Our CCTV solutions are in high demand for homes, shops, and offices across Chennai. We provide complete security packages with professional installation and setup.',
@@ -143,6 +143,16 @@ function App() {
   const hotDetailsSectionRef = useRef<HTMLElement>(null);
   const hotPickSectionRef = useRef<HTMLElement>(null);
 
+  // Section refs for scroll navigation
+  const newMobilesRef = useRef<HTMLElement>(null);
+  const accessoriesRef = useRef<HTMLElement>(null);
+  const serviceRepairRef = useRef<HTMLElement>(null);
+  const exchangeRef = useRef<HTMLElement>(null);
+  const emiRef = useRef<HTMLElement>(null);
+  const cctvRef = useRef<HTMLElement>(null);
+  const productsServicesRef = useRef<HTMLElement>(null);
+  const contactRef = useRef<HTMLElement>(null);
+
   // HOT products configuration - static list of products marked as HOT
   const hotProducts: (keyof typeof serviceContent)[] = [
     'New Mobile Phones',
@@ -150,6 +160,7 @@ function App() {
   ];
 
   // Initialize all tracking on mount
+  // NOTE: This app does not modify SEO metadata at runtime; all meta title/description/schema remain as defined in index.html
   useEffect(() => {
     initializeTracking();
     
@@ -194,8 +205,9 @@ function App() {
 
   const scrollToHotPick = () => {
     // Send GA4 event for HOT PICK button click
-    sendGA4Event('hot_pick_click', {
+    sendGA4Event('hot_pick_jump', {
       page_url: window.location.href,
+      source: 'floating_button',
     });
 
     // Scroll to HOT PICK section
@@ -251,7 +263,7 @@ function App() {
       image: '/assets/generated/card-emi-finance.dim_1200x800.jpg',
     },
     {
-      title: 'CCTV Sales & Installation' as keyof typeof serviceContent,
+      title: 'CCTV Solutions' as keyof typeof serviceContent,
       image: '/assets/CCTV-IMAGE.png',
     },
   ];
@@ -296,39 +308,57 @@ function App() {
     '/assets/generated/gallery-03.dim_1200x800.jpg',
   ];
 
+  // Map service titles to their section refs
+  const sectionRefs: Record<string, React.RefObject<HTMLElement | null>> = {
+    'New Mobile Phones': newMobilesRef,
+    'Mobile Accessories': accessoriesRef,
+    'Mobile Service & Repair': serviceRepairRef,
+    'Exchange & Upgrade Support': exchangeRef,
+    'EMI / Finance Options': emiRef,
+    'CCTV Solutions': cctvRef,
+  };
+
   const handleServiceClick = (serviceTitle: keyof typeof serviceContent) => {
-    const isHot = hotProducts.includes(serviceTitle);
+    // Send GA4 event for category click
+    sendGA4Event('category_click', {
+      page_url: window.location.href,
+      category_name: serviceTitle,
+    });
+
+    const targetRef = sectionRefs[serviceTitle];
     
-    if (isHot) {
-      // HOT product: scroll to HOT details section
-      setSelectedHotProduct(serviceTitle);
-      
-      if (hotDetailsSectionRef.current) {
-        const isMobile = window.innerWidth < 768;
-        const offset = isMobile ? 80 : 20;
-        const elementPosition = hotDetailsSectionRef.current.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - offset;
+    if (targetRef?.current) {
+      const isMobile = window.innerWidth < 768;
+      const offset = isMobile ? 80 : 20;
+      const elementPosition = targetRef.current.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
 
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: 'smooth',
-        });
-      }
-    } else {
-      // Non-HOT product: scroll to description section
-      setSelectedService(serviceTitle);
-      
-      if (descriptionSectionRef.current) {
-        const isMobile = window.innerWidth < 768;
-        const offset = isMobile ? 80 : 20;
-        const elementPosition = descriptionSectionRef.current.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - offset;
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth',
+      });
+    }
+  };
 
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: 'smooth',
-        });
-      }
+  const handleBrandClick = (brandName: string) => {
+    // Send GA4 event for brand click
+    sendGA4Event('category_click', {
+      page_url: window.location.href,
+      category_name: 'New Mobile Phones',
+      brand_name: brandName,
+    });
+
+    // Scroll to New Mobile Phones section
+    if (newMobilesRef.current) {
+      const isMobile = window.innerWidth < 768;
+      const offset = isMobile ? 80 : 20;
+      const elementPosition = newMobilesRef.current.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth',
+      });
     }
   };
 
@@ -337,14 +367,14 @@ function App() {
 
   return (
     <div className="min-h-screen bg-background bg-texture pb-20 md:pb-0">
-      {/* Hero Section with Slider */}
+      {/* 1. Hero Section with Slider */}
       <section className="relative w-full h-[70vh] min-h-[500px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           {heroSlides.map((slide, index) => (
             <img
               key={index}
               src={slide}
-              alt="Gadget Zone Showroom"
+              alt={`Gadget Zone mobile shop in Thiruvanmiyur Chennai - ${index === 0 ? 'Mobile phones and accessories' : index === 1 ? 'Mobile accessories store' : 'Mobile repair service'}`}
               className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
               style={{
                 opacity: currentSlide === index ? 1 : 0,
@@ -358,76 +388,29 @@ function App() {
           <div className="mb-8 flex items-center justify-center w-full">
             <img
               src="/assets/Gadget Zone-Logo-1.png"
-              alt="Gadget Zone"
-              className="h-24 md:h-32 mx-auto mb-6"
+              alt="Gadget Zone logo"
+              className="h-20 sm:h-24 md:h-28 w-auto object-contain drop-shadow-2xl"
             />
           </div>
-          
-          <h1 className="text-4xl md:text-6xl font-light text-white mb-4 tracking-wide">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 drop-shadow-2xl tracking-tight">
             Gadget Zone
           </h1>
-          
-          <p className="text-lg md:text-2xl text-white/90 mb-3 font-light">
-            Mobiles • Accessories • Service
+          <p className="text-lg sm:text-xl md:text-2xl text-white/95 mb-8 drop-shadow-lg font-medium max-w-3xl mx-auto">
+            Your Trusted Mobile Store for Phones, Accessories, Repairs & CCTV Solutions
           </p>
-          
-          <p className="text-base md:text-lg text-white/80 mb-10 font-light">
-            Thiruvanmiyur, Chennai
-          </p>
-          
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Button
-              asChild
               size="lg"
-              className="w-full sm:w-auto min-w-[180px] bg-white text-foreground hover:bg-white/90 font-normal"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
+              onClick={() => window.open(`tel:${phoneNumber}`, '_self')}
+              data-ga-event="cta_click"
+              data-ga-context="hero"
+              data-ga-label="call_now"
             >
-              <a href={`tel:${phoneNumber}`}>
-                <Phone className="mr-2 h-5 w-5" />
-                Call Now
-              </a>
+              <Phone className="mr-2 h-5 w-5" />
+              Call Now
             </Button>
-            
-            <WhatsAppQuickMessages
-              whatsappNumber={whatsappNumber}
-              variant="outline"
-              size="lg"
-              className="w-full sm:w-auto min-w-[180px] bg-transparent text-white border-white hover:bg-white/10 hover:text-white font-normal"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* Ticker Banner */}
-      <TickerBanner />
-
-      {/* Brand Logo Strip */}
-      <section className="py-10 md:py-14 px-4 section-alt-bg border-y border-border">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-10">
-            {brands.map((brand) => (
-              <button
-                key={brand.name}
-                onClick={() => {
-                  if (brand.name === 'CCTV') {
-                    handleServiceClick('CCTV Sales & Installation');
-                  }
-                }}
-                onKeyDown={(e) => {
-                  if (brand.name === 'CCTV' && (e.key === 'Enter' || e.key === ' ')) {
-                    e.preventDefault();
-                    handleServiceClick('CCTV Sales & Installation');
-                  }
-                }}
-                className="w-32 h-24 md:w-40 md:h-28 p-2 flex items-center justify-center transition-opacity hover:opacity-70 active:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-md"
-                aria-label={brand.name === 'CCTV' ? 'View CCTV Sales & Installation details' : brand.name}
-              >
-                <img
-                  src={brand.logo}
-                  alt={brand.name}
-                  className="w-full h-full object-contain"
-                />
-              </button>
-            ))}
+            <WhatsAppQuickMessages whatsappNumber={whatsappNumber} gaContext="hero" />
           </div>
         </div>
       </section>
@@ -435,46 +418,66 @@ function App() {
       {/* Business Highlights Strip */}
       <BusinessHighlightsStrip />
 
-      {/* Products & Services Section */}
-      <section className="py-16 md:py-24 px-4">
+      {/* Ticker Banner */}
+      <TickerBanner />
+
+      {/* 2. Brands Section */}
+      <section className="py-16 px-4 bg-section-alt">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-light text-center mb-12 text-foreground">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-foreground">
+            Brands We Deal With
+          </h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 md:gap-8">
+            {brands.map((brand) => (
+              <button
+                key={brand.name}
+                onClick={() => handleBrandClick(brand.name)}
+                className="bg-card hover:bg-accent transition-all duration-300 rounded-xl p-6 flex items-center justify-center shadow-md hover:shadow-xl hover:scale-105 cursor-pointer border border-border"
+                aria-label={`View ${brand.name} products`}
+              >
+                <SafeImage
+                  src={versionAsset(brand.logo)}
+                  alt={`${brand.name} brand logo`}
+                  className="h-12 md:h-16 w-auto object-contain"
+                />
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 3. Products & Services Section */}
+      <section id="products-services" ref={productsServicesRef} className="py-16 px-4">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-foreground">
             Products & Services
           </h2>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {services.map((service, index) => {
+          <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+            Comprehensive mobile solutions under one roof
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {services.map((service) => {
               const isHot = hotProducts.includes(service.title);
-              
               return (
                 <Card
-                  key={index}
-                  className="group cursor-pointer overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border-border/50"
+                  key={service.title}
+                  className="overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer group border-border hover:scale-105"
                   onClick={() => handleServiceClick(service.title)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault();
-                      handleServiceClick(service.title);
-                    }
-                  }}
-                  tabIndex={0}
-                  role="button"
-                  aria-label={`View details for ${service.title}`}
                 >
                   <div className="relative h-48 overflow-hidden">
                     <SafeImage
-                      src={service.image}
-                      alt={service.title}
-                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                      src={versionAsset(service.image)}
+                      alt={`${service.title} service at Gadget Zone`}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
                     {isHot && (
-                      <div className="absolute top-3 right-3 bg-gradient-to-r from-red-500 to-orange-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg animate-pulse">
-                        HOT
+                      <div className="absolute top-3 right-3 bg-gradient-to-r from-red-500 to-orange-500 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg animate-hot-pulse">
+                        🔥 HOT
                       </div>
                     )}
                   </div>
                   <CardHeader>
-                    <CardTitle className="text-xl font-normal group-hover:text-primary transition-colors">
+                    <CardTitle className="text-xl group-hover:text-primary transition-colors">
                       {service.title}
                     </CardTitle>
                   </CardHeader>
@@ -485,139 +488,138 @@ function App() {
         </div>
       </section>
 
-      {/* Service Description Section (for non-HOT products) */}
-      <section
-        ref={descriptionSectionRef}
-        className="py-16 md:py-24 px-4 section-alt-bg"
-      >
+      {/* Service Description Sections */}
+      <section id="new-mobile-phones" ref={newMobilesRef} className="py-16 px-4 bg-section-alt scroll-mt-20">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-light text-center mb-8 text-foreground">
-            {currentContent.heading}
-          </h2>
-          
-          <div className="space-y-4 text-base md:text-lg leading-relaxed text-muted-foreground">
-            {currentContent.description.map((paragraph, index) => (
-              <p key={index}>{paragraph}</p>
+          <h3 className="text-2xl md:text-3xl font-bold mb-6 text-foreground">
+            {serviceContent['New Mobile Phones'].heading}
+          </h3>
+          <div className="space-y-4 text-muted-foreground">
+            {serviceContent['New Mobile Phones'].description.map((para, idx) => (
+              <p key={idx} className="text-base md:text-lg leading-relaxed">{para}</p>
             ))}
-          </div>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10">
-            <Button
-              asChild
-              size="lg"
-              className="w-full sm:w-auto min-w-[180px]"
-            >
-              <a href={`tel:${phoneNumber}`}>
-                <Phone className="mr-2 h-5 w-5" />
-                Call Now
-              </a>
-            </Button>
-            
-            <WhatsAppQuickMessages
-              whatsappNumber={whatsappNumber}
-              variant="outline"
-              size="lg"
-              className="w-full sm:w-auto min-w-[180px]"
-            />
           </div>
         </div>
       </section>
 
-      {/* HOT Product Details Section */}
-      <section
-        ref={hotDetailsSectionRef}
-        className="py-16 md:py-24 px-4"
-      >
+      <section id="mobile-accessories" ref={accessoriesRef} className="py-16 px-4 scroll-mt-20">
         <div className="max-w-4xl mx-auto">
-          <div className="flex items-center justify-center gap-3 mb-8">
-            <div className="bg-gradient-to-r from-red-500 to-orange-500 text-white text-sm font-bold px-4 py-2 rounded-full shadow-lg animate-pulse">
-              HOT
-            </div>
-            <h2 className="text-3xl md:text-4xl font-light text-foreground">
-              {currentHotDetails.title}
-            </h2>
-          </div>
-          
-          <div className="space-y-4 text-base md:text-lg leading-relaxed text-muted-foreground">
-            {currentHotDetails.description.map((paragraph, index) => (
-              <p key={index}>{paragraph}</p>
+          <h3 className="text-2xl md:text-3xl font-bold mb-6 text-foreground">
+            {serviceContent['Mobile Accessories'].heading}
+          </h3>
+          <div className="space-y-4 text-muted-foreground">
+            {serviceContent['Mobile Accessories'].description.map((para, idx) => (
+              <p key={idx} className="text-base md:text-lg leading-relaxed">{para}</p>
             ))}
-          </div>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10">
-            <Button
-              asChild
-              size="lg"
-              className="w-full sm:w-auto min-w-[180px]"
-            >
-              <a href={`tel:${phoneNumber}`}>
-                <Phone className="mr-2 h-5 w-5" />
-                Call Now
-              </a>
-            </Button>
-            
-            <WhatsAppQuickMessages
-              whatsappNumber={whatsappNumber}
-              variant="outline"
-              size="lg"
-              className="w-full sm:w-auto min-w-[180px]"
-            />
           </div>
         </div>
       </section>
 
-      {/* Why Choose Us Section */}
-      <section className="py-16 md:py-24 px-4 section-alt-bg">
+      <section id="mobile-service-repair" ref={serviceRepairRef} className="py-16 px-4 bg-section-alt scroll-mt-20">
+        <div className="max-w-4xl mx-auto">
+          <h3 className="text-2xl md:text-3xl font-bold mb-6 text-foreground">
+            {serviceContent['Mobile Service & Repair'].heading}
+          </h3>
+          <div className="space-y-4 text-muted-foreground">
+            {serviceContent['Mobile Service & Repair'].description.map((para, idx) => (
+              <p key={idx} className="text-base md:text-lg leading-relaxed">{para}</p>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="exchange-upgrade-support" ref={exchangeRef} className="py-16 px-4 scroll-mt-20">
+        <div className="max-w-4xl mx-auto">
+          <h3 className="text-2xl md:text-3xl font-bold mb-6 text-foreground">
+            {serviceContent['Exchange & Upgrade Support'].heading}
+          </h3>
+          <div className="space-y-4 text-muted-foreground">
+            {serviceContent['Exchange & Upgrade Support'].description.map((para, idx) => (
+              <p key={idx} className="text-base md:text-lg leading-relaxed">{para}</p>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="emi-finance-options" ref={emiRef} className="py-16 px-4 bg-section-alt scroll-mt-20">
+        <div className="max-w-4xl mx-auto">
+          <h3 className="text-2xl md:text-3xl font-bold mb-6 text-foreground">
+            {serviceContent['EMI / Finance Options'].heading}
+          </h3>
+          <div className="space-y-4 text-muted-foreground">
+            {serviceContent['EMI / Finance Options'].description.map((para, idx) => (
+              <p key={idx} className="text-base md:text-lg leading-relaxed">{para}</p>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="cctv-solutions" ref={cctvRef} className="py-16 px-4 scroll-mt-20">
+        <div className="max-w-4xl mx-auto">
+          <h3 className="text-2xl md:text-3xl font-bold mb-6 text-foreground">
+            {serviceContent['CCTV Solutions'].heading}
+          </h3>
+          <div className="space-y-4 text-muted-foreground">
+            {serviceContent['CCTV Solutions'].description.map((para, idx) => (
+              <p key={idx} className="text-base md:text-lg leading-relaxed">{para}</p>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Why Choose Us Section */}
+      <section className="py-16 px-4 bg-section-alt">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-light text-center mb-12 text-foreground">
-            Why Choose Gadget Zone
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-foreground">
+            Why Choose Us
           </h2>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+            Your trusted partner for all mobile needs
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {trustPoints.map((point, index) => (
-              <div
-                key={index}
-                className="flex flex-col items-center text-center space-y-4 p-6 rounded-lg bg-card border border-border/50 transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
-              >
-                <div className="w-20 h-20 flex items-center justify-center">
-                  <img
-                    src={point.icon}
-                    alt={point.title}
-                    className="w-full h-full object-contain"
-                  />
-                </div>
-                <h3 className="text-xl font-normal text-foreground">
-                  {point.title}
-                </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {point.description}
-                </p>
-              </div>
+              <Card key={index} className="text-center hover:shadow-xl transition-all duration-300 border-border hover:scale-105">
+                <CardHeader>
+                  <div className="mx-auto mb-4 w-20 h-20 flex items-center justify-center">
+                    <SafeImage
+                      src={versionAsset(point.icon)}
+                      alt={`${point.title} icon`}
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                  <CardTitle className="text-lg mb-2">{point.title}</CardTitle>
+                  <CardDescription className="text-sm">{point.description}</CardDescription>
+                </CardHeader>
+              </Card>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Mobile Care & Smart Usage Guide Section */}
+      {/* 5. HOT PICK Section */}
+      <section id="hot-pick-section" ref={hotPickSectionRef} className="scroll-mt-20">
+        <HotPickSection />
+      </section>
+
+      {/* 6. Educational Section */}
       <MobileCareSmartUsageGuideSection />
 
-      {/* Gallery Section */}
-      <section className="py-16 md:py-24 px-4 section-alt-bg">
+      {/* 7. Store Gallery Section */}
+      <section className="py-16 px-4 bg-section-alt">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-light text-center mb-12 text-foreground">
-            Our Store
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-foreground">
+            Store Gallery
           </h2>
-          
+          <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+            Visit our showroom in Thiruvanmiyur
+          </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {galleryImages.map((image, index) => (
-              <div
-                key={index}
-                className="relative h-64 rounded-lg overflow-hidden group cursor-pointer"
-              >
+              <div key={index} className="relative h-64 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105">
                 <SafeImage
-                  src={image}
-                  alt={`Gadget Zone Store ${index + 1}`}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                  src={versionAsset(image)}
+                  alt={`Gadget Zone store interior view ${index + 1}`}
+                  className="w-full h-full object-cover"
                 />
               </div>
             ))}
@@ -625,165 +627,198 @@ function App() {
         </div>
       </section>
 
-      {/* HOT PICK Section - Always at the bottom */}
-      <HotPickSection sectionRef={hotPickSectionRef} />
-
-      {/* Contact & Location Section */}
-      <section className="py-16 md:py-24 px-4">
+      {/* 8. Contact Section */}
+      <section id="contact" ref={contactRef} className="py-16 px-4 scroll-mt-20">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-light text-center mb-12 text-foreground">
-            Visit Us
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-foreground">
+            Visit Us Today
           </h2>
-          
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
-            {/* Contact Information */}
-            <div className="space-y-6">
-              <div>
-                <h3 className="text-2xl font-normal mb-4 text-foreground">
-                  Contact Information
-                </h3>
-                
-                <div className="space-y-4">
-                  <div className="flex items-start gap-3">
-                    <MapPin className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-                    <div>
-                      <p className="text-base text-muted-foreground leading-relaxed">
-                        {address}
-                      </p>
-                      <Button
-                        asChild
-                        variant="link"
-                        className="h-auto p-0 mt-2 text-primary hover:text-primary/80"
-                      >
-                        <a
-                          href={MAPS_LINK}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          Get Directions →
-                        </a>
-                      </Button>
-                    </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <Card className="border-border">
+              <CardHeader>
+                <CardTitle className="text-2xl mb-4">Contact Information</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="flex items-start gap-4">
+                  <MapPin className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
+                  <div>
+                    <p className="font-semibold mb-1">Address</p>
+                    <p className="text-muted-foreground">{address}</p>
+                    <a
+                      href={MAPS_LINK}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-primary hover:underline inline-flex items-center gap-1 mt-2"
+                    >
+                      Get Directions →
+                    </a>
                   </div>
-                  
-                  <div className="flex items-center gap-3">
-                    <Phone className="w-5 h-5 text-primary flex-shrink-0" />
+                </div>
+                <div className="flex items-start gap-4">
+                  <Phone className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
+                  <div>
+                    <p className="font-semibold mb-1">Phone</p>
                     <a
                       href={`tel:${phoneNumber}`}
-                      className="text-base text-muted-foreground hover:text-primary transition-colors"
+                      className="text-muted-foreground hover:text-primary transition-colors"
                     >
                       {phoneNumber}
                     </a>
                   </div>
-                  
-                  <div className="flex items-center gap-3">
-                    <MessageCircle className="w-5 h-5 text-primary flex-shrink-0" />
+                </div>
+                <div className="flex items-start gap-4">
+                  <MessageCircle className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
+                  <div>
+                    <p className="font-semibold mb-1">WhatsApp</p>
                     <a
                       href={`https://wa.me/${whatsappNumber}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-base text-muted-foreground hover:text-primary transition-colors"
+                      className="text-muted-foreground hover:text-primary transition-colors"
                     >
-                      WhatsApp: +91 98400 77591
+                      Chat with us
                     </a>
                   </div>
-                  
-                  <div className="flex items-center gap-3">
-                    <SiInstagram className="w-5 h-5 text-primary flex-shrink-0" />
+                </div>
+                <div className="flex items-start gap-4">
+                  <SiInstagram className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
+                  <div>
+                    <p className="font-semibold mb-1">Instagram</p>
                     <a
                       href={instagramUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-base text-muted-foreground hover:text-primary transition-colors"
+                      className="text-muted-foreground hover:text-primary transition-colors"
                     >
                       @gadget_zone_ind
                     </a>
                   </div>
                 </div>
-              </div>
-              
-              <div>
-                <h3 className="text-xl font-normal mb-3 text-foreground">
-                  Store Hours
-                </h3>
-                <p className="text-base text-muted-foreground">
-                  Monday - Sunday: 10:00 AM - 9:00 PM
-                </p>
-              </div>
-              
-              <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <Button
-                  asChild
-                  size="lg"
-                  className="w-full sm:w-auto min-w-[180px]"
-                >
-                  <a href={`tel:${phoneNumber}`}>
-                    <Phone className="mr-2 h-5 w-5" />
-                    Call Now
-                  </a>
-                </Button>
-                
-                <WhatsAppQuickMessages
-                  whatsappNumber={whatsappNumber}
-                  variant="outline"
-                  size="lg"
-                  className="w-full sm:w-auto min-w-[180px]"
-                />
-              </div>
-            </div>
-            
-            {/* Map */}
-            <div className="h-[400px] rounded-lg overflow-hidden border border-border shadow-lg">
-              <iframe
-                src={mapEmbedUrl}
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Gadget Zone Location"
-              />
-            </div>
+                <div className="pt-4 border-t border-border">
+                  <p className="font-semibold mb-2">Business Hours</p>
+                  <p className="text-muted-foreground">Open Daily: 10 AM – 9 PM</p>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="border-border overflow-hidden">
+              <CardHeader>
+                <CardTitle className="text-2xl mb-4">Find Us on Map</CardTitle>
+              </CardHeader>
+              <CardContent className="p-0">
+                <div className="w-full h-[400px]">
+                  <iframe
+                    src={mapEmbedUrl}
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    title="Gadget Zone location map"
+                  />
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="py-8 px-4 border-t border-border bg-card">
-        <div className="max-w-7xl mx-auto text-center">
-          <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Gadget Zone. All rights reserved.
-          </p>
-          <p className="text-sm text-muted-foreground mt-2">
-            Built with ❤️ using{' '}
-            <a
-              href={`https://caffeine.ai/?utm_source=Caffeine-footer&utm_medium=referral&utm_content=${encodeURIComponent(
-                typeof window !== 'undefined' ? window.location.hostname : 'gadget-zone'
-              )}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-primary hover:underline"
-            >
-              caffeine.ai
-            </a>
-          </p>
+      <footer className="bg-card border-t border-border py-8 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+            <div>
+              <h3 className="font-bold text-lg mb-4 text-foreground">Gadget Zone</h3>
+              <p className="text-sm text-muted-foreground mb-2">
+                Your trusted mobile store in Thiruvanmiyur, Chennai
+              </p>
+              <p className="text-sm text-muted-foreground">
+                Open Daily: 10 AM – 9 PM
+              </p>
+            </div>
+            <div>
+              <h3 className="font-bold text-lg mb-4 text-foreground">Quick Links</h3>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li>
+                  <a href="#products-services" className="hover:text-primary transition-colors">
+                    Products & Services
+                  </a>
+                </li>
+                <li>
+                  <a href="#hot-pick-section" className="hover:text-primary transition-colors">
+                    HOT PICK
+                  </a>
+                </li>
+                <li>
+                  <a href="#contact" className="hover:text-primary transition-colors">
+                    Contact Us
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-bold text-lg mb-4 text-foreground">Connect With Us</h3>
+              <div className="flex gap-4">
+                <a
+                  href={`tel:${phoneNumber}`}
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                  aria-label="Call us"
+                >
+                  <Phone className="h-6 w-6" />
+                </a>
+                <a
+                  href={`https://wa.me/${whatsappNumber}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                  aria-label="WhatsApp"
+                >
+                  <MessageCircle className="h-6 w-6" />
+                </a>
+                <a
+                  href={instagramUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                  aria-label="Instagram"
+                >
+                  <SiInstagram className="h-6 w-6" />
+                </a>
+              </div>
+            </div>
+          </div>
+          <div className="border-t border-border pt-6 text-center text-sm text-muted-foreground">
+            <p>
+              © {new Date().getFullYear()} Gadget Zone. All rights reserved.
+            </p>
+            <p className="mt-2">
+              Built with ❤️ using{' '}
+              <a
+                href={`https://caffeine.ai/?utm_source=Caffeine-footer&utm_medium=referral&utm_content=${encodeURIComponent(window.location.hostname)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:underline"
+              >
+                caffeine.ai
+              </a>
+            </p>
+          </div>
         </div>
       </footer>
 
-      {/* Floating Action Buttons */}
+      {/* Floating HOT PICK Button */}
       <HotFab onClick={scrollToHotPick} />
 
       {/* Back to Top Button */}
       {showBackToTop && (
         <Button
           onClick={scrollToTop}
-          size="lg"
-          className="fixed bottom-6 right-6 z-50 h-14 w-14 rounded-full bg-primary text-primary-foreground shadow-xl hover:bg-primary/90 hover:scale-105 active:scale-95 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          size="icon"
+          className="fixed bottom-6 right-6 z-40 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110"
           aria-label="Back to top"
-          type="button"
         >
-          <ArrowUp className="h-6 w-6" />
+          <ArrowUp className="h-5 w-5" />
         </Button>
       )}
     </div>

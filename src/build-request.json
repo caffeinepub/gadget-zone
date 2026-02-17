@@ -1,159 +1,148 @@
 {
   "kind": "build_request",
-  "title": "Update HOT PICK floating button + bottom-of-page Motorola HOT PICK section with SEO content, real product image, and analytics tracking",
+  "title": "Technical SEO fixes (meta, headings, anchors, schema, canonical, Open Graph) with zero visual/layout changes",
   "projectName": "Gadget Zone",
-  "priority": "normal",
+  "priority": "high",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Update the existing floating HOT PICK button so it remains a fixed floating action button (not sticky to any section), displays the label \"🔥 HOT PICK\", and on click smoothly scrolls to the dedicated HOT PICK content section that is located at the bottom of the page.",
+      "text": "Update the site-level SEO meta tags in frontend/index.html to exactly match the provided Meta Title and Meta Description, without affecting UI appearance.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "user-msg-1"
+          "msg-1"
         ],
         "quotes": [
-          "Keep it as a floating button (not sticky to any section)\n- Label: 🔥 HOT PICK\n- On click, scroll smoothly to the HOT PICK content section at the bottom of the page",
-          "Keep this HOT PICK section always at the bottom of the page"
+          "1. Set SEO Meta:\n- Meta Title: \"Gadget Zone | Mobile Store in Thiruvanmiyur Chennai\"\n- Meta Description: \"Gadget Zone is a trusted mobile store in Thiruvanmiyur, Chennai for smartphones, accessories, repairs, EMI options & CCTV solutions.\""
         ]
       },
       "acceptanceCriteria": [
-        "A floating button is visible above page content and does not change layout/position based on sections (fixed positioning).",
-        "Button text is exactly \"🔥 HOT PICK\".",
-        "Clicking the button performs smooth scrolling to the HOT PICK section at the bottom of the page."
+        "frontend/index.html <title> is exactly \"Gadget Zone | Mobile Store in Thiruvanmiyur Chennai\"",
+        "frontend/index.html contains a single <meta name=\"description\"> with content exactly \"Gadget Zone is a trusted mobile store in Thiruvanmiyur, Chennai for smartphones, accessories, repairs, EMI options & CCTV solutions.\"",
+        "No visible layout or styling changes occur (meta-only changes)"
       ]
     },
     {
       "id": "REQ-2",
-      "text": "Add GA4 analytics click tracking for the floating HOT PICK button click with event name \"hot_pick_click\" (include at least page_url in event parameters) without breaking when analytics is not available.",
+      "text": "Fix heading semantics in the React page content so there is exactly one H1 with text \"Gadget Zone\", and use H2 tags for the main sections: \"Brands We Deal With\", \"Products & Services\", \"Why Choose Us\", \"HOT PICK\", and \"Store Gallery\". Use H3 only inside sections if needed, and do not change any displayed text content, styling, or section order.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "user-msg-1"
+          "msg-1"
         ],
         "quotes": [
-          "Add click tracking for analytics (event: hot_pick_click)"
+          "2. Fix Heading Semantics:\n- Assign exactly ONE H1: \"Gadget Zone\"\n- Assign H2 tags to main sections:\n  - Brands We Deal With\n  - Products & Services\n  - Why Choose Us\n  - HOT PICK\n  - Store Gallery\n- Use H3 only inside sections if needed\n- Do not change text content or visual styling"
         ]
       },
       "acceptanceCriteria": [
-        "Each HOT PICK button click triggers a GA4 event named \"hot_pick_click\" when GA4 is available.",
-        "If GA4 is unavailable, clicking the button still scrolls and the app does not error.",
-        "Event parameters include page_url = current window.location.href."
+        "Rendered DOM contains exactly one <h1> and its text content is exactly \"Gadget Zone\"",
+        "Each listed main section title is rendered as an <h2> (not <div>, <p>, etc.), with the same visible styling as before",
+        "No additional <h1> elements exist anywhere on the page",
+        "No sections are moved and no visible typography/spacing changes occur (tag swaps preserve styling)"
       ]
     },
     {
       "id": "REQ-3",
-      "text": "Create/update the bottom-of-page HOT PICK content section to use the title text exactly: \"🔥 HOT PICK – Latest Motorola Signature Smartphone\" and keep this section always rendered as the last section on the page so it stays at the bottom.",
+      "text": "Add internal anchor links for in-page navigation without changing layout: (a) each Product & Service card links to its respective description section, (b) the HOT PICK button links to the HOT PICK content section, and (c) the footer includes anchor links to Products, Services, and Contact.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "user-msg-1"
+          "msg-1"
         ],
         "quotes": [
-          "HOT PICK Content Title\n🔥 HOT PICK – Latest Motorola Signature Smartphone",
-          "Keep this HOT PICK section always at the bottom of the page"
+          "3. Add Internal Anchor Links:\n- Product & Service cards should link to their respective description sections\n- HOT PICK button should link to the HOT PICK content section\n- Footer should include anchor links to Products, Services, and Contact"
         ]
       },
       "acceptanceCriteria": [
-        "A HOT PICK section exists at the bottom of the page (last major section rendered in the app).",
-        "The section title text is exactly \"🔥 HOT PICK – Latest Motorola Signature Smartphone\"."
+        "Each service description section has a stable id attribute (e.g., derived from the service name) and clicking its corresponding card updates the URL hash and scrolls to that section",
+        "The floating HOT PICK control includes a real anchor target (href to the HOT PICK section id) and still scrolls to the HOT PICK section when activated",
+        "Footer contains visible links that navigate via hash anchors to Products, Services, and Contact sections (no route changes)",
+        "All anchor additions preserve existing styles and do not reflow or reorder content"
       ]
     },
     {
       "id": "REQ-4",
-      "text": "Render the HOT PICK body content so it includes the user-provided SEO-friendly text verbatim (preserve wording, punctuation, and bullet points exactly as provided), and ensure the specified Motorola-related keywords are naturally included within the HOT PICK section content without modifying the verbatim block.",
+      "text": "Add LocalBusiness structured data (JSON-LD) to frontend/index.html (or another static head injection approach) including: Business Name (Gadget Zone), Address (Thiruvanmiyur, Chennai, Tamil Nadu), Phone number and WhatsApp, Business hours, and Services offered, without affecting UI appearance.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "user-msg-1"
+          "msg-1"
         ],
         "quotes": [
-          "HOT PICK Content (SEO-Friendly – Add Exactly This Text)\n\nExperience premium design, powerful performance, and a clean Android experience with the latest Motorola Signature smartphone.\n\nThis Motorola Signature phone is designed for users who want a smooth, fast, and reliable smartphone with a premium look and long-lasting performance. With near-stock Android, a powerful processor, advanced camera system, and strong battery life, it is ideal for everyday use, work, entertainment, and photography.\n\nAvailable now at Gadget Zone, Thiruvanmiyur, Chennai – your trusted local mobile store for genuine smartphones and expert guidance.\n\nKey highlights:\n• Premium Motorola Signature design\n• Clean Android experience (no bloatware)\n• Powerful performance for multitasking and gaming\n• Advanced camera for photos and videos\n• Long-lasting battery with fast charging\n• Secure and reliable Motorola software support\n\nWhy buy from Gadget Zone:\n• Genuine sealed Motorola mobiles\n• Latest models and variants available\n• Exchange and upgrade support\n• EMI / finance options\n• Local after-sales guidance and support\n\nAdd Call and WhatsApp buttons below this section for instant enquiry.",
-          "SEO Optimization\n- Ensure keywords like:\n  \"Motorola mobile phone\",\n  \"Motorola Signature phone\",\n  \"Latest Motorola phone\",\n  \"Motorola phone price in Chennai\",\n  \"Buy Motorola phone near me\",\n  \"Motorola mobile store in Thiruvanmiyur\"\n  are naturally included."
+          "4. Add LocalBusiness Schema (Structured Data):\nInclude:\n- Business Name: Gadget Zone\n- Address: Thiruvanmiyur, Chennai, Tamil Nadu\n- Phone number & WhatsApp\n- Business hours\n- Services offered"
         ]
       },
       "acceptanceCriteria": [
-        "The provided body text appears in the HOT PICK section exactly as written by the user (including line breaks/paragraph separation and bullet characters \"•\").",
-        "The HOT PICK section also includes the keywords: \"Motorola mobile phone\", \"Motorola Signature phone\", \"Latest Motorola phone\", \"Motorola phone price in Chennai\", \"Buy Motorola phone near me\", and \"Motorola mobile store in Thiruvanmiyur\" in a natural-sounding way (e.g., in an additional short paragraph within the same section).",
-        "No other page sections’ text content is changed as part of this update."
+        "A single JSON-LD <script type=\"application/ld+json\"> is present in the document head",
+        "Schema type is LocalBusiness (or a more specific subtype if already used) and includes name \"Gadget Zone\"",
+        "Schema includes address with locality \"Chennai\" and region \"Tamil Nadu\" and references Thiruvanmiyur",
+        "Schema includes the phone number and a WhatsApp contact URL/identifier based on existing site values (+919840077591 and 919840077591 as used in the UI)",
+        "Schema includes business hours matching the UI (10 AM – 9 PM)",
+        "Schema includes a list of services offered aligned with the existing Products/Services content",
+        "No visible UI changes occur"
       ]
     },
     {
       "id": "REQ-5",
-      "text": "Add two enquiry CTAs directly below the HOT PICK section content: a Call button linking to the existing store phone number and a WhatsApp button linking to the existing store WhatsApp number, using the same clean visual styling patterns as existing CTA buttons.",
+      "text": "Add a canonical link tag in frontend/index.html pointing to the main site URL using the non-www version. Use the homepage URL already used in frontend/public/sitemap.xml as the canonical href.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "user-msg-1"
+          "msg-1"
         ],
         "quotes": [
-          "Add Call and WhatsApp buttons below this section for instant enquiry."
+          "5. Add Canonical Link:\n- Set canonical URL to the main site URL (non-www version)"
         ]
       },
       "acceptanceCriteria": [
-        "Two buttons/CTAs are visible below the HOT PICK text: Call and WhatsApp.",
-        "Call uses a tel: link for the existing phone number already used elsewhere in the app.",
-        "WhatsApp uses a wa.me (or equivalent) link for the existing WhatsApp number already used elsewhere in the app.",
-        "These additions do not remove or change existing call/WhatsApp CTAs in other sections."
+        "frontend/index.html contains exactly one <link rel=\"canonical\">",
+        "Canonical href equals \"https://gadgetzone-nz9.caffeine.xyz/\" (non-www) as per frontend/public/sitemap.xml",
+        "No visible UI changes occur"
       ]
     },
     {
       "id": "REQ-6",
-      "text": "Add a clean, premium Motorola Signature smartphone product image to the HOT PICK section as a static frontend asset, matching the same clean product-section visual style used elsewhere, and meeting all image constraints (white/transparent background, product-only, centered, no lifestyle scene).",
+      "text": "Add Open Graph tags in frontend/index.html for social sharing, including og:title, og:description, and og:image, using the provided title/description and an existing site image asset (do not regenerate images).",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "user-msg-1"
+          "msg-1"
         ],
         "quotes": [
-          "HOT PICK Image (Very Important)\n- Use a REAL Motorola Signature smartphone product image\n- Style: clean product photoshoot\n- White or transparent background\n- Single or 2–3 Motorola phones arranged neatly (poster-style)\n- No lifestyle background, no sofa, no room setup\n- Phone should be the clear focus, centered, premium-looking\n- Match the same clean visual style used for other product sections"
+          "6. Add Open Graph Tags:\n- Title, description, and preview image for social sharing\n\nIMPORTANT RULES:\n- Do NOT regenerate images"
         ]
       },
       "acceptanceCriteria": [
-        "The HOT PICK section displays a single product-style image meeting the specified constraints (white/transparent background; no lifestyle background; phone(s) centered and clearly the focus; premium clean photoshoot look).",
-        "The image is served as a static asset from frontend/public/assets/generated (not fetched via backend).",
-        "The image is rendered using the app’s existing image rendering conventions (e.g., SafeImage or equivalent) and does not break layout on mobile/desktop."
-      ]
-    },
-    {
-      "id": "REQ-7",
-      "text": "Ensure the HOT PICK updates are isolated: only the HOT PICK floating button and the bottom HOT PICK section are modified/added, and no other existing sections’ layout or working functionality changes.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "user-msg-1"
-        ],
-        "quotes": [
-          "Layout Rules\n- Keep this HOT PICK section always at the bottom of the page\n- Content updates dynamically only inside this section\n- Do not affect other sections or layout\n\nDo not change any existing working functionality."
-        ]
-      },
-      "acceptanceCriteria": [
-        "Existing sections (hero, services, tracking initialization, other CTAs, and existing HOT details behavior) continue to function as before.",
-        "No unintended spacing/positioning regressions occur in other sections across mobile and desktop breakpoints.",
-        "HOT PICK section remains the last section on the page after changes."
+        "frontend/index.html includes og:title matching \"Gadget Zone | Mobile Store in Thiruvanmiyur Chennai\"",
+        "frontend/index.html includes og:description matching the provided meta description exactly",
+        "frontend/index.html includes og:image referencing an existing image already in the project (no new image generation) and uses an absolute URL when possible (e.g., canonical base + existing asset path)",
+        "No visible UI changes occur"
       ]
     }
   ],
   "constraints": [
-    "Do not change any existing working functionality outside the HOT PICK floating button and the new/updated bottom-of-page HOT PICK section.",
-    "Do not edit files under frontend/src/components/ui or any frontend immutablePaths listed in SYSTEM_CONTEXT.",
-    "Backend must remain single-actor; no new backend services or external databases."
+    "Do not move sections or change section order.",
+    "Do not modify hero text or hero layout.",
+    "Do not change any visible design, styling, spacing, or layout; SEO changes must not affect UI appearance.",
+    "Do not regenerate or modify images; only reference existing assets.",
+    "Do not change text content other than the specified meta title/description and the semantic HTML tag names needed for headings/anchors."
   ],
   "nonGoals": [
-    "Changing or redesigning other product/service sections.",
-    "Adding new authentication, admin panels, CMS, or backend-driven content management for HOT PICK.",
-    "Implementing third-party analytics providers beyond the existing GA4 integration already present in the project."
+    "Adding new pages or routes.",
+    "Changing analytics, GA4/GTM behavior, or tracking events (except incidental hash navigation from anchor links).",
+    "Backend changes (backend/main.mo should remain untouched for this request).",
+    "Content rewrites of section copy, service descriptions, or hero messaging."
   ],
   "imageRequirements": {
-    "required": [
-      "Photorealistic Motorola smartphone product poster on pure white or transparent background; 1–3 phones neatly arranged, centered, premium studio lighting, no lifestyle scene (hot-pick-motorola-signature.dim_1200x900.png)"
-    ],
+    "required": [],
     "edits": []
   },
   "userProfileUpdate": {
     "goalsToAdd": [],
     "goalsToRemove": [],
-    "preferencesToAdd": [],
+    "preferencesToAdd": [
+      "Prefer technical SEO changes that do not alter visual design or layout."
+    ],
     "preferencesToRemove": [],
     "miscToAdd": [],
     "miscToRemove": [],

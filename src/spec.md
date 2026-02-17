@@ -1,15 +1,14 @@
 # Specification
 
 ## Summary
-**Goal:** Improve the HOT PICK entry point and bottom-of-page HOT PICK section with dedicated Motorola SEO content, a real product image, and GA4 click tracking—without impacting other sections.
+**Goal:** Implement technical SEO improvements (meta tags, heading semantics, internal anchors, schema, canonical, Open Graph) with zero visual/layout changes.
 
 **Planned changes:**
-- Update the floating action button to be fixed (not section-sticky), labeled exactly “🔥 HOT PICK”, and smoothly scroll to the bottom HOT PICK section on click.
-- Add GA4 event tracking on HOT PICK button clicks using event name `hot_pick_click`, including `page_url`, and ensure no errors if GA4 is unavailable.
-- Add/update a dedicated bottom-of-page section that is always the last section rendered, titled exactly “🔥 HOT PICK – Latest Motorola Signature Smartphone”.
-- Render the provided SEO body text verbatim (including formatting and bullets), and add an additional short paragraph in the same section that naturally includes the specified Motorola keywords without altering the verbatim block.
-- Add Call and WhatsApp CTAs directly below the HOT PICK content, linking to the existing store phone number (tel:) and existing WhatsApp number (wa.me or equivalent), matching existing CTA styling patterns.
-- Add a clean, premium Motorola Signature smartphone product image as a static asset (white/transparent background; product-only; centered; no lifestyle scene) and render it using existing image conventions.
-- Keep all changes isolated to the floating HOT PICK button and the bottom HOT PICK section, with no other layout/functionality changes elsewhere.
+- Update `frontend/index.html` meta title and meta description to the provided exact strings.
+- Adjust React page heading tags so there is exactly one H1 (“Gadget Zone”) and the specified main section titles are H2, without changing visible styling or text.
+- Add in-page anchor navigation: cards link to their corresponding description sections, HOT PICK control links to the HOT PICK section, and footer includes hash links to Products, Services, and Contact.
+- Add LocalBusiness JSON-LD structured data (name, address, phone/WhatsApp, hours, services) via a head script injection approach.
+- Add a single canonical link tag pointing to `https://gadgetzone-nz9.caffeine.xyz/`.
+- Add Open Graph tags (og:title, og:description, og:image) using the provided title/description and an existing project image asset (no new images).
 
-**User-visible outcome:** Users see a fixed “🔥 HOT PICK” floating button that smoothly jumps to a new bottom-of-page Motorola HOT PICK section with the exact provided SEO content, a clean product image, and Call/WhatsApp enquiry buttons; button clicks are tracked in GA4 when available.
+**User-visible outcome:** The page looks the same, but has improved SEO/social sharing metadata, correct heading structure, and click-to-scroll in-page navigation links.

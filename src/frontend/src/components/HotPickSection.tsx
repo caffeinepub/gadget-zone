@@ -18,10 +18,15 @@ export function HotPickSection({ sectionRef }: HotPickSectionProps) {
       className="py-16 md:py-24 px-4 section-alt-bg"
     >
       <div className="max-w-6xl mx-auto">
-        {/* Title */}
-        <h2 className="text-3xl md:text-4xl font-light text-center mb-12 text-foreground">
-          🔥 HOT PICK – Latest Motorola Signature Smartphone
+        {/* Title - Exact as specified */}
+        <h2 className="text-3xl md:text-4xl font-light text-center mb-6 text-foreground">
+          🔥 HOT PICK – Trending Right Now
         </h2>
+
+        {/* Short intro explaining why highlighted */}
+        <p className="text-center text-base md:text-lg text-muted-foreground mb-12 max-w-3xl mx-auto">
+          This premium Motorola Signature smartphone is our top pick this month for its exceptional value, powerful performance, and clean Android experience. Customers love it for reliability and style.
+        </p>
 
         {/* Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
@@ -30,7 +35,7 @@ export function HotPickSection({ sectionRef }: HotPickSectionProps) {
             <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden bg-white shadow-lg">
               <SafeImage
                 src="/assets/generated/hot-pick-motorola-signature.dim_1200x900.png"
-                alt="Latest Motorola Signature Smartphone - Premium design with clean Android experience"
+                alt="Latest Motorola Signature Smartphone at Gadget Zone Thiruvanmiyur - Premium design with clean Android experience"
                 className="w-full h-full object-contain"
               />
             </div>
@@ -38,7 +43,7 @@ export function HotPickSection({ sectionRef }: HotPickSectionProps) {
 
           {/* Content */}
           <div className="order-2 lg:order-2 space-y-6">
-            {/* Main Description */}
+            {/* Main Description - Motorola Signature focused */}
             <div className="prose prose-neutral dark:prose-invert max-w-none">
               <p className="text-base md:text-lg leading-relaxed">
                 Experience premium design, powerful performance, and a clean Android experience with the latest Motorola Signature smartphone.
@@ -49,7 +54,7 @@ export function HotPickSection({ sectionRef }: HotPickSectionProps) {
               </p>
 
               <p className="text-base leading-relaxed">
-                Available now at Gadget Zone, Thiruvanmiyur, Chennai – your trusted local mobile store for genuine smartphones and expert guidance.
+                Available now at Gadget Zone – your trusted local mobile store serving Thiruvanmiyur, Adyar, Besant Nagar, Thoraipakkam, Velachery, Perungudi, and nearby areas along OMR and ECR in Chennai.
               </p>
 
               {/* Key Highlights */}
@@ -77,20 +82,25 @@ export function HotPickSection({ sectionRef }: HotPickSectionProps) {
                 </ul>
               </div>
 
-              {/* SEO Keyword Paragraph */}
+              {/* SEO Keyword Paragraph with service areas */}
               <p className="text-sm md:text-base leading-relaxed mt-6 text-muted-foreground">
-                Looking for the latest Motorola phone or Motorola mobile phone in Chennai? Visit Gadget Zone, your trusted Motorola mobile store in Thiruvanmiyur, to explore the Motorola Signature phone and other premium models. Check Motorola phone price in Chennai and buy Motorola phone near me with expert guidance, genuine warranty, and flexible payment options.
+                Looking for the latest Motorola phone or Motorola mobile phone in Chennai? Visit Gadget Zone, your trusted Motorola mobile store in Thiruvanmiyur, to explore the Motorola Signature phone and other premium models. We serve customers across Thiruvanmiyur, Adyar, Besant Nagar, Thoraipakkam, Velachery, Perungudi, OMR, and ECR. Check Motorola phone price in Chennai and buy Motorola phone near me with expert guidance, genuine warranty, and flexible payment options.
               </p>
             </div>
 
-            {/* CTA Buttons */}
+            {/* CTA Buttons with tracking */}
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <Button
                 asChild
                 size="lg"
                 className="w-full sm:w-auto min-w-[160px] bg-primary text-primary-foreground hover:bg-primary/90"
               >
-                <a href={`tel:${phoneNumber}`}>
+                <a 
+                  href={`tel:${phoneNumber}`}
+                  data-ga-event="cta_click"
+                  data-ga-context="hot_pick_section"
+                  data-ga-label="call"
+                >
                   <Phone className="mr-2 h-5 w-5" />
                   Call Now
                 </a>
@@ -106,6 +116,9 @@ export function HotPickSection({ sectionRef }: HotPickSectionProps) {
                   href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Hi, I am interested in the Motorola Signature smartphone. Please share more details.')}`}
                   target="_blank"
                   rel="noopener noreferrer"
+                  data-ga-event="cta_click"
+                  data-ga-context="hot_pick_section"
+                  data-ga-label="whatsapp"
                 >
                   <MessageCircle className="mr-2 h-5 w-5" />
                   WhatsApp

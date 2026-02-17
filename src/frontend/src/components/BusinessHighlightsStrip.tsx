@@ -11,24 +11,32 @@ export function BusinessHighlightsStrip() {
       label: 'Location: Thiruvanmiyur, Chennai',
       href: MAPS_LINK,
       external: true,
+      gaEvent: null,
     },
     {
       icon: Clock,
       label: 'Working Hours: 10 AM – 9 PM',
       href: null,
       external: false,
+      gaEvent: null,
     },
     {
       icon: Phone,
       label: 'Call for Enquiries',
       href: `tel:${PHONE_NUMBER}`,
       external: false,
+      gaEvent: 'cta_click',
+      gaContext: 'business_strip',
+      gaLabel: 'call',
     },
     {
       icon: MessageCircle,
       label: 'WhatsApp Support',
       href: `https://wa.me/${WHATSAPP_NUMBER}`,
       external: true,
+      gaEvent: 'cta_click',
+      gaContext: 'business_strip',
+      gaLabel: 'whatsapp',
     },
   ];
 
@@ -57,6 +65,9 @@ export function BusinessHighlightsStrip() {
                   target={item.external ? "_blank" : undefined}
                   rel={item.external ? "noopener noreferrer" : undefined}
                   className={baseClasses}
+                  data-ga-event={item.gaEvent || undefined}
+                  data-ga-context={item.gaContext || undefined}
+                  data-ga-label={item.gaLabel || undefined}
                 >
                   {content}
                 </a>

@@ -13,6 +13,7 @@ interface WhatsAppQuickMessagesProps {
   className?: string;
   showIcon?: boolean;
   label?: string;
+  gaContext?: string;
 }
 
 export function WhatsAppQuickMessages({
@@ -22,6 +23,7 @@ export function WhatsAppQuickMessages({
   className = '',
   showIcon = true,
   label = 'WhatsApp',
+  gaContext = '',
 }: WhatsAppQuickMessagesProps) {
   const messages = [
     "Hi, I'm looking to buy a new mobile.",
@@ -36,7 +38,14 @@ export function WhatsAppQuickMessages({
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant={variant} size={size} className={className}>
+        <Button 
+          variant={variant} 
+          size={size} 
+          className={className}
+          data-ga-event={gaContext ? "cta_click" : undefined}
+          data-ga-context={gaContext || undefined}
+          data-ga-label="whatsapp"
+        >
           {showIcon && <MessageCircle className="mr-2 h-5 w-5" />}
           {label}
         </Button>
@@ -56,6 +65,9 @@ export function WhatsAppQuickMessages({
                 href={createWhatsAppLink(message)}
                 target="_blank"
                 rel="noopener noreferrer"
+                data-ga-event={gaContext ? "cta_click" : undefined}
+                data-ga-context={gaContext ? `${gaContext}_quick_message` : undefined}
+                data-ga-label="whatsapp"
               >
                 <MessageCircle className="mr-2 h-4 w-4 flex-shrink-0" />
                 <span className="text-sm">{message}</span>

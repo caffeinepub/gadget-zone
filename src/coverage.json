@@ -1,35 +1,32 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-17T06:03:12.836Z",
+  "generatedAt": "2026-02-17T12:05:13.535Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 7,
-    "implemented": 7,
+    "total": 6,
+    "implemented": 6,
     "items": [
       {
         "id": "REQ-1",
-        "summary": "Update the existing floating HOT PICK button so it remains a fixed floating action button (not sticky to any section), displays the label \"🔥 HOT PICK\", and on click smoothly scrolls to the dedicated HOT PICK content section that is located at the bottom of the page.",
+        "summary": "Update the site-level SEO meta tags in frontend/index.html to exactly match the provided Meta Title and Meta Description, without affecting UI appearance.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/HotFab.tsx",
-          "frontend/src/App.tsx"
+          "frontend/index.html"
         ],
         "matchedFiles": [
-          "frontend/src/components/HotFab.tsx",
-          "frontend/src/App.tsx"
+          "frontend/index.html"
         ]
       },
       {
         "id": "REQ-2",
-        "summary": "Add GA4 analytics click tracking for the floating HOT PICK button click with event name \"hot_pick_click\" (include at least page_url in event parameters) without breaking when analytics is not available.",
+        "summary": "Fix heading semantics in the React page content so there is exactly one H1 with text \"Gadget Zone\", and use H2 tags for the main sections: \"Brands We Deal With\", \"Products & Services\", \"Why Choose Us\", \"HOT PICK\", and \"Store Gallery\". Use H3 only inside sections if needed, and do not change any displayed text content, styling, or section order.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/App.tsx",
-          "frontend/src/lib/ga4.ts"
+          "frontend/src/App.tsx"
         ],
         "matchedFiles": [
           "frontend/src/App.tsx"
@@ -37,63 +34,48 @@
       },
       {
         "id": "REQ-3",
-        "summary": "Create/update the bottom-of-page HOT PICK content section to use the title text exactly: \"🔥 HOT PICK – Latest Motorola Signature Smartphone\" and keep this section always rendered as the last section on the page so it stays at the bottom.",
+        "summary": "Add internal anchor links for in-page navigation without changing layout: (a) each Product & Service card links to its respective description section, (b) the HOT PICK button links to the HOT PICK content section, and (c) the footer includes anchor links to Products, Services, and Contact.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/HotPickSection.tsx",
-          "frontend/src/App.tsx"
+          "frontend/src/App.tsx",
+          "frontend/src/components/HotFab.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/components/HotPickSection.tsx",
-          "frontend/src/App.tsx"
+          "frontend/src/App.tsx",
+          "frontend/src/components/HotFab.tsx"
         ]
       },
       {
         "id": "REQ-4",
-        "summary": "Render the HOT PICK body content so it includes the user-provided SEO-friendly text verbatim (preserve wording, punctuation, and bullet points exactly as provided), and ensure the specified Motorola-related keywords are naturally included within the HOT PICK section content without modifying the verbatim block.",
+        "summary": "Add LocalBusiness structured data (JSON-LD) to frontend/index.html (or another static head injection approach) including: Business Name (Gadget Zone), Address (Thiruvanmiyur, Chennai, Tamil Nadu), Phone number and WhatsApp, Business hours, and Services offered, without affecting UI appearance.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/HotPickSection.tsx"
+          "frontend/index.html"
         ],
         "matchedFiles": [
-          "frontend/src/components/HotPickSection.tsx"
+          "frontend/index.html"
         ]
       },
       {
         "id": "REQ-5",
-        "summary": "Add two enquiry CTAs directly below the HOT PICK section content: a Call button linking to the existing store phone number and a WhatsApp button linking to the existing store WhatsApp number, using the same clean visual styling patterns as existing CTA buttons.",
+        "summary": "Add a canonical link tag in frontend/index.html pointing to the main site URL using the non-www version. Use the homepage URL already used in frontend/public/sitemap.xml as the canonical href.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/HotPickSection.tsx"
+          "frontend/index.html"
         ],
         "matchedFiles": [
-          "frontend/src/components/HotPickSection.tsx"
+          "frontend/index.html"
         ]
       },
       {
         "id": "REQ-6",
-        "summary": "Add a clean, premium Motorola Signature smartphone product image to the HOT PICK section as a static frontend asset, matching the same clean product-section visual style used elsewhere, and meeting all image constraints (white/transparent background, product-only, centered, no lifestyle scene).",
+        "summary": "Add Open Graph tags in frontend/index.html for social sharing, including og:title, og:description, and og:image, using the provided title/description and an existing site image asset (do not regenerate images).",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/public/assets/generated/hot-pick-motorola-signature.dim_1200x900.png",
-          "frontend/src/components/HotPickSection.tsx"
+          "frontend/index.html"
         ],
         "matchedFiles": [
-          "frontend/public/assets/generated/hot-pick-motorola-signature.dim_1200x900.png",
-          "frontend/src/components/HotPickSection.tsx"
-        ]
-      },
-      {
-        "id": "REQ-7",
-        "summary": "Ensure the HOT PICK updates are isolated: only the HOT PICK floating button and the bottom HOT PICK section are modified/added, and no other existing sections’ layout or working functionality changes.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/App.tsx",
-          "frontend/src/components/HotFab.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/App.tsx",
-          "frontend/src/components/HotFab.tsx"
+          "frontend/index.html"
         ]
       }
     ]
@@ -103,10 +85,9 @@
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/public/assets/generated/hot-pick-motorola-signature.dim_1200x900.png",
+    "frontend/index.html",
     "frontend/src/App.tsx",
     "frontend/src/components/HotFab.tsx",
-    "frontend/src/components/HotPickSection.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

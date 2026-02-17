@@ -23,6 +23,13 @@ export function SafeImage({
     setHasError(false);
   }, [src]);
 
+  // Development warning for empty alt text
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'development' && !alt) {
+      console.warn('SafeImage: Missing alt text for image:', src);
+    }
+  }, [alt, src]);
+
   const handleError = () => {
     setHasError(true);
   };

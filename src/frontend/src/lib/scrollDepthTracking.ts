@@ -43,6 +43,7 @@ function checkScrollDepth(): void {
     if (scrollPercentage >= threshold && !trackedThresholds.has(threshold)) {
       trackedThresholds.add(threshold);
       sendGA4Event('scroll_depth', {
+        percent: threshold.toString(),
         depth: threshold,
         page_url: window.location.href,
       });
