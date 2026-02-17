@@ -1,49 +1,100 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-12T07:19:40.049Z",
-  "summary": "GA4 gtag.js snippet with hardcoded measurement ID was added to frontend/index.html and window.gtag/dataLayer are initialized; frontend tracking utilities were adjusted to avoid double-initializing GA. However, the diff also introduces/retains Google Tag Manager (GTM) configuration and a GTM noscript iframe placeholder in index.html, which was not requested and may conflict with the stated non-goals/constraints about adding other analytics initialization paths.",
+  "generatedAt": "2026-02-17T06:03:12.833Z",
+  "summary": "Diff adds new HotPickSection component and updates the floating HOT PICK button (HotFab). However, several BuildRequest requirements cannot be confirmed from the provided diff excerpts (verbatim SEO text, GA4 event parameters, CTA links, required image asset file, and ensuring HOT PICK is last section). Diff summary also indicates multiple unrelated styling/SEO/asset/tracking changes beyond HOT PICK scope.",
   "missing_requirements": [
     {
       "id": "REQ-2",
-      "requirement": "The app does not throw runtime errors in console related to gtag/dataLayer initialization when loading the homepage and navigating within the SPA.",
-      "reason": "The diff shows code changes that likely prevent double-init, but it does not provide runnable/observable evidence (e.g., tests, logs) confirming no runtime console errors during SPA navigation.",
+      "requirement": "Add GA4 analytics click tracking for the floating HOT PICK button click with event name \"hot_pick_click\" (include at least page_url in event parameters) without breaking when analytics is not available.",
+      "reason": "App.tsx imports sendGA4Event, but the diff excerpt does not show any click handler implementation that fires event name \"hot_pick_click\" nor includes page_url, nor demonstrates no-op safety when GA4 is unavailable.",
       "evidence": [
-        "frontend/src/lib/googleTracking.ts",
-        "frontend/index.html"
+        "frontend/src/App.tsx"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "requirement": "Render the HOT PICK body content so it includes the user-provided SEO-friendly text verbatim (preserve wording, punctuation, and bullet points exactly as provided), and include the specified Motorola-related keywords in additional text without modifying the verbatim block.",
+      "reason": "HotPickSection contains newly authored paragraphs and bullet lists; there is no evidence that the user-provided SEO-friendly text block is included verbatim (and the keyword paragraph is truncated, so keyword completeness also cannot be verified).",
+      "evidence": [
+        "frontend/src/components/HotPickSection.tsx"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "requirement": "Add two enquiry CTAs directly below the HOT PICK section content: a Call button (tel:) and a WhatsApp button (wa.me or equivalent) using existing numbers already used elsewhere.",
+      "reason": "HotPickSection imports Button and icons and defines phone/WhatsApp numbers, but the provided excerpt is truncated before any CTA rendering/links are shown, so the required tel:/WhatsApp links and placement directly below content cannot be confirmed.",
+      "evidence": [
+        "frontend/src/components/HotPickSection.tsx"
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "requirement": "Add a clean Motorola Signature smartphone product image as a static asset under frontend/public/assets/generated and render it using existing image conventions.",
+      "reason": "HotPickSection references the required image path, but the diff does not show the actual image file being added under frontend/public/assets/generated.",
+      "evidence": [
+        "frontend/src/components/HotPickSection.tsx"
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "requirement": "Ensure updates are isolated to the HOT PICK floating button and bottom HOT PICK section; no other sections’ layout/functionality changes.",
+      "reason": "Diff summary indicates many other files were changed/added (global CSS, Tailwind config, index.html meta/GA4 script, other components, analytics utilities, and additional assets), which suggests the change set is not isolated to only HOT PICK.",
+      "evidence": [
+        "frontend-file-summaries.txt"
       ]
     }
   ],
   "hallucinated_features": [
     {
-      "description": "Introduced/maintained Google Tag Manager (GTM) configuration and initialization utilities alongside GA4.",
-      "reason": "BuildRequest non-goals specify not adding third-party analytics providers other than Google Analytics (gtag.js); GTM support and initialization were added/expanded beyond the requested GA4 gtag.js snippet work.",
+      "description": "Global style system updates (OKLCH color system, section-alt token, texture utilities, ticker animation, HOT badge pulse animation).",
+      "reason": "BuildRequest constrained changes to HOT PICK floating button and bottom HOT PICK section only; global CSS additions are not requested.",
       "evidence": [
-        "frontend/src/lib/analyticsConfig.ts",
-        "frontend/src/lib/googleTracking.ts"
+        "frontend-file-summaries.txt"
       ]
     },
     {
-      "description": "Added/kept a GTM noscript iframe fallback in frontend/index.html referencing an environment variable placeholder (%VITE_GTM_CONTAINER_ID%).",
-      "reason": "Not requested by REQ-1/REQ-2, and it introduces an additional analytics-related integration path plus an env-var placeholder in HTML (even if not for GA4).",
+      "description": "Tailwind configuration changes (extended neutral palette, typography settings, refined spacing).",
+      "reason": "Not requested and violates the isolation constraint (REQ-7).",
       "evidence": [
-        "frontend/index.html"
+        "frontend-file-summaries.txt"
       ]
     },
     {
-      "description": "Project metadata updated to include new feature requests entries (AR-1/AR-2/AR-3).",
-      "reason": "Not part of the BuildRequest requirements; this is process/metadata rather than implementing GA4 loading/config consistency.",
+      "description": "index.html changes including SEO meta tags and a hardcoded GA4 tracking script/measurement ID.",
+      "reason": "BuildRequest only asked for GA4 click tracking for the HOT PICK button using existing GA4 integration, and explicitly listed non-goal of adding third-party analytics beyond existing GA4 integration; editing index.html for GA4/meta is not requested and not isolated.",
       "evidence": [
-        "project_state.json"
+        "frontend-file-summaries.txt"
+      ]
+    },
+    {
+      "description": "Added unrelated generated assets (e.g., bg-mobile-outline-texture SVG, CCTV logos/service images).",
+      "reason": "Not requested; BuildRequest only required a specific Motorola HOT PICK image asset.",
+      "evidence": [
+        "frontend-file-summaries.txt"
+      ]
+    },
+    {
+      "description": "Behavior changes to other components (e.g., BusinessHighlightsStrip making items fully clickable; MobileCareSmartUsageGuideSection modal behavior; SafeImage error-reset behavior).",
+      "reason": "Not requested and conflicts with the constraint to avoid changing existing functionality outside HOT PICK.",
+      "evidence": [
+        "frontend-file-summaries.txt"
+      ]
+    },
+    {
+      "description": "New/changed tracking infrastructure beyond the specific HOT PICK click event (analyticsConfig, googleTracking changes, SPA page view tracking, delegated click tracking, scroll depth tracking).",
+      "reason": "BuildRequest requested only a GA4 event on HOT PICK button click; additional tracking modules/changes are outside scope and not isolated.",
+      "evidence": [
+        "frontend-file-summaries.txt"
       ]
     }
   ],
-  "confidence": 0.72,
+  "confidence": 0.64,
   "changed_files": [
     "frontend-file-summaries.txt",
-    "frontend/index.html",
-    "frontend/src/lib/analyticsConfig.ts",
-    "frontend/src/lib/googleTracking.ts",
+    "frontend/src/App.tsx",
+    "frontend/src/components/HotFab.tsx",
+    "frontend/src/components/HotPickSection.tsx",
     "project_state.json"
   ]
 }

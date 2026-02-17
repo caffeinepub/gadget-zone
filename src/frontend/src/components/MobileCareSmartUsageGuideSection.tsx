@@ -1,6 +1,14 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogClose,
+} from '@/components/ui/dialog';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { ChevronDown, X } from 'lucide-react';
 
 const FACTS = [
   'Heat is the biggest cause of battery degradation in smartphones.',
@@ -31,9 +39,9 @@ const FACTS = [
 ];
 
 export function MobileCareSmartUsageGuideSection() {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const visibleFacts = isExpanded ? FACTS : FACTS.slice(0, 8);
+  const visibleFacts = FACTS.slice(0, 8);
 
   return (
     <section className="py-16 md:py-24 px-4">
@@ -53,23 +61,38 @@ export function MobileCareSmartUsageGuideSection() {
         <div className="flex justify-center mt-8">
           <Button
             variant="outline"
-            onClick={() => setIsExpanded(!isExpanded)}
+            onClick={() => setIsModalOpen(true)}
             className="min-w-[140px] font-normal"
           >
-            {isExpanded ? (
-              <>
-                Show less
-                <ChevronUp className="ml-2 h-4 w-4" />
-              </>
-            ) : (
-              <>
-                Show more
-                <ChevronDown className="ml-2 h-4 w-4" />
-              </>
-            )}
+            Show more
+            <ChevronDown className="ml-2 h-4 w-4" />
           </Button>
         </div>
       </div>
+
+      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+        <DialogContent className="max-w-4xl max-h-[85vh] p-0">
+          <DialogHeader className="px-6 pt-6 pb-4 border-b">
+            <DialogTitle className="text-2xl font-light">
+              Mobile Care & Smart Usage Guide (2026)
+            </DialogTitle>
+            <DialogClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
+              <X className="h-5 w-5" />
+              <span className="sr-only">Close</span>
+            </DialogClose>
+          </DialogHeader>
+          
+          <ScrollArea className="px-6 py-4 max-h-[calc(85vh-120px)]">
+            <ol className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3 text-base text-foreground leading-relaxed list-decimal list-inside pb-4">
+              {FACTS.map((fact, index) => (
+                <li key={index} className="text-muted-foreground">
+                  {fact}
+                </li>
+              ))}
+            </ol>
+          </ScrollArea>
+        </DialogContent>
+      </Dialog>
     </section>
   );
 }

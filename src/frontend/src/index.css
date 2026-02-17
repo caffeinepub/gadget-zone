@@ -131,9 +131,29 @@
         }
     }
 
+    /* HOT Badge Pulse Animation */
+    .hot-badge-pulse {
+        animation: hot-pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes hot-pulse {
+        0%, 100% {
+            transform: scale(1);
+            box-shadow: 0 10px 15px -3px rgba(239, 68, 68, 0.3), 0 4px 6px -2px rgba(239, 68, 68, 0.2);
+        }
+        50% {
+            transform: scale(1.05);
+            box-shadow: 0 20px 25px -5px rgba(239, 68, 68, 0.4), 0 10px 10px -5px rgba(239, 68, 68, 0.3);
+        }
+    }
+
     @media (prefers-reduced-motion: reduce) {
         .ticker-content {
             animation-duration: 80s;
+        }
+        
+        .hot-badge-pulse {
+            animation: none;
         }
     }
 }

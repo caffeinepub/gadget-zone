@@ -1,18 +1,21 @@
 import { useState, useEffect, useRef } from 'react';
-import { Phone, MapPin, MessageCircle, ArrowUp, Camera } from 'lucide-react';
+import { Phone, MapPin, MessageCircle, ArrowUp } from 'lucide-react';
 import { SiInstagram } from 'react-icons/si';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { BusinessHighlightsStrip } from '@/components/BusinessHighlightsStrip';
 import { WhatsAppQuickMessages } from '@/components/WhatsAppQuickMessages';
 import { MobileCareSmartUsageGuideSection } from '@/components/MobileCareSmartUsageGuideSection';
 import { TickerBanner } from '@/components/TickerBanner';
 import { SafeImage } from '@/components/SafeImage';
+import { HotFab } from '@/components/HotFab';
+import { HotPickSection } from '@/components/HotPickSection';
 import { versionAsset } from '@/lib/assetVersion';
 import { initializeTracking } from '@/lib/googleTracking';
 import { initializeSPAPageViews } from '@/lib/spaPageViews';
 import { initializeClickTracking } from '@/lib/clickTracking';
 import { initializeScrollDepthTracking, resetScrollDepthTracking } from '@/lib/scrollDepthTracking';
+import { sendGA4Event } from '@/lib/ga4';
 
 // Service content mapping
 const serviceContent = {
@@ -62,6 +65,58 @@ const serviceContent = {
   },
 };
 
+// HOT product details content
+const hotProductDetails: Record<string, { title: string; description: string[] }> = {
+  'New Mobile Phones': {
+    title: 'Latest Smartphones',
+    description: [
+      'Our new mobile phones are trending because they offer the perfect balance of cutting-edge technology and affordability. Customers trust us for genuine products with full warranty coverage.',
+      'We provide expert guidance to help you choose the right device based on your needs, whether it\'s for photography, gaming, or everyday use.',
+      'Easy EMI options make premium smartphones accessible to everyone. Plus, our exchange program ensures you get the best value for your old device.',
+    ],
+  },
+  'Mobile Accessories': {
+    title: 'Premium Mobile Accessories',
+    description: [
+      'Our mobile accessories are highly sought after for their quality and reliability. From original chargers to premium cases, we stock only the best products.',
+      'Customers appreciate our wide selection and competitive pricing. Whether you need a power bank for travel or a screen guard for protection, we have you covered.',
+      'All accessories come with quality assurance, and our team helps you find the perfect match for your device. EMI options available on select premium accessories.',
+    ],
+  },
+  'Mobile Service & Repair': {
+    title: 'Expert Repair Services',
+    description: [
+      'Our repair services are in high demand because of our skilled technicians and transparent pricing. We handle everything from screen replacements to complex motherboard repairs.',
+      'Customers choose us for quick turnaround times and service warranty on all repairs. We use genuine parts and provide detailed diagnostics before any work begins.',
+      'With years of experience and hundreds of satisfied customers, we\'re the trusted choice for mobile repairs in Thiruvanmiyur. Walk-in service available.',
+    ],
+  },
+  'Exchange & Upgrade Support': {
+    title: 'Hassle-Free Exchange',
+    description: [
+      'Our exchange program is popular because we offer fair valuations and seamless upgrade experiences. Trade in your old phone and get instant credit toward a new one.',
+      'We accept devices in any condition and provide competitive exchange values. Our team handles all the paperwork, making the process quick and easy.',
+      'Combined with EMI options, upgrading to the latest smartphone has never been more affordable. Visit us for a free evaluation of your current device.',
+    ],
+  },
+  'EMI / Finance Options': {
+    title: 'Flexible Payment Plans',
+    description: [
+      'Our EMI and finance options are trending because they make premium smartphones accessible to everyone. We offer flexible payment plans with minimal documentation.',
+      'Customers appreciate our transparent terms with no hidden charges. Choose from multiple EMI tenures to find a plan that fits your budget.',
+      'Quick approval process and partnerships with leading financial institutions ensure you get the best rates. Make your dream phone affordable today.',
+    ],
+  },
+  'CCTV Sales & Installation': {
+    title: 'Professional Security Solutions',
+    description: [
+      'Our CCTV solutions are in high demand for homes, shops, and offices across Chennai. We provide complete security packages with professional installation and setup.',
+      'Customers trust us for reliable surveillance systems with HD quality, night vision, and remote viewing capabilities. Our technicians ensure proper placement and configuration.',
+      'We offer ongoing support and maintenance services. EMI options available on complete CCTV packages. Protect your property with our proven security solutions.',
+    ],
+  },
+};
+
 function App() {
   const phoneNumber = '+919840077591';
   const whatsappNumber = '919840077591';
@@ -82,8 +137,17 @@ function App() {
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const [selectedService, setSelectedService] = useState<keyof typeof serviceContent>('New Mobile Phones');
+  const [selectedHotProduct, setSelectedHotProduct] = useState<keyof typeof serviceContent>('New Mobile Phones');
   const [showBackToTop, setShowBackToTop] = useState(false);
   const descriptionSectionRef = useRef<HTMLElement>(null);
+  const hotDetailsSectionRef = useRef<HTMLElement>(null);
+  const hotPickSectionRef = useRef<HTMLElement>(null);
+
+  // HOT products configuration - static list of products marked as HOT
+  const hotProducts: (keyof typeof serviceContent)[] = [
+    'New Mobile Phones',
+    'Mobile Service & Repair',
+  ];
 
   // Initialize all tracking on mount
   useEffect(() => {
@@ -126,6 +190,43 @@ function App() {
       top: 0,
       behavior: 'smooth',
     });
+  };
+
+  const scrollToHotPick = () => {
+    // Send GA4 event for HOT PICK button click
+    sendGA4Event('hot_pick_click', {
+      page_url: window.location.href,
+    });
+
+    // Scroll to HOT PICK section
+    if (hotPickSectionRef.current) {
+      const isMobile = window.innerWidth < 768;
+      const offset = isMobile ? 80 : 20;
+      const elementPosition = hotPickSectionRef.current.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth',
+      });
+    }
+  };
+
+  const scrollToHotDetails = () => {
+    // Default to first HOT product
+    setSelectedHotProduct(hotProducts[0]);
+    
+    if (hotDetailsSectionRef.current) {
+      const isMobile = window.innerWidth < 768;
+      const offset = isMobile ? 80 : 20;
+      const elementPosition = hotDetailsSectionRef.current.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth',
+      });
+    }
   };
 
   const services = [
@@ -196,23 +297,43 @@ function App() {
   ];
 
   const handleServiceClick = (serviceTitle: keyof typeof serviceContent) => {
-    setSelectedService(serviceTitle);
+    const isHot = hotProducts.includes(serviceTitle);
     
-    // Smooth scroll to description section with offset for mobile sticky bar
-    if (descriptionSectionRef.current) {
-      const isMobile = window.innerWidth < 768;
-      const offset = isMobile ? 80 : 20; // Extra offset on mobile for sticky bar
-      const elementPosition = descriptionSectionRef.current.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - offset;
+    if (isHot) {
+      // HOT product: scroll to HOT details section
+      setSelectedHotProduct(serviceTitle);
+      
+      if (hotDetailsSectionRef.current) {
+        const isMobile = window.innerWidth < 768;
+        const offset = isMobile ? 80 : 20;
+        const elementPosition = hotDetailsSectionRef.current.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - offset;
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth',
-      });
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth',
+        });
+      }
+    } else {
+      // Non-HOT product: scroll to description section
+      setSelectedService(serviceTitle);
+      
+      if (descriptionSectionRef.current) {
+        const isMobile = window.innerWidth < 768;
+        const offset = isMobile ? 80 : 20;
+        const elementPosition = descriptionSectionRef.current.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth',
+        });
+      }
     }
   };
 
   const currentContent = serviceContent[selectedService];
+  const currentHotDetails = hotProductDetails[selectedHotProduct];
 
   return (
     <div className="min-h-screen bg-background bg-texture pb-20 md:pb-0">
@@ -322,199 +443,65 @@ function App() {
           </h2>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {services.map((service, index) => (
-              <Card 
-                key={index} 
-                className="overflow-hidden border-border hover:shadow-lg transition-shadow bg-card cursor-pointer"
-                onClick={() => handleServiceClick(service.title)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    handleServiceClick(service.title);
-                  }
-                }}
-                tabIndex={0}
-                role="button"
-                aria-label={`View details about ${service.title}`}
-              >
-                <div className="aspect-[3/2] overflow-hidden">
-                  <img
-                    src={service.image}
-                    alt={service.title}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <CardContent className="p-6">
-                  <h3 className="text-lg font-normal text-center text-foreground">
-                    {service.title}
-                  </h3>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Trust Section */}
-      <section className="py-16 md:py-24 px-4 section-alt-bg">
-        <div className="max-w-5xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-light text-center mb-12 text-foreground">
-            Why Choose Us
-          </h2>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {trustPoints.map((point, index) => (
-              <div key={index} className="text-center">
-                <div className="w-20 h-20 mx-auto mb-4 flex items-center justify-center">
-                  <img
-                    src={point.icon}
-                    alt={point.title}
-                    className="w-full h-full object-contain"
-                  />
-                </div>
-                <h3 className="text-base font-medium mb-2 text-foreground">
-                  {point.title}
-                </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {point.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Store Gallery Section */}
-      <section className="py-16 md:py-24 px-4">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-light text-center mb-12 text-foreground">
-            Store Gallery
-          </h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-            {galleryImages.map((image, index) => (
-              <Card key={index} className="overflow-hidden border-border hover:shadow-lg transition-shadow bg-card">
-                <div className="aspect-[3/2] overflow-hidden">
-                  <img
-                    src={image}
-                    alt={`Store view ${index + 1}`}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Contact & Visit Section */}
-      <section className="py-16 md:py-24 px-4 section-alt-bg">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-light text-center mb-12 text-foreground">
-            Contact & Visit
-          </h2>
-          
-          <div className="space-y-8">
-            {/* Address */}
-            <div className="text-center">
-              <h3 className="text-lg font-medium mb-3 text-foreground">Address</h3>
-              <p className="text-base text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-                {address}
-              </p>
-              <Button
-                asChild
-                variant="link"
-                className="mt-2 text-primary"
-              >
-                <a href={MAPS_LINK} target="_blank" rel="noopener noreferrer">
-                  View on Map
-                </a>
-              </Button>
-            </div>
-
-            {/* Embedded Google Map */}
-            <div className="relative w-full h-[300px] md:h-[400px] rounded-lg overflow-hidden border border-border">
-              <a
-                href={MAPS_LINK}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="absolute inset-0 z-10 cursor-pointer"
-                aria-label="Open in Google Maps"
-              >
-                <span className="sr-only">Open in Google Maps</span>
-              </a>
-              <iframe
-                src={mapEmbedUrl}
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Gadget Zone Location"
-              />
-            </div>
-
-            {/* Contact Details */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
-              <div className="text-center">
-                <h3 className="text-lg font-medium mb-3 text-foreground">Phone</h3>
-                <Button
-                  asChild
-                  variant="link"
-                  className="text-primary text-base"
-                >
-                  <a href={`tel:${phoneNumber}`}>
-                    {phoneNumber}
-                  </a>
-                </Button>
-              </div>
+            {services.map((service, index) => {
+              const isHot = hotProducts.includes(service.title);
               
-              <div className="text-center">
-                <h3 className="text-lg font-medium mb-3 text-foreground">WhatsApp</h3>
-                <WhatsAppQuickMessages
-                  whatsappNumber={whatsappNumber}
-                  variant="link"
-                  className="text-primary text-base"
-                />
-              </div>
-            </div>
-
-            {/* Instagram */}
-            <div className="text-center pt-4">
-              <h3 className="text-lg font-medium mb-3 text-foreground">Follow Us</h3>
-              <Button
-                asChild
-                variant="outline"
-                size="lg"
-                className="gap-2"
-              >
-                <a href={instagramUrl} target="_blank" rel="noopener noreferrer">
-                  <SiInstagram className="h-5 w-5" />
-                  Instagram
-                </a>
-              </Button>
-            </div>
+              return (
+                <Card
+                  key={index}
+                  className="group cursor-pointer overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border-border/50"
+                  onClick={() => handleServiceClick(service.title)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      handleServiceClick(service.title);
+                    }
+                  }}
+                  tabIndex={0}
+                  role="button"
+                  aria-label={`View details for ${service.title}`}
+                >
+                  <div className="relative h-48 overflow-hidden">
+                    <SafeImage
+                      src={service.image}
+                      alt={service.title}
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                    />
+                    {isHot && (
+                      <div className="absolute top-3 right-3 bg-gradient-to-r from-red-500 to-orange-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg animate-pulse">
+                        HOT
+                      </div>
+                    )}
+                  </div>
+                  <CardHeader>
+                    <CardTitle className="text-xl font-normal group-hover:text-primary transition-colors">
+                      {service.title}
+                    </CardTitle>
+                  </CardHeader>
+                </Card>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* Service Description Section */}
-      <section ref={descriptionSectionRef} className="py-16 md:py-24 px-4">
-        <div className="max-w-3xl mx-auto">
+      {/* Service Description Section (for non-HOT products) */}
+      <section
+        ref={descriptionSectionRef}
+        className="py-16 md:py-24 px-4 section-alt-bg"
+      >
+        <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-light text-center mb-8 text-foreground">
             {currentContent.heading}
           </h2>
           
-          <div className="space-y-4">
+          <div className="space-y-4 text-base md:text-lg leading-relaxed text-muted-foreground">
             {currentContent.description.map((paragraph, index) => (
-              <p key={index} className="text-base text-muted-foreground leading-relaxed">
-                {paragraph}
-              </p>
+              <p key={index}>{paragraph}</p>
             ))}
           </div>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-10">
+          
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10">
             <Button
               asChild
               size="lg"
@@ -536,155 +523,269 @@ function App() {
         </div>
       </section>
 
+      {/* HOT Product Details Section */}
+      <section
+        ref={hotDetailsSectionRef}
+        className="py-16 md:py-24 px-4"
+      >
+        <div className="max-w-4xl mx-auto">
+          <div className="flex items-center justify-center gap-3 mb-8">
+            <div className="bg-gradient-to-r from-red-500 to-orange-500 text-white text-sm font-bold px-4 py-2 rounded-full shadow-lg animate-pulse">
+              HOT
+            </div>
+            <h2 className="text-3xl md:text-4xl font-light text-foreground">
+              {currentHotDetails.title}
+            </h2>
+          </div>
+          
+          <div className="space-y-4 text-base md:text-lg leading-relaxed text-muted-foreground">
+            {currentHotDetails.description.map((paragraph, index) => (
+              <p key={index}>{paragraph}</p>
+            ))}
+          </div>
+          
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10">
+            <Button
+              asChild
+              size="lg"
+              className="w-full sm:w-auto min-w-[180px]"
+            >
+              <a href={`tel:${phoneNumber}`}>
+                <Phone className="mr-2 h-5 w-5" />
+                Call Now
+              </a>
+            </Button>
+            
+            <WhatsAppQuickMessages
+              whatsappNumber={whatsappNumber}
+              variant="outline"
+              size="lg"
+              className="w-full sm:w-auto min-w-[180px]"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Us Section */}
+      <section className="py-16 md:py-24 px-4 section-alt-bg">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-light text-center mb-12 text-foreground">
+            Why Choose Gadget Zone
+          </h2>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {trustPoints.map((point, index) => (
+              <div
+                key={index}
+                className="flex flex-col items-center text-center space-y-4 p-6 rounded-lg bg-card border border-border/50 transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+              >
+                <div className="w-20 h-20 flex items-center justify-center">
+                  <img
+                    src={point.icon}
+                    alt={point.title}
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+                <h3 className="text-xl font-normal text-foreground">
+                  {point.title}
+                </h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  {point.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Mobile Care & Smart Usage Guide Section */}
       <MobileCareSmartUsageGuideSection />
 
-      {/* Footer */}
-      <footer className="py-12 px-4 section-alt-bg border-t border-border">
+      {/* Gallery Section */}
+      <section className="py-16 md:py-24 px-4 section-alt-bg">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-            {/* About */}
-            <div>
-              <h3 className="text-lg font-medium mb-4 text-foreground">Gadget Zone</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                Your trusted mobile store in Thiruvanmiyur, Chennai. We offer genuine products, expert service, and customer-first support.
-              </p>
-            </div>
-
-            {/* Quick Links */}
-            <div>
-              <h3 className="text-lg font-medium mb-4 text-foreground">Quick Links</h3>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>
-                  <button
-                    onClick={() => handleServiceClick('New Mobile Phones')}
-                    className="hover:text-foreground transition-colors"
-                  >
-                    New Mobile Phones
-                  </button>
-                </li>
-                <li>
-                  <button
-                    onClick={() => handleServiceClick('Mobile Accessories')}
-                    className="hover:text-foreground transition-colors"
-                  >
-                    Mobile Accessories
-                  </button>
-                </li>
-                <li>
-                  <button
-                    onClick={() => handleServiceClick('Mobile Service & Repair')}
-                    className="hover:text-foreground transition-colors"
-                  >
-                    Service & Repair
-                  </button>
-                </li>
-                <li>
-                  <button
-                    onClick={() => handleServiceClick('CCTV Sales & Installation')}
-                    className="hover:text-foreground transition-colors"
-                  >
-                    CCTV Sales & Installation
-                  </button>
-                </li>
-              </ul>
-            </div>
-
-            {/* Contact */}
-            <div>
-              <h3 className="text-lg font-medium mb-4 text-foreground">Contact</h3>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li className="flex items-start gap-2">
-                  <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" />
-                  <span>Thiruvanmiyur, Chennai</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Phone className="h-4 w-4 flex-shrink-0" />
-                  <a href={`tel:${phoneNumber}`} className="hover:text-foreground transition-colors">
-                    {phoneNumber}
-                  </a>
-                </li>
-                <li className="flex items-center gap-2">
-                  <MessageCircle className="h-4 w-4 flex-shrink-0" />
-                  <a
-                    href={`https://wa.me/${whatsappNumber}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-foreground transition-colors"
-                  >
-                    WhatsApp
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Copyright */}
-          <div className="pt-8 border-t border-border text-center text-sm text-muted-foreground">
-            <p>
-              © {new Date().getFullYear()} Gadget Zone. All rights reserved. | Built with love using{' '}
-              <a
-                href={`https://caffeine.ai/?utm_source=Caffeine-footer&utm_medium=referral&utm_content=${encodeURIComponent(
-                  typeof window !== 'undefined' ? window.location.hostname : 'gadget-zone'
-                )}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary hover:underline"
+          <h2 className="text-3xl md:text-4xl font-light text-center mb-12 text-foreground">
+            Our Store
+          </h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {galleryImages.map((image, index) => (
+              <div
+                key={index}
+                className="relative h-64 rounded-lg overflow-hidden group cursor-pointer"
               >
-                caffeine.ai
-              </a>
-            </p>
+                <SafeImage
+                  src={image}
+                  alt={`Gadget Zone Store ${index + 1}`}
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                />
+              </div>
+            ))}
           </div>
         </div>
+      </section>
+
+      {/* HOT PICK Section - Always at the bottom */}
+      <HotPickSection sectionRef={hotPickSectionRef} />
+
+      {/* Contact & Location Section */}
+      <section className="py-16 md:py-24 px-4">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-light text-center mb-12 text-foreground">
+            Visit Us
+          </h2>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
+            {/* Contact Information */}
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-2xl font-normal mb-4 text-foreground">
+                  Contact Information
+                </h3>
+                
+                <div className="space-y-4">
+                  <div className="flex items-start gap-3">
+                    <MapPin className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
+                    <div>
+                      <p className="text-base text-muted-foreground leading-relaxed">
+                        {address}
+                      </p>
+                      <Button
+                        asChild
+                        variant="link"
+                        className="h-auto p-0 mt-2 text-primary hover:text-primary/80"
+                      >
+                        <a
+                          href={MAPS_LINK}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Get Directions →
+                        </a>
+                      </Button>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center gap-3">
+                    <Phone className="w-5 h-5 text-primary flex-shrink-0" />
+                    <a
+                      href={`tel:${phoneNumber}`}
+                      className="text-base text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      {phoneNumber}
+                    </a>
+                  </div>
+                  
+                  <div className="flex items-center gap-3">
+                    <MessageCircle className="w-5 h-5 text-primary flex-shrink-0" />
+                    <a
+                      href={`https://wa.me/${whatsappNumber}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-base text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      WhatsApp: +91 98400 77591
+                    </a>
+                  </div>
+                  
+                  <div className="flex items-center gap-3">
+                    <SiInstagram className="w-5 h-5 text-primary flex-shrink-0" />
+                    <a
+                      href={instagramUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-base text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      @gadget_zone_ind
+                    </a>
+                  </div>
+                </div>
+              </div>
+              
+              <div>
+                <h3 className="text-xl font-normal mb-3 text-foreground">
+                  Store Hours
+                </h3>
+                <p className="text-base text-muted-foreground">
+                  Monday - Sunday: 10:00 AM - 9:00 PM
+                </p>
+              </div>
+              
+              <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                <Button
+                  asChild
+                  size="lg"
+                  className="w-full sm:w-auto min-w-[180px]"
+                >
+                  <a href={`tel:${phoneNumber}`}>
+                    <Phone className="mr-2 h-5 w-5" />
+                    Call Now
+                  </a>
+                </Button>
+                
+                <WhatsAppQuickMessages
+                  whatsappNumber={whatsappNumber}
+                  variant="outline"
+                  size="lg"
+                  className="w-full sm:w-auto min-w-[180px]"
+                />
+              </div>
+            </div>
+            
+            {/* Map */}
+            <div className="h-[400px] rounded-lg overflow-hidden border border-border shadow-lg">
+              <iframe
+                src={mapEmbedUrl}
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Gadget Zone Location"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-8 px-4 border-t border-border bg-card">
+        <div className="max-w-7xl mx-auto text-center">
+          <p className="text-sm text-muted-foreground">
+            © {new Date().getFullYear()} Gadget Zone. All rights reserved.
+          </p>
+          <p className="text-sm text-muted-foreground mt-2">
+            Built with ❤️ using{' '}
+            <a
+              href={`https://caffeine.ai/?utm_source=Caffeine-footer&utm_medium=referral&utm_content=${encodeURIComponent(
+                typeof window !== 'undefined' ? window.location.hostname : 'gadget-zone'
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary hover:underline"
+            >
+              caffeine.ai
+            </a>
+          </p>
+        </div>
       </footer>
+
+      {/* Floating Action Buttons */}
+      <HotFab onClick={scrollToHotPick} />
 
       {/* Back to Top Button */}
       {showBackToTop && (
         <Button
           onClick={scrollToTop}
-          size="icon"
-          className="fixed bottom-24 md:bottom-8 right-4 md:right-8 z-50 rounded-full shadow-lg"
+          size="lg"
+          className="fixed bottom-6 right-6 z-50 h-14 w-14 rounded-full bg-primary text-primary-foreground shadow-xl hover:bg-primary/90 hover:scale-105 active:scale-95 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           aria-label="Back to top"
+          type="button"
         >
-          <ArrowUp className="h-5 w-5" />
+          <ArrowUp className="h-6 w-6" />
         </Button>
       )}
-
-      {/* Mobile Sticky Bottom Bar */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-background border-t border-border shadow-lg">
-        <div className="grid grid-cols-3 gap-2 p-3">
-          <Button
-            asChild
-            size="sm"
-            variant="outline"
-            className="h-12"
-          >
-            <a href={`tel:${phoneNumber}`}>
-              <Phone className="h-4 w-4 mr-1" />
-              Call
-            </a>
-          </Button>
-          
-          <WhatsAppQuickMessages
-            whatsappNumber={whatsappNumber}
-            variant="default"
-            size="sm"
-            className="h-12"
-          />
-          
-          <Button
-            asChild
-            size="sm"
-            variant="outline"
-            className="h-12"
-          >
-            <a href={MAPS_LINK} target="_blank" rel="noopener noreferrer">
-              <MapPin className="h-4 w-4 mr-1" />
-              Visit
-            </a>
-          </Button>
-        </div>
-      </div>
     </div>
   );
 }

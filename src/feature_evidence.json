@@ -2,10 +2,11 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-update-the-app-to-load-and-configure-google-analytics-4-via-gtag-js-using-measurement-id-g-hbehe5my5y-so-that-ga4-is-enabled-in-production-without-requiring-an-environment-variable-placeholder",
-      "featureTitle": "Update the app to load and configure Google Analytics 4 via gtag.js using measurement ID \"G-HBEHE5MY5Y\" so that GA4 is enabled in production without requiring an environment variable placeholder.",
+      "featureId": "feature-update-the-existing-floating-hot-pick-button-so-it-remains-a-fixed-floating-action-button-not-sticky-to-any-section-displays-the-label-hot-pick-and-on-click-smoothly-scrolls-to-the-dedicated-hot-pick-content-section-that-is-located-at-the-bottom-of-the-page",
+      "featureTitle": "Update the existing floating HOT PICK button so it remains a fixed floating action button (not sticky to any section), displays the label \"🔥 HOT PICK\", and on click smoothly scrolls to the dedicated HOT PICK content section that is located at the bottom of the page.",
       "files": [
-        "frontend/index.html"
+        "frontend/src/App.tsx",
+        "frontend/src/components/HotFab.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -20,11 +21,10 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-ensure-the-google-analytics-configuration-in-the-codebase-remains-consistent-after-enabling-gtag-js-with-measurement-id-g-hbehe5my5y-i-e-avoid-contradictory-or-duplicate-ga-initialization-paths-between-frontend-index-html-and-frontend-src-lib-tracking-modules",
-      "featureTitle": "Ensure the Google Analytics configuration in the codebase remains consistent after enabling gtag.js with measurement ID \"G-HBEHE5MY5Y\" (i.e., avoid contradictory or duplicate GA initialization paths between frontend/index.html and frontend/src/lib/* tracking modules).",
+      "featureId": "feature-add-ga4-analytics-click-tracking-for-the-floating-hot-pick-button-click-with-event-name-hot-pick-click-include-at-least-page-url-in-event-parameters-without-breaking-when-analytics-is-not-available",
+      "featureTitle": "Add GA4 analytics click tracking for the floating HOT PICK button click with event name \"hot_pick_click\" (include at least page_url in event parameters) without breaking when analytics is not available.",
       "files": [
-        "frontend/src/lib/analyticsConfig.ts",
-        "frontend/src/lib/googleTracking.ts"
+        "frontend/src/App.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -35,6 +35,98 @@
       ],
       "testIds": [
         "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-update-the-bottom-of-page-hot-pick-content-section-to-use-the-title-text-exactly-hot-pick-latest-motorola-signature-smartphone-and-keep-this-section-always-rendered-as-the-last-section-on-the-page-so-it-stays-at-the-bottom",
+      "featureTitle": "Create/update the bottom-of-page HOT PICK content section to use the title text exactly: \"🔥 HOT PICK – Latest Motorola Signature Smartphone\" and keep this section always rendered as the last section on the page so it stays at the bottom.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/HotPickSection.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-render-the-hot-pick-body-content-so-it-includes-the-user-provided-seo-friendly-text-verbatim-preserve-wording-punctuation-and-bullet-points-exactly-as-provided-and-ensure-the-specified-motorola-related-keywords-are-naturally-included-within-the-hot-pick-section-content-without-modifying-the-verbatim-block",
+      "featureTitle": "Render the HOT PICK body content so it includes the user-provided SEO-friendly text verbatim (preserve wording, punctuation, and bullet points exactly as provided), and ensure the specified Motorola-related keywords are naturally included within the HOT PICK section content without modifying the verbatim block.",
+      "files": [
+        "frontend/src/components/HotPickSection.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-two-enquiry-ctas-directly-below-the-hot-pick-section-content-a-call-button-linking-to-the-existing-store-phone-number-and-a-whatsapp-button-linking-to-the-existing-store-whatsapp-number-using-the-same-clean-visual-styling-patterns-as-existing-cta-buttons",
+      "featureTitle": "Add two enquiry CTAs directly below the HOT PICK section content: a Call button linking to the existing store phone number and a WhatsApp button linking to the existing store WhatsApp number, using the same clean visual styling patterns as existing CTA buttons.",
+      "files": [
+        "frontend/src/components/HotPickSection.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-clean-premium-motorola-signature-smartphone-product-image-to-the-hot-pick-section-as-a-static-frontend-asset-matching-the-same-clean-product-section-visual-style-used-elsewhere-and-meeting-all-image-constraints-white-transparent-background-product-only-centered-no-lifestyle-scene",
+      "featureTitle": "Add a clean, premium Motorola Signature smartphone product image to the HOT PICK section as a static frontend asset, matching the same clean product-section visual style used elsewhere, and meeting all image constraints (white/transparent background, product-only, centered, no lifestyle scene).",
+      "files": [
+        "frontend/src/components/HotPickSection.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-ensure-the-hot-pick-updates-are-isolated-only-the-hot-pick-floating-button-and-the-bottom-hot-pick-section-are-modified-added-and-no-other-existing-sections-layout-or-working-functionality-changes",
+      "featureTitle": "Ensure the HOT PICK updates are isolated: only the HOT PICK floating button and the bottom HOT PICK section are modified/added, and no other existing sections’ layout or working functionality changes.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/HotFab.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
       ],
       "confidence": "high"
     }
