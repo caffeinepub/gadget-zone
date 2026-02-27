@@ -1,0 +1,204 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Unify contact numbers, add submenu pages with SEO & Gtag",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Unify all call and WhatsApp touch-points site-wide to use the single number 919840077591",
+      "acceptanceCriteria": [
+        "Every tel: href across all pages and components equals tel:+919840077591",
+        "Every WhatsApp link across all pages and components equals https://wa.me/919840077591",
+        "No other phone number appears in any call or WhatsApp link anywhere on the site",
+        "Header, Footer, BusinessHighlightsStrip, HotPickSection, ServicesPage, ProductsPage, ContactPage, and WhatsAppQuickMessages all reflect the unified number"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/Header.tsx",
+          "operation": "modify",
+          "description": "Update the call CTA button href from tel:9840077591 to tel:+919840077591 to match the unified format with country code prefix"
+        },
+        {
+          "path": "frontend/src/components/Footer.tsx",
+          "operation": "modify",
+          "description": "Update all phone and WhatsApp links to use tel:+919840077591 and https://wa.me/919840077591 respectively, ensuring the unified number is displayed across all contact points in the footer"
+        },
+        {
+          "path": "frontend/src/components/BusinessHighlightsStrip.tsx",
+          "operation": "modify",
+          "description": "Update phone link from tel:9840077591 to tel:+919840077591 and WhatsApp link from wa.me/919840077591 to https://wa.me/919840077591 to ensure protocol consistency and country code prefix"
+        },
+        {
+          "path": "frontend/src/components/HotPickSection.tsx",
+          "operation": "modify",
+          "description": "Update Call and WhatsApp CTA buttons to use tel:+919840077591 and https://wa.me/919840077591 respectively, ensuring the featured product section reflects the unified contact number"
+        },
+        {
+          "path": "frontend/src/components/WhatsAppQuickMessages.tsx",
+          "operation": "modify",
+          "description": "Update all WhatsApp link generation to use https://wa.me/919840077591 as the base URL for all pre-written message options"
+        },
+        {
+          "path": "frontend/src/pages/ContactPage.tsx",
+          "operation": "modify",
+          "description": "Update all call and WhatsApp CTAs to use tel:+919840077591 and https://wa.me/919840077591 respectively, including form redirection and quick-action buttons"
+        },
+        {
+          "path": "frontend/src/pages/ServicesPage.tsx",
+          "operation": "modify",
+          "description": "Update all service card WhatsApp and call CTAs to use https://wa.me/919840077591 and tel:+919840077591 respectively across all service offerings"
+        },
+        {
+          "path": "frontend/src/pages/ProductsPage.tsx",
+          "operation": "modify",
+          "description": "Update all brand card WhatsApp and call CTAs to use https://wa.me/919840077591 and tel:+919840077591 respectively for all product enquiry buttons"
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Create a dedicated navigation menu structure with dropdown submenus navigating to unique URLs",
+      "acceptanceCriteria": [
+        "Hovering or clicking a top-level menu item reveals a dropdown with its submenu items",
+        "Clicking a submenu item navigates to a unique URL path (e.g. /services/repair) without a full browser reload",
+        "The browser address bar updates to the correct URL for each submenu page",
+        "Back/forward browser navigation works correctly between submenu pages",
+        "Mobile menu collapses/expands and all submenu items are accessible on small screens"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/Header.tsx",
+          "operation": "modify",
+          "description": "Replace the existing flat navigation with a dropdown menu structure supporting Products (with brand/category sub-items), Services (with service type sub-items like Mobile Repair, CCTV, Accessories, Exchange, EMI), About (with sub-items like Our Story, Why Choose Us), and Contact. Implement hover-based dropdown for desktop and collapsible accordion menu for mobile. Each submenu item must use pushState navigation to unique URLs like /products/apple, /services/repair, /about/story"
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register all new submenu routes including product brand pages (/products/apple, /products/samsung, /products/motorola, /products/oneplus, /products/realme, /products/vivo, /products/xiaomi), service pages (/services/repair, /services/cctv, /services/accessories, /services/exchange, /services/emi), and about pages (/about/story, /about/why-choose-us). Ensure the existing SPA page-view tracker is invoked on all route changes to these new paths"
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Create individual page components for every submenu route with SEO metadata, structured data, and meaningful content",
+      "acceptanceCriteria": [
+        "Each submenu page has a unique <title> and meta description set via updateSEOMeta()",
+        "Each submenu page has a canonical URL meta tag matching its route",
+        "Each submenu page injects at least a BreadcrumbList JSON-LD structured data block",
+        "Each submenu page contains at least one H1, supporting H2s, and descriptive paragraph content",
+        "Each submenu page contains a call or WhatsApp CTA using 919840077591",
+        "robots.txt and sitemap.xml are updated to include all new page URLs"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/products/ApplePage.tsx",
+          "operation": "create",
+          "description": "Create a dedicated page for Apple products with updateSEOMeta() setting title 'Apple iPhones & iPads in Chennai | Gadget Zone', unique meta description, canonical URL /products/apple, and Open Graph tags. Inject BreadcrumbList and Product structured data using structuredData.ts helpers. Include H1 'Apple Products at Gadget Zone', H2 sections for iPhone models and iPad offerings, descriptive content about authorized reseller status, warranty, and EMI options. Add WhatsApp (https://wa.me/919840077591) and call (tel:+919840077591) CTAs for product enquiries"
+        },
+        {
+          "path": "frontend/src/pages/products/SamsungPage.tsx",
+          "operation": "create",
+          "description": "Create a dedicated page for Samsung products with updateSEOMeta() setting title 'Samsung Galaxy Phones & Tablets in Chennai | Gadget Zone', unique meta description, canonical URL /products/samsung, and Open Graph tags. Inject BreadcrumbList and Product structured data. Include H1 'Samsung Galaxy Series at Gadget Zone', H2 sections for flagship and budget models, descriptive content about official channel partnership and service support. Add WhatsApp and call CTAs using the unified number 919840077591"
+        },
+        {
+          "path": "frontend/src/pages/products/MotorolaPage.tsx",
+          "operation": "create",
+          "description": "Create a dedicated page for Motorola products with updateSEOMeta() setting title 'Motorola Smartphones in Chennai | Gadget Zone', unique meta description, canonical URL /products/motorola, and Open Graph tags. Inject BreadcrumbList and Product structured data. Include H1 'Motorola Smartphones at Gadget Zone', H2 sections highlighting Motorola Edge, G-series, and featured models, descriptive content about stock availability and exchange offers. Add WhatsApp and call CTAs using 919840077591"
+        },
+        {
+          "path": "frontend/src/pages/products/OnePlusPage.tsx",
+          "operation": "create",
+          "description": "Create a dedicated page for OnePlus products with updateSEOMeta() setting title 'OnePlus Smartphones in Chennai | Gadget Zone', unique meta description, canonical URL /products/oneplus, and Open Graph tags. Inject BreadcrumbList and Product structured data. Include H1 'OnePlus Premium Smartphones', H2 sections for flagship and Nord series, descriptive content about authorized dealer status and warranty coverage. Add WhatsApp and call CTAs using the unified number"
+        },
+        {
+          "path": "frontend/src/pages/products/RealmePage.tsx",
+          "operation": "create",
+          "description": "Create a dedicated page for Realme products with updateSEOMeta() setting title 'Realme Smartphones in Chennai | Gadget Zone', unique meta description, canonical URL /products/realme, and Open Graph tags. Inject BreadcrumbList and Product structured data. Include H1 'Realme Budget & Performance Phones', H2 sections covering gaming and camera-focused models, descriptive content about competitive pricing and trade-in options. Add WhatsApp and call CTAs using 919840077591"
+        },
+        {
+          "path": "frontend/src/pages/products/VivoPage.tsx",
+          "operation": "create",
+          "description": "Create a dedicated page for Vivo products with updateSEOMeta() setting title 'Vivo Smartphones in Chennai | Gadget Zone', unique meta description, canonical URL /products/vivo, and Open Graph tags. Inject BreadcrumbList and Product structured data. Include H1 'Vivo Camera & Selfie Smartphones', H2 sections for V-series and Y-series models, descriptive content about camera technology and display features. Add WhatsApp and call CTAs using the unified number"
+        },
+        {
+          "path": "frontend/src/pages/products/XiaomiPage.tsx",
+          "operation": "create",
+          "description": "Create a dedicated page for Xiaomi products with updateSEOMeta() setting title 'Xiaomi & Redmi Phones in Chennai | Gadget Zone', unique meta description, canonical URL /products/xiaomi, and Open Graph tags. Inject BreadcrumbList and Product structured data. Include H1 'Xiaomi & Redmi Smartphones at Gadget Zone', H2 sections covering flagship and Note series, descriptive content about MIUI features and service centers. Add WhatsApp and call CTAs using 919840077591"
+        },
+        {
+          "path": "frontend/src/pages/services/RepairPage.tsx",
+          "operation": "create",
+          "description": "Create a dedicated page for mobile repair services with updateSEOMeta() setting title 'Mobile Repair Services in Chennai | Gadget Zone', unique meta description, canonical URL /services/repair, and Open Graph tags. Inject BreadcrumbList and Service structured data for repair offerings. Include H1 'Professional Mobile Repair Services', H2 sections for screen replacement, battery replacement, charging port repair, water damage repair, and software issues. Add descriptive content about same-day service, genuine parts, warranty coverage. Include call (tel:+919840077591) and WhatsApp (https://wa.me/919840077591) CTAs for booking repair appointments"
+        },
+        {
+          "path": "frontend/src/pages/services/CCTVPage.tsx",
+          "operation": "create",
+          "description": "Create a dedicated page for CCTV sales and installation with updateSEOMeta() setting title 'CCTV Camera Installation in Chennai | Gadget Zone', unique meta description, canonical URL /services/cctv, and Open Graph tags. Inject BreadcrumbList and Service structured data. Include H1 'CCTV Sales & Installation Services', H2 sections for residential CCTV, commercial surveillance, IP cameras, DVR/NVR systems, and maintenance packages. Add descriptive content about brands offered, installation process, and remote monitoring capabilities. Include WhatsApp and call CTAs using 919840077591"
+        },
+        {
+          "path": "frontend/src/pages/services/AccessoriesPage.tsx",
+          "operation": "create",
+          "description": "Create a dedicated page for mobile accessories with updateSEOMeta() setting title 'Mobile Accessories in Chennai | Gadget Zone', unique meta description, canonical URL /services/accessories, and Open Graph tags. Inject BreadcrumbList and Product structured data. Include H1 'Premium Mobile Accessories', H2 sections for cases & covers, screen protectors, chargers & cables, power banks, earphones & headphones, and Bluetooth speakers. Add descriptive content about genuine products, compatibility, and quality assurance. Include WhatsApp and call CTAs using the unified number"
+        },
+        {
+          "path": "frontend/src/pages/services/ExchangePage.tsx",
+          "operation": "create",
+          "description": "Create a dedicated page for mobile exchange and upgrade services with updateSEOMeta() setting title 'Mobile Exchange & Upgrade in Chennai | Gadget Zone', unique meta description, canonical URL /services/exchange, and Open Graph tags. Inject BreadcrumbList and Service structured data. Include H1 'Mobile Exchange & Upgrade Program', H2 sections for exchange process, evaluation criteria, upgrade benefits, and best value offers. Add descriptive content about instant valuation, transparent pricing, and condition assessment. Include call and WhatsApp CTAs using 919840077591"
+        },
+        {
+          "path": "frontend/src/pages/services/EMIPage.tsx",
+          "operation": "create",
+          "description": "Create a dedicated page for EMI and finance options with updateSEOMeta() setting title 'Mobile EMI & Finance Options in Chennai | Gadget Zone', unique meta description, canonical URL /services/emi, and Open Graph tags. Inject BreadcrumbList and Service structured data. Include H1 'Easy EMI & Finance Solutions', H2 sections for zero-cost EMI, credit card EMI, bank partnerships, eligibility criteria, and documentation requirements. Add descriptive content about flexible tenure options, instant approval process, and partner banks. Include WhatsApp and call CTAs using the unified number"
+        },
+        {
+          "path": "frontend/src/pages/about/StoryPage.tsx",
+          "operation": "create",
+          "description": "Create a dedicated page for the store's story with updateSEOMeta() setting title 'Our Story - Gadget Zone Chennai', unique meta description, canonical URL /about/story, and Open Graph tags. Inject BreadcrumbList structured data. Include H1 'The Gadget Zone Story', H2 sections covering the founding, growth journey, milestones, and vision for the future. Add descriptive content about how Gadget Zone became a trusted mobile and electronics destination in Chennai. Include WhatsApp and call CTAs using 919840077591 for customer enquiries"
+        },
+        {
+          "path": "frontend/src/pages/about/WhyChooseUsPage.tsx",
+          "operation": "create",
+          "description": "Create a dedicated page explaining why customers choose Gadget Zone with updateSEOMeta() setting title 'Why Choose Gadget Zone Chennai | Our Advantages', unique meta description, canonical URL /about/why-choose-us, and Open Graph tags. Inject BreadcrumbList structured data. Include H1 'Why Choose Gadget Zone', H2 sections for authorized dealer status, genuine products guarantee, expert service team, competitive pricing, warranty support, and customer satisfaction commitment. Add descriptive content with statistics, testimonials context, and trust indicators. Include WhatsApp and call CTAs using the unified number"
+        },
+        {
+          "path": "frontend/public/sitemap.xml",
+          "operation": "modify",
+          "description": "Add all new submenu page URLs to the sitemap including /products/apple, /products/samsung, /products/motorola, /products/oneplus, /products/realme, /products/vivo, /products/xiaomi, /services/repair, /services/cctv, /services/accessories, /services/exchange, /services/emi, /about/story, and /about/why-choose-us with appropriate lastmod dates, changefreq values, and priority values for SEO crawlability"
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Ensure Google Analytics 4 page_view events fire on every navigation to the new submenu pages and conversion events fire on CTAs",
+      "acceptanceCriteria": [
+        "A GA4 page_view event fires each time the user navigates to any new submenu page URL",
+        "The GA4 page_view event includes the correct page_path for each submenu URL",
+        "Call CTA clicks on new pages fire the appropriate Google Ads conversion event",
+        "WhatsApp CTA clicks on new pages fire the appropriate Google Ads conversion event",
+        "No duplicate page_view events fire on a single navigation action"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/lib/spaPageViews.ts",
+          "operation": "modify",
+          "description": "Verify that the existing SPA page-view tracker correctly intercepts pushState and replaceState calls for all new submenu routes (/products/*, /services/*, /about/*) and sends GA4 page_view events with the correct page_path parameter. Ensure no duplicate events are fired on a single navigation action"
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Ensure the page-view tracker initialization in App.tsx covers all new submenu routes registered for REQ-2. Verify that initializeSPAPageViews() is called once during app initialization and that the tracker fires page_view events for every route change including to the new product, service, and about submenu pages"
+        },
+        {
+          "path": "frontend/src/lib/clickTracking.ts",
+          "operation": "modify",
+          "description": "Verify that the delegated click tracking system correctly captures call and WhatsApp CTA clicks on all new submenu pages and fires the appropriate GA4 custom events. Ensure the existing data-attribute-based tracking and href pattern matching logic covers CTAs on the new product brand pages, service detail pages, and about pages"
+        },
+        {
+          "path": "frontend/src/lib/googleAdsTracking.ts",
+          "operation": "modify",
+          "description": "Verify that the existing conversion helper functions (trackLead, trackContact, trackWhatsAppClick, trackPhoneCall) are invoked when users interact with call and WhatsApp CTAs on all new submenu pages. Ensure the hardcoded Google Ads account ID remains unchanged and that conversion events are properly attributed to the new page URLs"
+        }
+      ]
+    }
+  ]
+}

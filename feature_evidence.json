@@ -1,0 +1,103 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-unify-all-call-and-whatsapp-touch-points-site-wide-to-use-the-single-number-919840077591-every-element-that-triggers-a-phone-call-tel-links-call-buttons-book-repair-ctas-enquire-now-buttons-must-use-tel-919840077591-every-whatsapp-link-or-button-must-use-https-wa-me-919840077591-this-applies-to-header-cta-hotpicksection-contactpage-servicespage-productspage-footer-businesshighlightsstrip-whatsappquickmessages-and-any-floating-or-inline-cta-across-all-pages",
+      "featureTitle": "Unify all call and WhatsApp touch-points site-wide to use the single number 919840077591. Every element that triggers a phone call (tel: links, Call buttons, Book Repair CTAs, Enquire Now buttons) must use tel:+919840077591. Every WhatsApp link or button must use https://wa.me/919840077591. This applies to: Header CTA, HotPickSection, ContactPage, ServicesPage, ProductsPage, Footer, BusinessHighlightsStrip, WhatsAppQuickMessages, and any floating or inline CTA across all pages.",
+      "files": [
+        "frontend/src/components/BusinessHighlightsStrip.tsx",
+        "frontend/src/components/Footer.tsx",
+        "frontend/src/components/Header.tsx",
+        "frontend/src/components/HotPickSection.tsx",
+        "frontend/src/components/WhatsAppQuickMessages.tsx",
+        "frontend/src/pages/ContactPage.tsx",
+        "frontend/src/pages/ProductsPage.tsx",
+        "frontend/src/pages/ServicesPage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "blob-storage@4.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-a-dedicated-navigation-menu-structure-with-dropdown-submenus-each-submenu-item-must-navigate-to-its-own-unique-url-e-g-products-apple-services-repair-about-story-and-open-as-a-new-full-page-pushstate-navigation-within-the-spa-not-an-anchor-scroll-the-menu-structure-should-cover-at-minimum-products-with-brand-category-sub-pages-services-with-individual-service-sub-pages-such-as-mobile-repair-cctv-accessories-exchange-emi-about-with-sub-pages-such-as-our-story-why-choose-us-and-contact-header-tsx-must-render-this-dropdown-menu-for-desktop-and-a-collapsible-menu-for-mobile-app-tsx-must-register-routes-for-each-new-url",
+      "featureTitle": "Create a dedicated navigation menu structure with dropdown submenus. Each submenu item must navigate to its own unique URL (e.g. /products/apple, /services/repair, /about/story) and open as a new full page (pushState navigation within the SPA, not an anchor scroll). The menu structure should cover at minimum: Products (with brand/category sub-pages), Services (with individual service sub-pages such as Mobile Repair, CCTV, Accessories, Exchange, EMI), About (with sub-pages such as Our Story, Why Choose Us), and Contact. Header.tsx must render this dropdown menu for desktop and a collapsible menu for mobile. App.tsx must register routes for each new URL.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/Header.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "blob-storage@4.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-individual-page-components-for-every-submenu-route-registered-in-req-2-each-page-must-1-call-updateseometa-from-seohelpers-ts-with-a-unique-descriptive-title-meta-description-canonical-url-and-open-graph-tags-relevant-to-its-content-2-inject-appropriate-schema-org-json-ld-structured-data-breadcrumblist-at-minimum-plus-relevant-service-or-product-schema-where-applicable-using-structureddata-ts-helpers-3-contain-meaningful-keyword-rich-body-content-headings-descriptive-paragraphs-feature-lists-ctas-relevant-to-that-specific-sub-topic-so-the-page-is-substantively-indexable-4-include-a-call-and-or-whatsapp-cta-using-the-unified-number-from-req-1",
+      "featureTitle": "Create individual page components for every submenu route registered in REQ-2. Each page must: (1) call updateSEOMeta() from seoHelpers.ts with a unique, descriptive title, meta description, canonical URL, and Open Graph tags relevant to its content; (2) inject appropriate schema.org JSON-LD structured data (BreadcrumbList at minimum, plus relevant Service or Product schema where applicable) using structuredData.ts helpers; (3) contain meaningful, keyword-rich body content (headings, descriptive paragraphs, feature lists, CTAs) relevant to that specific sub-topic so the page is substantively indexable; (4) include a call and/or WhatsApp CTA using the unified number from REQ-1.",
+      "files": [
+        "frontend/public/sitemap.xml",
+        "frontend/src/pages/about/StoryPage.tsx",
+        "frontend/src/pages/about/WhyChooseUsPage.tsx",
+        "frontend/src/pages/products/ApplePage.tsx",
+        "frontend/src/pages/products/MotorolaPage.tsx",
+        "frontend/src/pages/products/OnePlusPage.tsx",
+        "frontend/src/pages/products/RealmePage.tsx",
+        "frontend/src/pages/products/SamsungPage.tsx",
+        "frontend/src/pages/products/VivoPage.tsx",
+        "frontend/src/pages/products/XiaomiPage.tsx",
+        "frontend/src/pages/services/AccessoriesPage.tsx",
+        "frontend/src/pages/services/CCTVPage.tsx",
+        "frontend/src/pages/services/EMIPage.tsx",
+        "frontend/src/pages/services/ExchangePage.tsx",
+        "frontend/src/pages/services/RepairPage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "blob-storage@4.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-ensure-google-analytics-4-gtag-page-view-events-fire-on-every-navigation-to-the-new-submenu-pages-the-existing-spapageviews-ts-spa-page-view-tracker-must-cover-all-new-routes-added-in-req-2-verify-that-app-tsx-calls-the-page-view-tracker-on-every-route-change-including-to-the-new-submenu-urls-also-ensure-googleadstracking-ts-conversion-helpers-are-invoked-on-the-new-pages-call-and-whatsapp-cta-clicks-consistent-with-existing-pages",
+      "featureTitle": "Ensure Google Analytics 4 (Gtag) page_view events fire on every navigation to the new submenu pages. The existing spaPageViews.ts SPA page-view tracker must cover all new routes added in REQ-2. Verify that App.tsx calls the page-view tracker on every route change, including to the new submenu URLs. Also ensure googleAdsTracking.ts conversion helpers are invoked on the new pages' call and WhatsApp CTA clicks, consistent with existing pages.",
+      "files": [
+        "frontend/src/App.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "blob-storage@4.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

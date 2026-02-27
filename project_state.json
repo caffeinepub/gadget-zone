@@ -1,0 +1,76 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "Gadget Zone website project — multi-page site with navigation dropdowns, SEO-friendly content, and unified contact number (919840077591) across all call/WhatsApp CTAs.",
+  "architectural_notes": [
+    "All call and WhatsApp redirect links must use phone number 919840077591 exclusively.",
+    "Each dropdown submenu item links to a dedicated new page (not anchor scroll on same page).",
+    "All new pages require Gtag integration and SEO-optimized content."
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "existing_features": [
+    {
+      "id": "feature-unify-all-call-and-whatsapp-touch-points-site-wide-to-use-the-single-number-919840077591-every-element-that-triggers-a-phone-call-tel-links-call-buttons-book-repair-ctas-enquire-now-buttons-must-use-tel-919840077591-every-whatsapp-link-or-button-must-use-https-wa-me-919840077591-this-applies-to-header-cta-hotpicksection-contactpage-servicespage-productspage-footer-businesshighlightsstrip-whatsappquickmessages-and-any-floating-or-inline-cta-across-all-pages",
+      "title": "Unify all call and WhatsApp touch-points site-wide to use the single number 919840077591. Every element that triggers a phone call (tel: links, Call buttons, Book Repair CTAs, Enquire Now buttons) must use tel:+919840077591. Every WhatsApp link or button must use https://wa.me/919840077591. This applies to: Header CTA, HotPickSection, ContactPage, ServicesPage, ProductsPage, Footer, BusinessHighlightsStrip, WhatsAppQuickMessages, and any floating or inline CTA across all pages.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-dedicated-navigation-menu-structure-with-dropdown-submenus-each-submenu-item-must-navigate-to-its-own-unique-url-e-g-products-apple-services-repair-about-story-and-open-as-a-new-full-page-pushstate-navigation-within-the-spa-not-an-anchor-scroll-the-menu-structure-should-cover-at-minimum-products-with-brand-category-sub-pages-services-with-individual-service-sub-pages-such-as-mobile-repair-cctv-accessories-exchange-emi-about-with-sub-pages-such-as-our-story-why-choose-us-and-contact-header-tsx-must-render-this-dropdown-menu-for-desktop-and-a-collapsible-menu-for-mobile-app-tsx-must-register-routes-for-each-new-url",
+      "title": "Create a dedicated navigation menu structure with dropdown submenus. Each submenu item must navigate to its own unique URL (e.g. /products/apple, /services/repair, /about/story) and open as a new full page (pushState navigation within the SPA, not an anchor scroll). The menu structure should cover at minimum: Products (with brand/category sub-pages), Services (with individual service sub-pages such as Mobile Repair, CCTV, Accessories, Exchange, EMI), About (with sub-pages such as Our Story, Why Choose Us), and Contact. Header.tsx must render this dropdown menu for desktop and a collapsible menu for mobile. App.tsx must register routes for each new URL.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-individual-page-components-for-every-submenu-route-registered-in-req-2-each-page-must-1-call-updateseometa-from-seohelpers-ts-with-a-unique-descriptive-title-meta-description-canonical-url-and-open-graph-tags-relevant-to-its-content-2-inject-appropriate-schema-org-json-ld-structured-data-breadcrumblist-at-minimum-plus-relevant-service-or-product-schema-where-applicable-using-structureddata-ts-helpers-3-contain-meaningful-keyword-rich-body-content-headings-descriptive-paragraphs-feature-lists-ctas-relevant-to-that-specific-sub-topic-so-the-page-is-substantively-indexable-4-include-a-call-and-or-whatsapp-cta-using-the-unified-number-from-req-1",
+      "title": "Create individual page components for every submenu route registered in REQ-2. Each page must: (1) call updateSEOMeta() from seoHelpers.ts with a unique, descriptive title, meta description, canonical URL, and Open Graph tags relevant to its content; (2) inject appropriate schema.org JSON-LD structured data (BreadcrumbList at minimum, plus relevant Service or Product schema where applicable) using structuredData.ts helpers; (3) contain meaningful, keyword-rich body content (headings, descriptive paragraphs, feature lists, CTAs) relevant to that specific sub-topic so the page is substantively indexable; (4) include a call and/or WhatsApp CTA using the unified number from REQ-1.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-google-analytics-4-gtag-page-view-events-fire-on-every-navigation-to-the-new-submenu-pages-the-existing-spapageviews-ts-spa-page-view-tracker-must-cover-all-new-routes-added-in-req-2-verify-that-app-tsx-calls-the-page-view-tracker-on-every-route-change-including-to-the-new-submenu-urls-also-ensure-googleadstracking-ts-conversion-helpers-are-invoked-on-the-new-pages-call-and-whatsapp-cta-clicks-consistent-with-existing-pages",
+      "title": "Ensure Google Analytics 4 (Gtag) page_view events fire on every navigation to the new submenu pages. The existing spaPageViews.ts SPA page-view tracker must cover all new routes added in REQ-2. Verify that App.tsx calls the page-view tracker on every route change, including to the new submenu URLs. Also ensure googleAdsTracking.ts conversion helpers are invoked on the new pages' call and WhatsApp CTA clicks, consistent with existing pages.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Unify all call/WhatsApp CTAs (Contact, Book Repair, Enquire Now, etc.) to use phone=919840077591",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Each navigation dropdown submenu item opens in a new page with a specific URL",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Add Gtag (Google Analytics/Tag) to all new pages",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "All new pages must have SEO-friendly content (meta tags, headings, structured content)",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Gadget Zone",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

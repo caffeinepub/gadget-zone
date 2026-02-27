@@ -1,0 +1,140 @@
+{
+  "kind": "coverage_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-27T15:48:30.226Z",
+  "sources": {
+    "buildRequest": true,
+    "implementationPlan": true
+  },
+  "requirements": {
+    "total": 4,
+    "implemented": 4,
+    "items": [
+      {
+        "id": "REQ-1",
+        "summary": "Unify all call and WhatsApp touch-points site-wide to use the single number 919840077591. Every element that triggers a phone call (tel: links, Call buttons, Book Repair CTAs, Enquire Now buttons) must use tel:+919840077591. Every WhatsApp link or button must use https://wa.me/919840077591. This applies to: Header CTA, HotPickSection, ContactPage, ServicesPage, ProductsPage, Footer, BusinessHighlightsStrip, WhatsAppQuickMessages, and any floating or inline CTA across all pages.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/Header.tsx",
+          "frontend/src/components/Footer.tsx",
+          "frontend/src/components/BusinessHighlightsStrip.tsx",
+          "frontend/src/components/HotPickSection.tsx",
+          "frontend/src/components/WhatsAppQuickMessages.tsx",
+          "frontend/src/pages/ContactPage.tsx",
+          "frontend/src/pages/ServicesPage.tsx",
+          "frontend/src/pages/ProductsPage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/Header.tsx",
+          "frontend/src/components/Footer.tsx",
+          "frontend/src/components/BusinessHighlightsStrip.tsx",
+          "frontend/src/components/HotPickSection.tsx",
+          "frontend/src/components/WhatsAppQuickMessages.tsx",
+          "frontend/src/pages/ContactPage.tsx",
+          "frontend/src/pages/ServicesPage.tsx",
+          "frontend/src/pages/ProductsPage.tsx"
+        ]
+      },
+      {
+        "id": "REQ-2",
+        "summary": "Create a dedicated navigation menu structure with dropdown submenus. Each submenu item must navigate to its own unique URL (e.g. /products/apple, /services/repair, /about/story) and open as a new full page (pushState navigation within the SPA, not an anchor scroll). The menu structure should cover at minimum: Products (with brand/category sub-pages), Services (with individual service sub-pages such as Mobile Repair, CCTV, Accessories, Exchange, EMI), About (with sub-pages such as Our Story, Why Choose Us), and Contact. Header.tsx must render this dropdown menu for desktop and a collapsible menu for mobile. App.tsx must register routes for each new URL.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/Header.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/Header.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-3",
+        "summary": "Create individual page components for every submenu route registered in REQ-2. Each page must: (1) call updateSEOMeta() from seoHelpers.ts with a unique, descriptive title, meta description, canonical URL, and Open Graph tags relevant to its content; (2) inject appropriate schema.org JSON-LD structured data (BreadcrumbList at minimum, plus relevant Service or Product schema where applicable) using structuredData.ts helpers; (3) contain meaningful, keyword-rich body content (headings, descriptive paragraphs, feature lists, CTAs) relevant to that specific sub-topic so the page is substantively indexable; (4) include a call and/or WhatsApp CTA using the unified number from REQ-1.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/products/ApplePage.tsx",
+          "frontend/src/pages/products/SamsungPage.tsx",
+          "frontend/src/pages/products/MotorolaPage.tsx",
+          "frontend/src/pages/products/OnePlusPage.tsx",
+          "frontend/src/pages/products/RealmePage.tsx",
+          "frontend/src/pages/products/VivoPage.tsx",
+          "frontend/src/pages/products/XiaomiPage.tsx",
+          "frontend/src/pages/services/RepairPage.tsx",
+          "frontend/src/pages/services/CCTVPage.tsx",
+          "frontend/src/pages/services/AccessoriesPage.tsx",
+          "frontend/src/pages/services/ExchangePage.tsx",
+          "frontend/src/pages/services/EMIPage.tsx",
+          "frontend/src/pages/about/StoryPage.tsx",
+          "frontend/src/pages/about/WhyChooseUsPage.tsx",
+          "frontend/public/sitemap.xml"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/products/ApplePage.tsx",
+          "frontend/src/pages/products/SamsungPage.tsx",
+          "frontend/src/pages/products/MotorolaPage.tsx",
+          "frontend/src/pages/products/OnePlusPage.tsx",
+          "frontend/src/pages/products/RealmePage.tsx",
+          "frontend/src/pages/products/VivoPage.tsx",
+          "frontend/src/pages/products/XiaomiPage.tsx",
+          "frontend/src/pages/services/RepairPage.tsx",
+          "frontend/src/pages/services/CCTVPage.tsx",
+          "frontend/src/pages/services/AccessoriesPage.tsx",
+          "frontend/src/pages/services/ExchangePage.tsx",
+          "frontend/src/pages/services/EMIPage.tsx",
+          "frontend/src/pages/about/StoryPage.tsx",
+          "frontend/src/pages/about/WhyChooseUsPage.tsx",
+          "frontend/public/sitemap.xml"
+        ]
+      },
+      {
+        "id": "REQ-4",
+        "summary": "Ensure Google Analytics 4 (Gtag) page_view events fire on every navigation to the new submenu pages. The existing spaPageViews.ts SPA page-view tracker must cover all new routes added in REQ-2. Verify that App.tsx calls the page-view tracker on every route change, including to the new submenu URLs. Also ensure googleAdsTracking.ts conversion helpers are invoked on the new pages' call and WhatsApp CTA clicks, consistent with existing pages.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/lib/spaPageViews.ts",
+          "frontend/src/App.tsx",
+          "frontend/src/lib/clickTracking.ts",
+          "frontend/src/lib/googleAdsTracking.ts"
+        ],
+        "matchedFiles": [
+          "frontend/src/App.tsx"
+        ]
+      }
+    ]
+  },
+  "changedFiles": [
+    "build-request.json",
+    "feature_evidence.json",
+    "frontend-file-summaries.txt",
+    "frontend-implementation-plan.json",
+    "frontend/public/sitemap.xml",
+    "frontend/src/App.tsx",
+    "frontend/src/components/BusinessHighlightsStrip.tsx",
+    "frontend/src/components/Footer.tsx",
+    "frontend/src/components/Header.tsx",
+    "frontend/src/components/HotPickSection.tsx",
+    "frontend/src/components/WhatsAppQuickMessages.tsx",
+    "frontend/src/pages/ContactPage.tsx",
+    "frontend/src/pages/ProductsPage.tsx",
+    "frontend/src/pages/ServicesPage.tsx",
+    "frontend/src/pages/about/StoryPage.tsx",
+    "frontend/src/pages/about/WhyChooseUsPage.tsx",
+    "frontend/src/pages/products/ApplePage.tsx",
+    "frontend/src/pages/products/MotorolaPage.tsx",
+    "frontend/src/pages/products/OnePlusPage.tsx",
+    "frontend/src/pages/products/RealmePage.tsx",
+    "frontend/src/pages/products/SamsungPage.tsx",
+    "frontend/src/pages/products/VivoPage.tsx",
+    "frontend/src/pages/products/XiaomiPage.tsx",
+    "frontend/src/pages/services/AccessoriesPage.tsx",
+    "frontend/src/pages/services/CCTVPage.tsx",
+    "frontend/src/pages/services/EMIPage.tsx",
+    "frontend/src/pages/services/ExchangePage.tsx",
+    "frontend/src/pages/services/RepairPage.tsx",
+    "project_state.json",
+    "scratch/component-selection.json",
+    "spec.md",
+    "spec_vs_diff_report.json"
+  ]
+}

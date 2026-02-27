@@ -1,0 +1,104 @@
+{
+  "kind": "build_request",
+  "title": "Unify contact numbers, add submenu pages with SEO & Gtag",
+  "projectName": "Gadget Zone",
+  "priority": "high",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Unify all call and WhatsApp touch-points site-wide to use the single number 919840077591. Every element that triggers a phone call (tel: links, Call buttons, Book Repair CTAs, Enquire Now buttons) must use tel:+919840077591. Every WhatsApp link or button must use https://wa.me/919840077591. This applies to: Header CTA, HotPickSection, ContactPage, ServicesPage, ProductsPage, Footer, BusinessHighlightsStrip, WhatsAppQuickMessages, and any floating or inline CTA across all pages.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "All the Whats app number, Contact us number, Call, Book Repair, Enquire now. Which ever option redirects to call or Whats app should have only this number phone=919840077591."
+        ]
+      },
+      "acceptanceCriteria": [
+        "Every tel: href across all pages and components equals tel:+919840077591",
+        "Every WhatsApp link across all pages and components equals https://wa.me/919840077591",
+        "No other phone number appears in any call or WhatsApp link anywhere on the site",
+        "Header, Footer, BusinessHighlightsStrip, HotPickSection, ServicesPage, ProductsPage, ContactPage, and WhatsAppQuickMessages all reflect the unified number"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Create a dedicated navigation menu structure with dropdown submenus. Each submenu item must navigate to its own unique URL (e.g. /products/apple, /services/repair, /about/story) and open as a new full page (pushState navigation within the SPA, not an anchor scroll). The menu structure should cover at minimum: Products (with brand/category sub-pages), Services (with individual service sub-pages such as Mobile Repair, CCTV, Accessories, Exchange, EMI), About (with sub-pages such as Our Story, Why Choose Us), and Contact. Header.tsx must render this dropdown menu for desktop and a collapsible menu for mobile. App.tsx must register routes for each new URL.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Each sub menu items should open in new page and specific URL."
+        ]
+      },
+      "acceptanceCriteria": [
+        "Hovering or clicking a top-level menu item reveals a dropdown with its submenu items",
+        "Clicking a submenu item navigates to a unique URL path (e.g. /services/repair) without a full browser reload",
+        "The browser address bar updates to the correct URL for each submenu page",
+        "Back/forward browser navigation works correctly between submenu pages",
+        "Mobile menu collapses/expands and all submenu items are accessible on small screens"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Create individual page components for every submenu route registered in REQ-2. Each page must: (1) call updateSEOMeta() from seoHelpers.ts with a unique, descriptive title, meta description, canonical URL, and Open Graph tags relevant to its content; (2) inject appropriate schema.org JSON-LD structured data (BreadcrumbList at minimum, plus relevant Service or Product schema where applicable) using structuredData.ts helpers; (3) contain meaningful, keyword-rich body content (headings, descriptive paragraphs, feature lists, CTAs) relevant to that specific sub-topic so the page is substantively indexable; (4) include a call and/or WhatsApp CTA using the unified number from REQ-1.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "pages content are SEO friendly"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Each submenu page has a unique <title> and meta description set via updateSEOMeta()",
+        "Each submenu page has a canonical URL meta tag matching its route",
+        "Each submenu page injects at least a BreadcrumbList JSON-LD structured data block",
+        "Each submenu page contains at least one H1, supporting H2s, and descriptive paragraph content",
+        "Each submenu page contains a call or WhatsApp CTA using 919840077591",
+        "robots.txt and sitemap.xml are updated to include all new page URLs"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Ensure Google Analytics 4 (Gtag) page_view events fire on every navigation to the new submenu pages. The existing spaPageViews.ts SPA page-view tracker must cover all new routes added in REQ-2. Verify that App.tsx calls the page-view tracker on every route change, including to the new submenu URLs. Also ensure googleAdsTracking.ts conversion helpers are invoked on the new pages' call and WhatsApp CTA clicks, consistent with existing pages.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Make sure you add Gtag in all the new pages"
+        ]
+      },
+      "acceptanceCriteria": [
+        "A GA4 page_view event fires each time the user navigates to any new submenu page URL",
+        "The GA4 page_view event includes the correct page_path for each submenu URL",
+        "Call CTA clicks on new pages fire the appropriate Google Ads conversion event",
+        "WhatsApp CTA clicks on new pages fire the appropriate Google Ads conversion event",
+        "No duplicate page_view events fire on a single navigation action"
+      ]
+    }
+  ],
+  "constraints": [
+    "Do not modify frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, or any file under frontend/src/components/ui",
+    "All phone call links must use tel:+919840077591 and all WhatsApp links must use https://wa.me/919840077591 — no other number is permitted in these contexts",
+    "New pages must be SPA routes (pushState), not separate HTML files",
+    "Gtag/GA4 measurement ID and Google Ads account ID already hardcoded in existing tracking files must not be changed"
+  ],
+  "nonGoals": [
+    "Adding a backend data model or API for menu items — all navigation structure is static in the frontend",
+    "User authentication or Internet Identity for any new pages",
+    "Adding a new contact form beyond what already exists on ContactPage",
+    "Changing the overall visual design or color theme of the site"
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  }
+}
