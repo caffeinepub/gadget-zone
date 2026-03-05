@@ -1,32 +1,33 @@
-import { useState, useEffect } from 'react';
-import { Camera } from 'lucide-react';
+import { Camera } from "lucide-react";
+import { useEffect, useState } from "react";
 
 interface SafeImageProps {
   src: string;
   alt: string;
   className?: string;
-  fallbackType?: 'logo' | 'card';
+  fallbackType?: "logo" | "card";
   fallbackText?: string;
 }
 
-export function SafeImage({ 
-  src, 
-  alt, 
-  className = '', 
-  fallbackType = 'card',
-  fallbackText 
+export function SafeImage({
+  src,
+  alt,
+  className = "",
+  fallbackType = "card",
+  fallbackText,
 }: SafeImageProps) {
   const [hasError, setHasError] = useState(false);
 
   // Reset error state when src changes to allow retry with new URL
+  // biome-ignore lint/correctness/useExhaustiveDependencies: intentionally watching src to reset error on URL change
   useEffect(() => {
     setHasError(false);
   }, [src]);
 
   // Development warning for empty alt text
   useEffect(() => {
-    if (process.env.NODE_ENV === 'development' && !alt) {
-      console.warn('SafeImage: Missing alt text for image:', src);
+    if (process.env.NODE_ENV === "development" && !alt) {
+      console.warn("SafeImage: Missing alt text for image:", src);
     }
   }, [alt, src]);
 
@@ -36,19 +37,23 @@ export function SafeImage({
 
   if (hasError) {
     // Fallback UI that preserves layout
-    if (fallbackType === 'logo') {
+    if (fallbackType === "logo") {
       return (
-        <div className={`flex items-center justify-center bg-muted/30 ${className}`}>
+        <div
+          className={`flex items-center justify-center bg-muted/30 ${className}`}
+        >
           <span className="text-sm font-medium text-muted-foreground">
             {fallbackText || alt}
           </span>
         </div>
       );
     }
-    
+
     // Card image fallback
     return (
-      <div className={`flex flex-col items-center justify-center bg-muted/30 ${className}`}>
+      <div
+        className={`flex flex-col items-center justify-center bg-muted/30 ${className}`}
+      >
         <Camera className="w-12 h-12 text-muted-foreground/40 mb-2" />
         <span className="text-sm font-medium text-muted-foreground text-center px-4">
           {fallbackText || alt}
@@ -58,11 +63,6 @@ export function SafeImage({
   }
 
   return (
-    <img
-      src={src}
-      alt={alt}
-      className={className}
-      onError={handleError}
-    />
+    <img src={src} alt={alt} className={className} onError={handleError} />
   );
 }

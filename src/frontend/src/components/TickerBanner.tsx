@@ -1,5 +1,6 @@
 export function TickerBanner() {
-  const tickerText = "Mobile Phone's | Tablets | CCTV | Home and Shop Security Solutions | Bluetooth | Smart Watches | Spekers";
+  const tickerText =
+    "Mobile Phone's | Tablets | CCTV | Home and Shop Security Solutions | Bluetooth | Smart Watches | Speakers";
 
   return (
     <div className="w-full overflow-hidden bg-muted/30 border-y border-border py-3">
@@ -8,7 +9,10 @@ export function TickerBanner() {
           <span className="ticker-item text-sm md:text-base text-muted-foreground font-normal tracking-wide">
             {tickerText}
           </span>
-          <span className="ticker-item text-sm md:text-base text-muted-foreground font-normal tracking-wide">
+          <span
+            className="ticker-item text-sm md:text-base text-muted-foreground font-normal tracking-wide"
+            aria-hidden="true"
+          >
             {tickerText}
           </span>
         </div>

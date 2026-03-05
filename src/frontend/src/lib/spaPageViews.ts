@@ -1,13 +1,11 @@
 /**
  * SPA Page View Tracking
- * 
+ *
  * Listens for history changes (pushState, replaceState, popstate)
  * and sends page_view events to GA4 for single-page app navigation.
  */
 
-import { sendGA4PageView } from './ga4';
-
-type HistoryMethod = 'pushState' | 'replaceState';
+import { sendGA4PageView } from "./ga4";
 
 let isInitialized = false;
 let originalPushState: typeof history.pushState;
@@ -30,13 +28,13 @@ export function initializeSPAPageViews(): () => void {
   originalReplaceState = history.replaceState;
 
   // Patch history.pushState
-  history.pushState = function(...args) {
+  history.pushState = (...args) => {
     originalPushState.apply(history, args);
     sendGA4PageView(window.location.href);
   };
 
   // Patch history.replaceState
-  history.replaceState = function(...args) {
+  history.replaceState = (...args) => {
     originalReplaceState.apply(history, args);
     sendGA4PageView(window.location.href);
   };
@@ -45,14 +43,14 @@ export function initializeSPAPageViews(): () => void {
   const handlePopState = () => {
     sendGA4PageView(window.location.href);
   };
-  window.addEventListener('popstate', handlePopState);
+  window.addEventListener("popstate", handlePopState);
 
   // Return cleanup function
   return () => {
     if (isInitialized) {
       history.pushState = originalPushState;
       history.replaceState = originalReplaceState;
-      window.removeEventListener('popstate', handlePopState);
+      window.removeEventListener("popstate", handlePopState);
       isInitialized = false;
     }
   };

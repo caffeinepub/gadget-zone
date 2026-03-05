@@ -1,15 +1,16 @@
-import { MessageCircle } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/ui/popover';
+} from "@/components/ui/popover";
+import { MessageCircle } from "lucide-react";
+import { trackWhatsAppConversion } from "../lib/googleAdsTracking";
 
 interface WhatsAppQuickMessagesProps {
   whatsappNumber: string;
-  variant?: 'default' | 'outline' | 'ghost' | 'link';
-  size?: 'default' | 'sm' | 'lg' | 'icon';
+  variant?: "default" | "outline" | "ghost" | "link";
+  size?: "default" | "sm" | "lg" | "icon";
   className?: string;
   showIcon?: boolean;
   label?: string;
@@ -18,12 +19,12 @@ interface WhatsAppQuickMessagesProps {
 
 export function WhatsAppQuickMessages({
   whatsappNumber,
-  variant = 'outline',
-  size = 'lg',
-  className = '',
+  variant = "outline",
+  size = "lg",
+  className = "",
   showIcon = true,
-  label = 'WhatsApp',
-  gaContext = '',
+  label = "WhatsApp",
+  gaContext = "",
 }: WhatsAppQuickMessagesProps) {
   const messages = [
     "Hi, I'm looking to buy a new mobile.",
@@ -38,9 +39,9 @@ export function WhatsAppQuickMessages({
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button 
-          variant={variant} 
-          size={size} 
+        <Button
+          variant={variant}
+          size={size}
           className={className}
           data-ga-event={gaContext ? "cta_click" : undefined}
           data-ga-context={gaContext || undefined}
@@ -53,9 +54,9 @@ export function WhatsAppQuickMessages({
       <PopoverContent className="w-80 p-3" align="center">
         <div className="space-y-2">
           <p className="text-sm font-medium mb-3">Choose a message:</p>
-          {messages.map((message, index) => (
+          {messages.map((message) => (
             <Button
-              key={index}
+              key={message}
               asChild
               variant="outline"
               size="sm"
@@ -65,8 +66,11 @@ export function WhatsAppQuickMessages({
                 href={createWhatsAppLink(message)}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackWhatsAppConversion()}
                 data-ga-event={gaContext ? "cta_click" : undefined}
-                data-ga-context={gaContext ? `${gaContext}_quick_message` : undefined}
+                data-ga-context={
+                  gaContext ? `${gaContext}_quick_message` : undefined
+                }
                 data-ga-label="whatsapp"
               >
                 <MessageCircle className="mr-2 h-4 w-4 flex-shrink-0" />

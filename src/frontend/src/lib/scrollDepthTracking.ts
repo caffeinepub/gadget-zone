@@ -1,12 +1,12 @@
 /**
  * Scroll Depth Tracking Module
- * 
+ *
  * Tracks scroll depth at 25%, 50%, 75%, and 100% thresholds.
  * Fires each threshold once per page load.
  * Uses passive listeners and requestAnimationFrame for performance.
  */
 
-import { sendGA4Event } from './ga4';
+import { sendGA4Event } from "./ga4";
 
 type ScrollThreshold = 25 | 50 | 75 | 100;
 
@@ -22,13 +22,13 @@ function getScrollPercentage(): number {
   const windowHeight = window.innerHeight;
   const documentHeight = document.documentElement.scrollHeight;
   const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-  
+
   // Avoid division by zero
   const scrollableHeight = documentHeight - windowHeight;
   if (scrollableHeight <= 0) {
     return 100;
   }
-  
+
   return Math.min(100, Math.round((scrollTop / scrollableHeight) * 100));
 }
 
@@ -38,18 +38,18 @@ function getScrollPercentage(): number {
 function checkScrollDepth(): void {
   const scrollPercentage = getScrollPercentage();
   const thresholds: ScrollThreshold[] = [25, 50, 75, 100];
-  
+
   for (const threshold of thresholds) {
     if (scrollPercentage >= threshold && !trackedThresholds.has(threshold)) {
       trackedThresholds.add(threshold);
-      sendGA4Event('scroll_depth', {
+      sendGA4Event("scroll_depth", {
         percent: threshold.toString(),
         depth: threshold,
         page_url: window.location.href,
       });
     }
   }
-  
+
   isScrolling = false;
 }
 
@@ -60,13 +60,13 @@ function handleScroll(): void {
   if (isScrolling) {
     return; // Already scheduled
   }
-  
+
   isScrolling = true;
-  
+
   if (rafId !== null) {
     cancelAnimationFrame(rafId);
   }
-  
+
   rafId = requestAnimationFrame(checkScrollDepth);
 }
 
@@ -91,15 +91,15 @@ export function initializeScrollDepthTracking(): () => void {
   trackedThresholds.clear();
 
   // Use passive listener for better scroll performance
-  window.addEventListener('scroll', handleScroll, { passive: true });
-  
+  window.addEventListener("scroll", handleScroll, { passive: true });
+
   // Check initial scroll position (in case page loads scrolled)
   setTimeout(checkScrollDepth, 100);
 
   // Return cleanup function
   return () => {
     if (isInitialized) {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
       if (rafId !== null) {
         cancelAnimationFrame(rafId);
         rafId = null;

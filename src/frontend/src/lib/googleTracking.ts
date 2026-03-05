@@ -1,14 +1,14 @@
 /**
  * Google Tracking Utilities
- * 
+ *
  * Provides safe, idempotent initialization for:
  * - Google Tag Manager (GTM)
  * - Google Analytics (gtag.js) - loaded from <head> with hardcoded measurement ID
- * 
+ *
  * All functions are safe to call when tracking is not configured.
  */
 
-import { analyticsConfig } from './analyticsConfig';
+import { analyticsConfig } from "./analyticsConfig";
 
 // Extend Window interface for gtag
 declare global {
@@ -25,13 +25,13 @@ declare global {
  */
 export function initializeGTM(): void {
   const { containerId, enabled } = analyticsConfig.gtm;
-  
+
   if (!enabled || !containerId) {
     return;
   }
 
   // Guard against multiple injections
-  const scriptId = 'gtm-script';
+  const scriptId = "gtm-script";
   if (document.getElementById(scriptId)) {
     return;
   }
@@ -39,17 +39,17 @@ export function initializeGTM(): void {
   // Initialize dataLayer
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({
-    'gtm.start': new Date().getTime(),
-    event: 'gtm.js',
+    "gtm.start": new Date().getTime(),
+    event: "gtm.js",
   });
 
   // Inject GTM script
-  const script = document.createElement('script');
+  const script = document.createElement("script");
   script.id = scriptId;
   script.async = true;
   script.src = `https://www.googletagmanager.com/gtm.js?id=${containerId}`;
-  
-  const firstScript = document.getElementsByTagName('script')[0];
+
+  const firstScript = document.getElementsByTagName("script")[0];
   firstScript.parentNode?.insertBefore(script, firstScript);
 }
 
