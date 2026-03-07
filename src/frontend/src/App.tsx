@@ -48,15 +48,15 @@ const ALL_ROUTES: Route[] = [
   "/services/accessories",
   "/services/exchange",
   "/services/emi",
-  "/products",
-  "/products/apple",
-  "/products/samsung",
-  "/products/motorola",
-  "/products/oneplus",
-  "/products/realme",
-  "/products/vivo",
-  "/products/xiaomi",
-  "/products/nothing",
+  "/brands",
+  "/brands/apple",
+  "/brands/samsung",
+  "/brands/motorola",
+  "/brands/oneplus",
+  "/brands/realme",
+  "/brands/vivo",
+  "/brands/xiaomi",
+  "/brands/nothing",
   "/about",
   "/about/story",
   "/about/why-choose-us",
@@ -125,23 +125,23 @@ export default function App() {
         return <ExchangePage onNavigate={navigate} />;
       case "/services/emi":
         return <EMIPage onNavigate={navigate} />;
-      case "/products":
+      case "/brands":
         return <ProductsPage />;
-      case "/products/apple":
+      case "/brands/apple":
         return <ApplePage />;
-      case "/products/samsung":
+      case "/brands/samsung":
         return <SamsungPage />;
-      case "/products/motorola":
+      case "/brands/motorola":
         return <MotorolaPage />;
-      case "/products/oneplus":
+      case "/brands/oneplus":
         return <OnePlusPage />;
-      case "/products/realme":
+      case "/brands/realme":
         return <RealmePage />;
-      case "/products/vivo":
+      case "/brands/vivo":
         return <VivoPage />;
-      case "/products/xiaomi":
+      case "/brands/xiaomi":
         return <XiaomiPage />;
-      case "/products/nothing":
+      case "/brands/nothing":
         return <NothingPage />;
       case "/about":
         return <AboutPage />;

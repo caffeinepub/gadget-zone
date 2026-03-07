@@ -145,14 +145,14 @@ export default function RealmePage() {
         "Realme Phones in Chennai – GT 6, Narzo 70, C65 | Gadget Zone Thiruvanmiyur",
       description:
         "Buy Realme phones at Gadget Zone, Thiruvanmiyur Chennai. Realme GT 6, 13 Pro+, Narzo 70 with EMI options. Feature-packed phones at competitive prices.",
-      canonical: "/products/realme",
-      ogUrl: "/products/realme",
+      canonical: "/brands/realme",
+      ogUrl: "/brands/realme",
     });
     injectStructuredData(
       getBreadcrumbSchema([
         { name: "Home", url: "/" },
-        { name: "Products", url: "/products" },
-        { name: "Realme", url: "/products/realme" },
+        { name: "Brands", url: "/brands" },
+        { name: "Realme", url: "/brands/realme" },
       ]),
       "breadcrumb-ld",
     );
@@ -167,8 +167,8 @@ export default function RealmePage() {
             Home
           </a>
           <span className="mx-2">›</span>
-          <a href="/products" className="hover:text-gray-800 transition">
-            Products
+          <a href="/brands" className="hover:text-gray-800 transition">
+            Brands
           </a>
           <span className="mx-2">›</span>
           <span className="text-gray-800">Realme</span>

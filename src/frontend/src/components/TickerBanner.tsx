@@ -1,21 +1,29 @@
 export function TickerBanner() {
   const tickerText =
-    "Mobile Phone's | Tablets | CCTV | Home and Shop Security Solutions | Bluetooth | Smart Watches | Speakers";
+    "Mobile Phone's \u00a0\u00a0|\u00a0\u00a0 Tablets \u00a0\u00a0|\u00a0\u00a0 CCTV \u00a0\u00a0|\u00a0\u00a0 Home and Shop Security Solutions \u00a0\u00a0|\u00a0\u00a0 Bluetooth \u00a0\u00a0|\u00a0\u00a0 Smart Watches \u00a0\u00a0|\u00a0\u00a0 Speakers \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0";
+
+  const keys = ["t1", "t2", "t3", "t4", "t5", "t6"];
 
   return (
     <div className="w-full overflow-hidden bg-muted/30 border-y border-border py-3">
-      <div className="ticker-wrapper">
-        <div className="ticker-content">
-          <span className="ticker-item text-sm md:text-base text-muted-foreground font-normal tracking-wide">
-            {tickerText}
-          </span>
+      <div
+        style={{
+          display: "flex",
+          whiteSpace: "nowrap",
+          animation: "ticker-scroll-new 35s linear infinite",
+          willChange: "transform",
+        }}
+      >
+        {keys.map((key, i) => (
           <span
-            className="ticker-item text-sm md:text-base text-muted-foreground font-normal tracking-wide"
-            aria-hidden="true"
+            key={key}
+            aria-hidden={i > 0 ? "true" : undefined}
+            style={{ display: "inline-block", flexShrink: 0 }}
+            className="text-sm md:text-base text-muted-foreground font-normal tracking-wide"
           >
             {tickerText}
           </span>
-        </div>
+        ))}
       </div>
     </div>
   );

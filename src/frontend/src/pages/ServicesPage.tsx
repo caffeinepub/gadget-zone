@@ -42,7 +42,7 @@ const SERVICES = [
     cta: "Enquire Now",
     whatsapp:
       "Hi, I am interested in buying a new mobile phone. Please share available models and prices.",
-    path: "/products",
+    path: "/brands",
   },
   {
     id: "service-repair",

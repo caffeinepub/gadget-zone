@@ -16,14 +16,14 @@ const PHONE = "9840077591";
 const WA_NUMBER = "919840077591";
 
 const brands = [
-  { name: "Samsung", key: "SAMSUNG", path: "/products/samsung" },
-  { name: "Apple", key: "APPLE", path: "/products/apple" },
-  { name: "Motorola", key: "MOTOROLA", path: "/products/motorola" },
-  { name: "OnePlus", key: "ONEPLUS", path: "/products/oneplus" },
-  { name: "Realme", key: "REALME", path: "/products/realme" },
-  { name: "Vivo", key: "VIVO", path: "/products/vivo" },
-  { name: "Mi / Xiaomi", key: "MI", path: "/products/xiaomi" },
-  { name: "Nothing", key: "NOTHING_MOBILE", path: "/products/nothing" },
+  { name: "Samsung", key: "SAMSUNG", path: "/brands/samsung" },
+  { name: "Apple", key: "APPLE", path: "/brands/apple" },
+  { name: "Motorola", key: "MOTOROLA", path: "/brands/motorola" },
+  { name: "OnePlus", key: "ONEPLUS", path: "/brands/oneplus" },
+  { name: "Realme", key: "REALME", path: "/brands/realme" },
+  { name: "Vivo", key: "VIVO", path: "/brands/vivo" },
+  { name: "Mi / Xiaomi", key: "MI", path: "/brands/xiaomi" },
+  { name: "Nothing", key: "NOTHING_MOBILE", path: "/brands/nothing" },
   { name: "CCTV", key: "CCTV", path: "/services/cctv" },
 ];
 
@@ -213,7 +213,7 @@ export default function HomePage() {
                 title: "New Mobiles",
                 desc: "Latest smartphones from top brands at best prices with EMI options.",
                 img: "/assets/generated/card-new-mobiles.dim_1200x800.jpg",
-                path: "/products",
+                path: "/brands",
               },
               {
                 title: "Mobile Repair",

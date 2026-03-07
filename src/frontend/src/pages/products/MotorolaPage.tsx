@@ -133,14 +133,14 @@ export default function MotorolaPage() {
         "Motorola Phones in Chennai – Edge 50, Moto G85 | Gadget Zone Thiruvanmiyur",
       description:
         "Buy Motorola phones at Gadget Zone, Thiruvanmiyur Chennai. Edge 50 Pro, Moto G85, G64 with EMI options. Near-stock Android with great battery life.",
-      canonical: "/products/motorola",
-      ogUrl: "/products/motorola",
+      canonical: "/brands/motorola",
+      ogUrl: "/brands/motorola",
     });
     injectStructuredData(
       getBreadcrumbSchema([
         { name: "Home", url: "/" },
-        { name: "Products", url: "/products" },
-        { name: "Motorola", url: "/products/motorola" },
+        { name: "Brands", url: "/brands" },
+        { name: "Motorola", url: "/brands/motorola" },
       ]),
       "breadcrumb-ld",
     );
@@ -155,8 +155,8 @@ export default function MotorolaPage() {
             Home
           </a>
           <span className="mx-2">›</span>
-          <a href="/products" className="hover:text-gray-800 transition">
-            Products
+          <a href="/brands" className="hover:text-gray-800 transition">
+            Brands
           </a>
           <span className="mx-2">›</span>
           <span className="text-gray-800">Motorola</span>

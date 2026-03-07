@@ -30,7 +30,7 @@ const brands: Brand[] = [
       "World's leading smartphone brand with Galaxy S, A, and M series.",
     priceRange: "₹8,000 – ₹1,60,000",
     category: "Premium",
-    path: "/products/samsung",
+    path: "/brands/samsung",
     models: [
       "Galaxy S25 Ultra",
       "Galaxy S25+",
@@ -46,7 +46,7 @@ const brands: Brand[] = [
     description: "Premium iPhones with unmatched performance and ecosystem.",
     priceRange: "₹49,900 – ₹1,89,900",
     category: "Premium",
-    path: "/products/apple",
+    path: "/brands/apple",
     models: [
       "iPhone 16 Pro Max",
       "iPhone 16 Pro",
@@ -63,7 +63,7 @@ const brands: Brand[] = [
       "Reliable smartphones with near-stock Android and great battery life.",
     priceRange: "₹7,000 – ₹60,000",
     category: "Mid-Range",
-    path: "/products/motorola",
+    path: "/brands/motorola",
     models: [
       "Edge 50 Pro",
       "Edge 50 Fusion",
@@ -79,7 +79,7 @@ const brands: Brand[] = [
     description: "Flagship killer phones with fast charging and OxygenOS.",
     priceRange: "₹15,000 – ₹1,00,000",
     category: "Premium",
-    path: "/products/oneplus",
+    path: "/brands/oneplus",
     models: [
       "OnePlus 13",
       "OnePlus 12R",
@@ -95,7 +95,7 @@ const brands: Brand[] = [
       "Feature-packed phones at competitive prices for every segment.",
     priceRange: "₹6,000 – ₹45,000",
     category: "Budget",
-    path: "/products/realme",
+    path: "/brands/realme",
     models: [
       "Realme GT 6",
       "Realme 13 Pro+",
@@ -111,7 +111,7 @@ const brands: Brand[] = [
     description: "Stylish phones with excellent cameras and fast charging.",
     priceRange: "₹8,000 – ₹90,000",
     category: "Mid-Range",
-    path: "/products/vivo",
+    path: "/brands/vivo",
     models: [
       "Vivo X100 Pro",
       "Vivo V40 Pro",
@@ -127,7 +127,7 @@ const brands: Brand[] = [
     description: "Value-for-money smartphones with powerful specs and MIUI.",
     priceRange: "₹7,000 – ₹1,00,000",
     category: "Mid-Range",
-    path: "/products/xiaomi",
+    path: "/brands/xiaomi",
     models: [
       "Xiaomi 14 Ultra",
       "Xiaomi 14",
@@ -144,7 +144,7 @@ const brands: Brand[] = [
       "Unique transparent design phones with clean Android experience.",
     priceRange: "₹20,000 – ₹60,000",
     category: "Mid-Range",
-    path: "/products/nothing",
+    path: "/brands/nothing",
     models: [
       "Nothing Phone (2a) Plus",
       "Nothing Phone (2a)",
@@ -181,13 +181,13 @@ export default function ProductsPage() {
         "Mobile Phones & Brands – Gadget Zone Chennai | Samsung, Apple, Motorola & More",
       description:
         "Browse all mobile phone brands at Gadget Zone Chennai. Samsung, Apple, Motorola, OnePlus, Realme, Vivo, Xiaomi, Nothing & CCTV. Best prices with EMI options.",
-      canonical: "/products",
-      ogUrl: "/products",
+      canonical: "/brands",
+      ogUrl: "/brands",
     });
     injectStructuredData(
       getBreadcrumbSchema([
         { name: "Home", url: "/" },
-        { name: "Products", url: "/products" },
+        { name: "Brands", url: "/brands" },
       ]),
       "breadcrumb-ld",
     );
@@ -209,7 +209,7 @@ export default function ProductsPage() {
             Home
           </a>
           <span className="mx-2">›</span>
-          <span className="text-gray-800">Products</span>
+          <span className="text-gray-800">Brands</span>
         </nav>
         <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-3">
           Mobile Phones & Brands

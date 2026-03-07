@@ -156,14 +156,14 @@ export default function ApplePage() {
         "Apple iPhone in Chennai – iPhone 16, 16e, 15, 14 | Gadget Zone Thiruvanmiyur",
       description:
         "Buy Apple iPhone at Gadget Zone, Thiruvanmiyur Chennai. iPhone 16 Pro Max, iPhone 16e, iPhone 15, iPhone 14 with EMI options. Genuine products with warranty.",
-      canonical: "/products/apple",
-      ogUrl: "/products/apple",
+      canonical: "/brands/apple",
+      ogUrl: "/brands/apple",
     });
     injectStructuredData(
       getBreadcrumbSchema([
         { name: "Home", url: "/" },
-        { name: "Products", url: "/products" },
-        { name: "Apple", url: "/products/apple" },
+        { name: "Brands", url: "/brands" },
+        { name: "Apple", url: "/brands/apple" },
       ]),
       "breadcrumb-ld",
     );
@@ -178,8 +178,8 @@ export default function ApplePage() {
             Home
           </a>
           <span className="mx-2">›</span>
-          <a href="/products" className="hover:text-gray-800 transition">
-            Products
+          <a href="/brands" className="hover:text-gray-800 transition">
+            Brands
           </a>
           <span className="mx-2">›</span>
           <span className="text-gray-800">Apple</span>

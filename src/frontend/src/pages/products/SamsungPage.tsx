@@ -145,14 +145,14 @@ export default function SamsungPage() {
         "Samsung Phones in Chennai – Galaxy S25, A55, M35 | Gadget Zone Thiruvanmiyur",
       description:
         "Buy Samsung Galaxy phones at Gadget Zone, Thiruvanmiyur Chennai. Galaxy S25 Ultra, A55, M35 with EMI options. Genuine Samsung products with warranty.",
-      canonical: "/products/samsung",
-      ogUrl: "/products/samsung",
+      canonical: "/brands/samsung",
+      ogUrl: "/brands/samsung",
     });
     injectStructuredData(
       getBreadcrumbSchema([
         { name: "Home", url: "/" },
-        { name: "Products", url: "/products" },
-        { name: "Samsung", url: "/products/samsung" },
+        { name: "Brands", url: "/brands" },
+        { name: "Samsung", url: "/brands/samsung" },
       ]),
       "breadcrumb-ld",
     );
@@ -167,8 +167,8 @@ export default function SamsungPage() {
             Home
           </a>
           <span className="mx-2">›</span>
-          <a href="/products" className="hover:text-gray-800 transition">
-            Products
+          <a href="/brands" className="hover:text-gray-800 transition">
+            Brands
           </a>
           <span className="mx-2">›</span>
           <span className="text-gray-800">Samsung</span>

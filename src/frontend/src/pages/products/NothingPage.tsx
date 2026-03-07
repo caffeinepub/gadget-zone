@@ -106,14 +106,14 @@ export default function NothingPage() {
         "Nothing Phone in Chennai – Nothing Phone 3a, 2a | Gadget Zone Thiruvanmiyur",
       description:
         "Buy Nothing Phone at Gadget Zone, Thiruvanmiyur Chennai. Nothing Phone 3a, 2a with signature Glyph Interface and EMI options. Unique design meets great performance.",
-      canonical: "/products/nothing",
-      ogUrl: "/products/nothing",
+      canonical: "/brands/nothing",
+      ogUrl: "/brands/nothing",
     });
     injectStructuredData(
       getBreadcrumbSchema([
         { name: "Home", url: "/" },
-        { name: "Products", url: "/products" },
-        { name: "Nothing Mobile", url: "/products/nothing" },
+        { name: "Brands", url: "/brands" },
+        { name: "Nothing Mobile", url: "/brands/nothing" },
       ]),
       "breadcrumb-ld",
     );
@@ -128,8 +128,8 @@ export default function NothingPage() {
             Home
           </a>
           <span className="mx-2">›</span>
-          <a href="/products" className="hover:text-gray-800 transition">
-            Products
+          <a href="/brands" className="hover:text-gray-800 transition">
+            Brands
           </a>
           <span className="mx-2">›</span>
           <span className="text-gray-800">Nothing Mobile</span>

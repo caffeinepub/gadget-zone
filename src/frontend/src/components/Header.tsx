@@ -19,16 +19,16 @@ interface NavItem {
 const NAV_ITEMS: NavItem[] = [
   { label: "Home", path: "/" },
   {
-    label: "Products",
-    path: "/products",
+    label: "Brands",
+    path: "/brands",
     subItems: [
-      { label: "Apple", path: "/products/apple" },
-      { label: "Samsung", path: "/products/samsung" },
-      { label: "Motorola", path: "/products/motorola" },
-      { label: "OnePlus", path: "/products/oneplus" },
-      { label: "Realme", path: "/products/realme" },
-      { label: "Vivo", path: "/products/vivo" },
-      { label: "Xiaomi / Redmi", path: "/products/xiaomi" },
+      { label: "Apple", path: "/brands/apple" },
+      { label: "Samsung", path: "/brands/samsung" },
+      { label: "Motorola", path: "/brands/motorola" },
+      { label: "OnePlus", path: "/brands/oneplus" },
+      { label: "Realme", path: "/brands/realme" },
+      { label: "Vivo", path: "/brands/vivo" },
+      { label: "Xiaomi / Redmi", path: "/brands/xiaomi" },
     ],
   },
   {

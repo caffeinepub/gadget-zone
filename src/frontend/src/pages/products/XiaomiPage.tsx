@@ -145,14 +145,14 @@ export default function XiaomiPage() {
         "Xiaomi & Redmi Phones in Chennai – Xiaomi 14, Redmi Note 13 | Gadget Zone Thiruvanmiyur",
       description:
         "Buy Xiaomi and Redmi phones at Gadget Zone, Thiruvanmiyur Chennai. Xiaomi 14 Ultra, Redmi Note 13 Pro+ with EMI options. Value-for-money smartphones.",
-      canonical: "/products/xiaomi",
-      ogUrl: "/products/xiaomi",
+      canonical: "/brands/xiaomi",
+      ogUrl: "/brands/xiaomi",
     });
     injectStructuredData(
       getBreadcrumbSchema([
         { name: "Home", url: "/" },
-        { name: "Products", url: "/products" },
-        { name: "Mi / Xiaomi", url: "/products/xiaomi" },
+        { name: "Brands", url: "/brands" },
+        { name: "Mi / Xiaomi", url: "/brands/xiaomi" },
       ]),
       "breadcrumb-ld",
     );
@@ -167,8 +167,8 @@ export default function XiaomiPage() {
             Home
           </a>
           <span className="mx-2">›</span>
-          <a href="/products" className="hover:text-gray-800 transition">
-            Products
+          <a href="/brands" className="hover:text-gray-800 transition">
+            Brands
           </a>
           <span className="mx-2">›</span>
           <span className="text-gray-800">Mi / Xiaomi</span>

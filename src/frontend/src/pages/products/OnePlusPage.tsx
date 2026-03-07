@@ -118,14 +118,14 @@ export default function OnePlusPage() {
         "OnePlus Phones in Chennai – OnePlus 13, Nord 4 | Gadget Zone Thiruvanmiyur",
       description:
         "Buy OnePlus phones at Gadget Zone, Thiruvanmiyur Chennai. OnePlus 13, Nord 4, CE4 with EMI options. Flagship killer phones with fast charging.",
-      canonical: "/products/oneplus",
-      ogUrl: "/products/oneplus",
+      canonical: "/brands/oneplus",
+      ogUrl: "/brands/oneplus",
     });
     injectStructuredData(
       getBreadcrumbSchema([
         { name: "Home", url: "/" },
-        { name: "Products", url: "/products" },
-        { name: "OnePlus", url: "/products/oneplus" },
+        { name: "Brands", url: "/brands" },
+        { name: "OnePlus", url: "/brands/oneplus" },
       ]),
       "breadcrumb-ld",
     );
@@ -140,8 +140,8 @@ export default function OnePlusPage() {
             Home
           </a>
           <span className="mx-2">›</span>
-          <a href="/products" className="hover:text-gray-800 transition">
-            Products
+          <a href="/brands" className="hover:text-gray-800 transition">
+            Brands
           </a>
           <span className="mx-2">›</span>
           <span className="text-gray-800">OnePlus</span>

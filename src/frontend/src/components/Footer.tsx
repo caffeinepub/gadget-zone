@@ -19,7 +19,7 @@ interface FooterProps {
 const QUICK_LINKS = [
   { label: "Home", href: "/" },
   { label: "Services", href: "/services" },
-  { label: "Products", href: "/products" },
+  { label: "Brands", href: "/brands" },
   { label: "About Us", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];

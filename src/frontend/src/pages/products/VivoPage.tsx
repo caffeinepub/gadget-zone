@@ -145,14 +145,14 @@ export default function VivoPage() {
         "Vivo Phones in Chennai – X100 Pro, V40, Y Series | Gadget Zone Thiruvanmiyur",
       description:
         "Buy Vivo phones at Gadget Zone, Thiruvanmiyur Chennai. Vivo X100 Pro, V40 Pro, Y300 with EMI options. Stylish phones with excellent cameras.",
-      canonical: "/products/vivo",
-      ogUrl: "/products/vivo",
+      canonical: "/brands/vivo",
+      ogUrl: "/brands/vivo",
     });
     injectStructuredData(
       getBreadcrumbSchema([
         { name: "Home", url: "/" },
-        { name: "Products", url: "/products" },
-        { name: "Vivo", url: "/products/vivo" },
+        { name: "Brands", url: "/brands" },
+        { name: "Vivo", url: "/brands/vivo" },
       ]),
       "breadcrumb-ld",
     );
@@ -167,8 +167,8 @@ export default function VivoPage() {
             Home
           </a>
           <span className="mx-2">›</span>
-          <a href="/products" className="hover:text-gray-800 transition">
-            Products
+          <a href="/brands" className="hover:text-gray-800 transition">
+            Brands
           </a>
           <span className="mx-2">›</span>
           <span className="text-gray-800">Vivo</span>

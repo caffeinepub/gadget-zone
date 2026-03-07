@@ -141,6 +141,15 @@
     }
   }
 
+  @keyframes ticker-scroll-new {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-16.6667%);
+    }
+  }
+
   /* HOT Badge Pulse Animation */
   .hot-badge-pulse {
     animation: hot-pulse 2s ease-in-out infinite;
