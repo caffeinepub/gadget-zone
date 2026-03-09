@@ -1,21 +1,38 @@
-# Specification
+# Gadget Zone – Products Menu & Category Pages
 
-## Summary
-**Goal:** Unify all contact numbers site-wide to a single number, add dropdown navigation with dedicated submenu pages (each with SEO metadata and structured data), and ensure GA4/Gtag page_view and conversion events fire on all new routes.
+## Current State
+- Navigation has: Home, Brands (with 7 brand sub-pages), Services, About, Contact
+- Brand pages exist at /brands/apple, /brands/samsung, etc.
+- No "Products" menu item exists yet
+- Google tags G-HBEHE5MY5Y and AW-959629329 are in index.html and fire on all pages automatically via SPA
 
-**Planned changes:**
-- Replace every `tel:` link and call CTA across all components (Header, Footer, HotPickSection, ServicesPage, ProductsPage, ContactPage, BusinessHighlightsStrip, WhatsAppQuickMessages, and any floating CTAs) to use `tel:+919840077591`
-- Replace every WhatsApp link and button site-wide to use `https://wa.me/919840077591`
-- Add a dropdown navigation menu in Header.tsx with top-level items: Products, Services, About, and Contact — each with submenu items linking to unique URL paths (e.g. `/products/apple`, `/services/repair`, `/services/cctv`, `/services/accessories`, `/services/exchange`, `/services/emi`, `/about/story`, `/about/why-choose-us`)
-- Register all new submenu routes in App.tsx as SPA pushState routes
-- Create individual page components for every submenu route, each with:
-  - Unique `<title>`, meta description, canonical URL, and Open Graph tags via `updateSEOMeta()`
-  - BreadcrumbList JSON-LD and relevant Service/Product schema via `structuredData.ts`
-  - Keyword-rich content (H1, H2s, descriptive paragraphs, feature lists)
-  - Call and/or WhatsApp CTA using the unified number
-- Update `robots.txt` and `sitemap.xml` to include all new page URLs
-- Ensure `spaPageViews.ts` fires a GA4 `page_view` event on every navigation to the new submenu routes, with the correct `page_path`
-- Invoke `googleAdsTracking.ts` conversion helpers on call and WhatsApp CTA clicks on all new pages
-- Add collapsible mobile menu support in Header.tsx for all new submenu items
+## Requested Changes (Diff)
 
-**User-visible outcome:** Visitors see a unified phone/WhatsApp number throughout the site, can navigate to dedicated sub-pages for each product brand, service type, and about section via dropdown menus, and all new pages are SEO-optimised and tracked with GA4 and Google Ads conversions.
+### Add
+- "Products" menu item in Header NAV_ITEMS, placed after "Brands"
+- Products dropdown with:
+  - Mobile Phones (nested sub-menu) → Samsung, Apple, OnePlus, Xiaomi, Vivo, Realme, Motorola, Nothing
+  - Mobile Accessories → /products/mobile-accessories
+  - CCTV & Security → /products/cctv-security
+  - Computer Accessories → /products/computer-accessories
+  - Audio Devices → /products/audio-devices
+  - Power & Charging → /products/power-charging
+  - Smart Gadgets → /products/smart-gadgets
+- 8 new Mobile Phone brand pages at /products/samsung-phones, /products/apple-phones, /products/oneplus-phones, /products/xiaomi-phones, /products/vivo-phones, /products/realme-phones, /products/motorola-phones, /products/nothing-phones
+- 6 new product category pages
+- All new routes added to ALL_ROUTES in App.tsx
+- GA4 page_view tracking fires automatically via existing SPA tracker
+
+### Modify
+- Header.tsx: Add Products nav item with nested dropdown support for Mobile Phones sub-items
+- App.tsx: Add all new routes and import new page components
+
+### Remove
+- Nothing removed
+
+## Implementation Plan
+1. Update Header.tsx to support Products menu with nested Mobile Phones sub-menu
+2. Create 8 new /products/[brand]-phones pages (Samsung, Apple, OnePlus, Xiaomi, Vivo, Realme, Motorola, Nothing) - each with SEO title, intro, Chennai local SEO line, internal brand links
+3. Create 6 new product category pages (Mobile Accessories, CCTV & Security, Computer Accessories, Audio Devices, Power & Charging, Smart Gadgets)
+4. Update App.tsx with all new routes
+5. Ensure desktop hover dropdown and mobile accordion both work for nested Products > Mobile Phones sub-items

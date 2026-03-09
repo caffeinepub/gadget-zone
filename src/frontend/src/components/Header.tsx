@@ -1,4 +1,4 @@
-import { ChevronDown, Menu, Phone, X } from "lucide-react";
+import { ChevronDown, ChevronRight, Menu, Phone, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { trackCallConversion } from "../lib/googleAdsTracking";
 
@@ -8,6 +8,7 @@ const PHONE_DISPLAY = "+91 98400 77591";
 interface SubMenuItem {
   label: string;
   path: string;
+  subItems?: { label: string; path: string }[];
 }
 
 interface NavItem {
@@ -15,6 +16,17 @@ interface NavItem {
   path: string;
   subItems?: SubMenuItem[];
 }
+
+const PRODUCTS_MOBILE_BRANDS = [
+  { label: "Samsung", path: "/products/samsung-phones" },
+  { label: "Apple", path: "/products/apple-phones" },
+  { label: "OnePlus", path: "/products/oneplus-phones" },
+  { label: "Xiaomi", path: "/products/xiaomi-phones" },
+  { label: "Vivo", path: "/products/vivo-phones" },
+  { label: "Realme", path: "/products/realme-phones" },
+  { label: "Motorola", path: "/products/motorola-phones" },
+  { label: "Nothing", path: "/products/nothing-phones" },
+];
 
 const NAV_ITEMS: NavItem[] = [
   { label: "Home", path: "/" },
@@ -29,6 +41,23 @@ const NAV_ITEMS: NavItem[] = [
       { label: "Realme", path: "/brands/realme" },
       { label: "Vivo", path: "/brands/vivo" },
       { label: "Xiaomi / Redmi", path: "/brands/xiaomi" },
+    ],
+  },
+  {
+    label: "Products",
+    path: "/products",
+    subItems: [
+      {
+        label: "Mobile Phones",
+        path: "/products/mobile-phones",
+        subItems: PRODUCTS_MOBILE_BRANDS,
+      },
+      { label: "Mobile Accessories", path: "/products/mobile-accessories" },
+      { label: "CCTV & Security", path: "/products/cctv-security" },
+      { label: "Computer Accessories", path: "/products/computer-accessories" },
+      { label: "Audio Devices", path: "/products/audio-devices" },
+      { label: "Power & Charging", path: "/products/power-charging" },
+      { label: "Smart Gadgets", path: "/products/smart-gadgets" },
     ],
   },
   {
@@ -61,7 +90,11 @@ interface HeaderProps {
 export default function Header({ currentPath = "/", onNavigate }: HeaderProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [openSubDropdown, setOpenSubDropdown] = useState<string | null>(null);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
+  const [mobileSubExpanded, setMobileSubExpanded] = useState<string | null>(
+    null,
+  );
   const [scrolled, setScrolled] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -87,7 +120,9 @@ export default function Header({ currentPath = "/", onNavigate }: HeaderProps) {
   const handleNavClick = (path: string) => {
     setMobileOpen(false);
     setOpenDropdown(null);
+    setOpenSubDropdown(null);
     setMobileExpanded(null);
+    setMobileSubExpanded(null);
     if (onNavigate) {
       onNavigate(path);
     } else {
@@ -141,8 +176,13 @@ export default function Header({ currentPath = "/", onNavigate }: HeaderProps) {
               <div key={item.path} className="relative">
                 {item.subItems ? (
                   <div
-                    onMouseEnter={() => setOpenDropdown(item.label)}
-                    onMouseLeave={() => setOpenDropdown(null)}
+                    onMouseEnter={() => {
+                      setOpenDropdown(item.label);
+                    }}
+                    onMouseLeave={() => {
+                      setOpenDropdown(null);
+                      setOpenSubDropdown(null);
+                    }}
                   >
                     <button
                       type="button"
@@ -152,6 +192,7 @@ export default function Header({ currentPath = "/", onNavigate }: HeaderProps) {
                           ? "bg-primary text-primary-foreground"
                           : "text-foreground hover:bg-muted hover:text-primary"
                       }`}
+                      data-ocid={`nav.${item.label.toLowerCase().replace(/\s+/g, "-")}.link`}
                     >
                       {item.label}
                       <ChevronDown
@@ -161,21 +202,65 @@ export default function Header({ currentPath = "/", onNavigate }: HeaderProps) {
                       />
                     </button>
                     {openDropdown === item.label && (
-                      <div className="absolute top-full left-0 mt-1 w-52 bg-white rounded-lg shadow-xl border border-neutral-100 py-1 z-50">
-                        {item.subItems.map((sub) => (
-                          <button
-                            key={sub.path}
-                            type="button"
-                            onClick={() => handleNavClick(sub.path)}
-                            className={`w-full text-left px-4 py-2.5 text-sm transition-colors ${
-                              currentPath === sub.path
-                                ? "text-primary bg-primary/5 font-medium"
-                                : "text-neutral-700 hover:text-primary hover:bg-primary/5"
-                            }`}
-                          >
-                            {sub.label}
-                          </button>
-                        ))}
+                      <div className="absolute top-full left-0 mt-1 w-56 bg-white rounded-lg shadow-xl border border-neutral-100 py-1 z-50">
+                        {item.subItems.map((sub) =>
+                          sub.subItems ? (
+                            // Two-level dropdown item (e.g. Mobile Phones)
+                            <div
+                              key={sub.path}
+                              className="relative"
+                              onMouseEnter={() => setOpenSubDropdown(sub.label)}
+                              onMouseLeave={() => setOpenSubDropdown(null)}
+                            >
+                              <button
+                                type="button"
+                                onClick={() => handleNavClick(sub.path)}
+                                className={`w-full text-left px-4 py-2.5 text-sm transition-colors flex items-center justify-between ${
+                                  currentPath === sub.path
+                                    ? "text-primary bg-primary/5 font-medium"
+                                    : "text-neutral-700 hover:text-primary hover:bg-primary/5"
+                                }`}
+                                data-ocid="nav.products.mobile-phones.link"
+                              >
+                                {sub.label}
+                                <ChevronRight className="w-3.5 h-3.5 opacity-50" />
+                              </button>
+                              {openSubDropdown === sub.label && (
+                                <div className="absolute top-0 left-full ml-1 w-48 bg-white rounded-lg shadow-xl border border-neutral-100 py-1 z-50">
+                                  {sub.subItems.map((brand) => (
+                                    <button
+                                      key={brand.path}
+                                      type="button"
+                                      onClick={() => handleNavClick(brand.path)}
+                                      className={`w-full text-left px-4 py-2.5 text-sm transition-colors ${
+                                        currentPath === brand.path
+                                          ? "text-primary bg-primary/5 font-medium"
+                                          : "text-neutral-700 hover:text-primary hover:bg-primary/5"
+                                      }`}
+                                      data-ocid="nav.products.brand.link"
+                                    >
+                                      {brand.label}
+                                    </button>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          ) : (
+                            <button
+                              key={sub.path}
+                              type="button"
+                              onClick={() => handleNavClick(sub.path)}
+                              className={`w-full text-left px-4 py-2.5 text-sm transition-colors ${
+                                currentPath === sub.path
+                                  ? "text-primary bg-primary/5 font-medium"
+                                  : "text-neutral-700 hover:text-primary hover:bg-primary/5"
+                              }`}
+                              data-ocid="nav.products.category.link"
+                            >
+                              {sub.label}
+                            </button>
+                          ),
+                        )}
                       </div>
                     )}
                   </div>
@@ -188,6 +273,7 @@ export default function Header({ currentPath = "/", onNavigate }: HeaderProps) {
                         ? "bg-primary text-primary-foreground"
                         : "text-foreground hover:bg-muted hover:text-primary"
                     }`}
+                    data-ocid={`nav.${item.label.toLowerCase()}.link`}
                   >
                     {item.label}
                   </button>
@@ -259,6 +345,7 @@ export default function Header({ currentPath = "/", onNavigate }: HeaderProps) {
                           ? "bg-primary text-primary-foreground"
                           : "text-foreground hover:bg-muted hover:text-primary"
                       }`}
+                      data-ocid={`nav.${item.label.toLowerCase().replace(/\s+/g, "-")}.toggle`}
                     >
                       {item.label}
                       <ChevronDown
@@ -276,20 +363,67 @@ export default function Header({ currentPath = "/", onNavigate }: HeaderProps) {
                         >
                           All {item.label}
                         </button>
-                        {item.subItems.map((sub) => (
-                          <button
-                            key={sub.path}
-                            type="button"
-                            onClick={() => handleNavClick(sub.path)}
-                            className={`w-full text-left px-2 py-2 text-sm transition-colors ${
-                              currentPath === sub.path
-                                ? "text-primary font-medium"
-                                : "text-neutral-600 hover:text-primary"
-                            }`}
-                          >
-                            {sub.label}
-                          </button>
-                        ))}
+                        {item.subItems.map((sub) =>
+                          sub.subItems ? (
+                            // Two-level mobile sub menu
+                            <div key={sub.path}>
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  setMobileSubExpanded(
+                                    mobileSubExpanded === sub.label
+                                      ? null
+                                      : sub.label,
+                                  )
+                                }
+                                className="w-full flex items-center justify-between px-2 py-2 text-sm text-neutral-600 hover:text-primary transition-colors"
+                                data-ocid="nav.products.mobile-phones.toggle"
+                              >
+                                {sub.label}
+                                <ChevronDown
+                                  className={`w-3.5 h-3.5 transition-transform ${
+                                    mobileSubExpanded === sub.label
+                                      ? "rotate-180"
+                                      : ""
+                                  }`}
+                                />
+                              </button>
+                              {mobileSubExpanded === sub.label && (
+                                <div className="ml-3 border-l-2 border-primary/20 pl-2 space-y-1 mt-1">
+                                  {sub.subItems.map((brand) => (
+                                    <button
+                                      key={brand.path}
+                                      type="button"
+                                      onClick={() => handleNavClick(brand.path)}
+                                      className={`w-full text-left px-2 py-2 text-xs transition-colors ${
+                                        currentPath === brand.path
+                                          ? "text-primary font-medium"
+                                          : "text-neutral-500 hover:text-primary"
+                                      }`}
+                                      data-ocid="nav.products.brand.link"
+                                    >
+                                      {brand.label}
+                                    </button>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          ) : (
+                            <button
+                              key={sub.path}
+                              type="button"
+                              onClick={() => handleNavClick(sub.path)}
+                              className={`w-full text-left px-2 py-2 text-sm transition-colors ${
+                                currentPath === sub.path
+                                  ? "text-primary font-medium"
+                                  : "text-neutral-600 hover:text-primary"
+                              }`}
+                              data-ocid="nav.products.category.link"
+                            >
+                              {sub.label}
+                            </button>
+                          ),
+                        )}
                       </div>
                     )}
                   </div>
@@ -302,6 +436,7 @@ export default function Header({ currentPath = "/", onNavigate }: HeaderProps) {
                         ? "bg-primary text-primary-foreground"
                         : "text-foreground hover:bg-muted hover:text-primary"
                     }`}
+                    data-ocid={`nav.${item.label.toLowerCase()}.link`}
                   >
                     {item.label}
                   </button>
@@ -315,6 +450,7 @@ export default function Header({ currentPath = "/", onNavigate }: HeaderProps) {
                 setMobileOpen(false);
               }}
               className="flex items-center gap-2 px-4 py-3 text-sm font-semibold bg-primary text-primary-foreground rounded-md mt-1"
+              data-ocid="nav.call.primary_button"
             >
               <Phone className="w-4 h-4" />
               {PHONE_DISPLAY}

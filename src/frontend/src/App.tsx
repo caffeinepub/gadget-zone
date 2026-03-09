@@ -17,7 +17,7 @@ import RefundPolicyPage from "./pages/RefundPolicyPage";
 import ServicesPage from "./pages/ServicesPage";
 import TermsOfServicePage from "./pages/TermsOfServicePage";
 
-// Product sub-pages
+// Product sub-pages (existing /brands/...)
 import ApplePage from "./pages/products/ApplePage";
 import MotorolaPage from "./pages/products/MotorolaPage";
 import NothingPage from "./pages/products/NothingPage";
@@ -26,6 +26,24 @@ import RealmePage from "./pages/products/RealmePage";
 import SamsungPage from "./pages/products/SamsungPage";
 import VivoPage from "./pages/products/VivoPage";
 import XiaomiPage from "./pages/products/XiaomiPage";
+
+// New /products/[brand]-phones pages
+import ApplePhonesPage from "./pages/products/new/ApplePhonesPage";
+import MotorolaPhonesPage from "./pages/products/new/MotorolaPhonesPage";
+import NothingPhonesPage from "./pages/products/new/NothingPhonesPage";
+import OnePlusPhonesPage from "./pages/products/new/OnePlusPhonesPage";
+import RealmePhonesPage from "./pages/products/new/RealmePhonesPage";
+import SamsungPhonesPage from "./pages/products/new/SamsungPhonesPage";
+import VivoPhonesPage from "./pages/products/new/VivoPhonesPage";
+import XiaomiPhonesPage from "./pages/products/new/XiaomiPhonesPage";
+
+// Product category pages
+import AudioDevicesPage from "./pages/products/categories/AudioDevicesPage";
+import CCTVSecurityPage from "./pages/products/categories/CCTVSecurityPage";
+import ComputerAccessoriesPage from "./pages/products/categories/ComputerAccessoriesPage";
+import MobileAccessoriesPage from "./pages/products/categories/MobileAccessoriesPage";
+import PowerChargingPage from "./pages/products/categories/PowerChargingPage";
+import SmartGadgetsPage from "./pages/products/categories/SmartGadgetsPage";
 
 import AccessoriesPage from "./pages/services/AccessoriesPage";
 import CCTVPage from "./pages/services/CCTVPage";
@@ -57,6 +75,23 @@ const ALL_ROUTES: Route[] = [
   "/brands/vivo",
   "/brands/xiaomi",
   "/brands/nothing",
+  // New products routes
+  "/products",
+  "/products/mobile-phones",
+  "/products/samsung-phones",
+  "/products/apple-phones",
+  "/products/oneplus-phones",
+  "/products/xiaomi-phones",
+  "/products/vivo-phones",
+  "/products/realme-phones",
+  "/products/motorola-phones",
+  "/products/nothing-phones",
+  "/products/mobile-accessories",
+  "/products/cctv-security",
+  "/products/computer-accessories",
+  "/products/audio-devices",
+  "/products/power-charging",
+  "/products/smart-gadgets",
   "/about",
   "/about/story",
   "/about/why-choose-us",
@@ -143,6 +178,38 @@ export default function App() {
         return <XiaomiPage />;
       case "/brands/nothing":
         return <NothingPage />;
+      // New products pages
+      case "/products":
+      case "/products/mobile-phones":
+        return <ProductsPage />;
+      case "/products/samsung-phones":
+        return <SamsungPhonesPage />;
+      case "/products/apple-phones":
+        return <ApplePhonesPage />;
+      case "/products/oneplus-phones":
+        return <OnePlusPhonesPage />;
+      case "/products/xiaomi-phones":
+        return <XiaomiPhonesPage />;
+      case "/products/vivo-phones":
+        return <VivoPhonesPage />;
+      case "/products/realme-phones":
+        return <RealmePhonesPage />;
+      case "/products/motorola-phones":
+        return <MotorolaPhonesPage />;
+      case "/products/nothing-phones":
+        return <NothingPhonesPage />;
+      case "/products/mobile-accessories":
+        return <MobileAccessoriesPage />;
+      case "/products/cctv-security":
+        return <CCTVSecurityPage />;
+      case "/products/computer-accessories":
+        return <ComputerAccessoriesPage />;
+      case "/products/audio-devices":
+        return <AudioDevicesPage />;
+      case "/products/power-charging":
+        return <PowerChargingPage />;
+      case "/products/smart-gadgets":
+        return <SmartGadgetsPage />;
       case "/about":
         return <AboutPage />;
       case "/about/story":
