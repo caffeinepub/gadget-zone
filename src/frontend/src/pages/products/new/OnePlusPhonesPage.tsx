@@ -25,14 +25,14 @@ function PhoneCard({ model }: { model: PhoneModel }) {
   return (
     <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition flex flex-col">
       <div
-        className="bg-gray-50 flex items-center justify-center p-4"
+        className="bg-gray-50 flex items-center justify-center overflow-hidden"
         style={{ height: "180px" }}
       >
-        <div className="w-12 h-20 bg-gray-200 rounded-2xl flex items-center justify-center">
-          <span className="text-gray-400 text-[10px] text-center px-1">
-            {model.name.split(" ").slice(0, 2).join(" ")}
-          </span>
-        </div>
+        <img
+          src="/assets/generated/oneplus-phones-hero.dim_800x600.jpg"
+          alt={`${model.name} at Gadget Zone Chennai`}
+          className="w-full h-full object-cover"
+        />
       </div>
       <div className="p-4 flex flex-col gap-2 flex-1">
         <span className="self-start bg-green-50 text-green-700 text-xs font-semibold px-2 py-0.5 rounded-full border border-green-200">

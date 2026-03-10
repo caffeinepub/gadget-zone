@@ -1,4 +1,3 @@
-import { Headphones, Mic, Music, Radio, Speaker, Volume2 } from "lucide-react";
 import { useEffect } from "react";
 import { updateSEO } from "../../../lib/seoHelpers";
 import {
@@ -9,36 +8,34 @@ import {
 const PHONE = "9840077591";
 const WA_NUMBER = "919840077591";
 
-const categories = [
+function waLink(product: string) {
+  return `https://wa.me/${WA_NUMBER}?text=Hi%2C%20I%27m%20interested%20in%20${encodeURIComponent(product)}.%20Please%20share%20availability%20and%20pricing.`;
+}
+
+const products = [
   {
-    icon: Headphones,
-    title: "TWS Earbuds",
-    desc: "True wireless earbuds with active noise cancellation from top brands.",
+    name: "TWS Earbuds (Active Noise Cancelling)",
+    desc: "ANC earbuds with 30-hour total battery life and quick charge.",
   },
   {
-    icon: Volume2,
-    title: "Wired Earphones",
-    desc: "High-quality wired earphones with Type-C, 3.5mm, and Lightning connectors.",
+    name: "Over-Ear Bluetooth Headphones",
+    desc: "Premium over-ear headphones with foldable design and deep bass.",
   },
   {
-    icon: Headphones,
-    title: "Over-Ear Headphones",
-    desc: "Premium over-ear headphones for audiophiles and daily commuters.",
+    name: "Neckband Bluetooth Earphones",
+    desc: "Lightweight neckband earphones with magnetic earbuds and IPX5 rating.",
   },
   {
-    icon: Speaker,
-    title: "Bluetooth Speakers",
-    desc: "Portable and home Bluetooth speakers for music, outdoor, and party use.",
+    name: "Portable Bluetooth Speaker",
+    desc: "Compact waterproof speaker with 360-degree sound and 12-hour battery.",
   },
   {
-    icon: Mic,
-    title: "Microphones",
-    desc: "Clip-on, desktop, and gaming microphones for content creators.",
+    name: "Wired Earphones with Mic",
+    desc: "In-ear wired earphones with microphone for calls and music.",
   },
   {
-    icon: Music,
-    title: "Smart Audio Devices",
-    desc: "Smart speakers, soundbars, and voice-enabled audio accessories.",
+    name: "Gaming Headset",
+    desc: "Over-ear gaming headset with surround sound and noise-cancelling mic.",
   },
 ];
 
@@ -90,33 +87,49 @@ export default function AudioDevicesPage() {
           <h2 className="text-2xl font-bold text-gray-900 mb-2">
             Our Audio Range
           </h2>
-          <p className="text-gray-500 text-sm mb-8">
+          <p className="text-gray-500 text-sm mb-6">
             Whether you're looking for premium noise-cancelling earbuds or an
             affordable Bluetooth speaker, we have options for every budget.
             Visit us in Thiruvanmiyur or enquire via WhatsApp.
           </p>
+
+          {/* Hero Image */}
+          <div className="w-full rounded-xl overflow-hidden mb-8 shadow-sm">
+            <img
+              src="/assets/generated/audio-devices-hero.dim_800x500.jpg"
+              alt="Audio devices and speakers available at Gadget Zone Thiruvanmiyur Chennai"
+              className="w-full h-56 md:h-72 object-cover"
+            />
+          </div>
+
+          {/* Product Cards */}
           <div
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
             data-ocid="audio-devices.list"
           >
-            {categories.map((cat, i) => {
-              const Icon = cat.icon;
-              return (
-                <div
-                  key={cat.title}
-                  className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-md transition"
-                  data-ocid={`audio-devices.item.${i + 1}`}
-                >
-                  <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-4">
-                    <Icon className="w-6 h-6 text-primary" />
-                  </div>
-                  <h3 className="font-bold text-base text-gray-900 mb-2">
-                    {cat.title}
+            {products.map((product, i) => (
+              <div
+                key={product.name}
+                className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition flex flex-col"
+                data-ocid={`audio-devices.item.${i + 1}`}
+              >
+                <div className="p-5 flex flex-col gap-2 flex-1">
+                  <h3 className="font-bold text-base text-gray-900">
+                    {product.name}
                   </h3>
-                  <p className="text-gray-500 text-sm">{cat.desc}</p>
+                  <p className="text-gray-500 text-sm flex-1">{product.desc}</p>
+                  <a
+                    href={waLink(product.name)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-auto inline-flex items-center justify-center gap-1 bg-green-600 hover:bg-green-700 text-white text-xs font-semibold py-2 px-3 rounded-lg transition"
+                    data-ocid={`audio-devices.whatsapp_button.${i + 1}`}
+                  >
+                    💬 WhatsApp to Enquire
+                  </a>
                 </div>
-              );
-            })}
+              </div>
+            ))}
           </div>
         </div>
       </section>

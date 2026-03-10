@@ -1,11 +1,3 @@
-import {
-  Battery,
-  Cable,
-  Headphones,
-  Monitor,
-  Shield,
-  Smartphone,
-} from "lucide-react";
 import { useEffect } from "react";
 import { updateSEO } from "../../../lib/seoHelpers";
 import {
@@ -16,36 +8,34 @@ import {
 const PHONE = "9840077591";
 const WA_NUMBER = "919840077591";
 
-const categories = [
+function waLink(product: string) {
+  return `https://wa.me/${WA_NUMBER}?text=Hi%2C%20I%27m%20interested%20in%20${encodeURIComponent(product)}.%20Please%20share%20availability%20and%20pricing.`;
+}
+
+const products = [
   {
-    icon: Cable,
-    title: "Cables & Chargers",
-    desc: "Original and compatible USB-C, Lightning, Micro USB cables and fast chargers for all brands.",
+    name: "Type C Fast Charger (65W)",
+    desc: "65W USB-C fast charger compatible with most Android phones.",
   },
   {
-    icon: Headphones,
-    title: "Earphones & Headphones",
-    desc: "Wired and wireless earphones, TWS earbuds, and over-ear headphones from top brands.",
+    name: "Original USB-C Cable (1.5m)",
+    desc: "Durable braided USB-C cable for fast data transfer and charging.",
   },
   {
-    icon: Shield,
-    title: "Screen Protectors",
-    desc: "Tempered glass and film screen protectors for all popular smartphone models.",
+    name: "TWS Wireless Earbuds",
+    desc: "True wireless earbuds with active noise cancellation and long battery life.",
   },
   {
-    icon: Smartphone,
-    title: "Mobile Cases & Covers",
-    desc: "Back covers, flip cases, silicone cases, and bumper cases for all major brands.",
+    name: "Tempered Glass Screen Guard",
+    desc: "9H hardness tempered glass protector for all popular models.",
   },
   {
-    icon: Battery,
-    title: "Power Banks",
-    desc: "Portable power banks from 10000mAh to 20000mAh for reliable on-the-go charging.",
+    name: "Silicone Phone Case",
+    desc: "Flexible silicone back cover with shockproof protection.",
   },
   {
-    icon: Monitor,
-    title: "Smart Accessories",
-    desc: "Smartwatch straps, phone stands, mounts, and other smart device accessories.",
+    name: "Portable Power Bank 20000mAh",
+    desc: "High-capacity power bank with dual USB-A and USB-C output.",
   },
 ];
 
@@ -97,33 +87,49 @@ export default function MobileAccessoriesPage() {
           <h2 className="text-2xl font-bold text-gray-900 mb-2">
             Our Accessories Range
           </h2>
-          <p className="text-gray-500 text-sm mb-8">
+          <p className="text-gray-500 text-sm mb-6">
             We stock a wide range of mobile accessories for all budgets and
             requirements. Visit our store in Thiruvanmiyur or WhatsApp us for
             specific product enquiries.
           </p>
+
+          {/* Hero Image */}
+          <div className="w-full rounded-xl overflow-hidden mb-8 shadow-sm">
+            <img
+              src="/assets/generated/mobile-accessories-hero.dim_800x500.jpg"
+              alt="Mobile accessories available at Gadget Zone Thiruvanmiyur Chennai"
+              className="w-full h-56 md:h-72 object-cover"
+            />
+          </div>
+
+          {/* Product Cards */}
           <div
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
             data-ocid="mobile-accessories.list"
           >
-            {categories.map((cat, i) => {
-              const Icon = cat.icon;
-              return (
-                <div
-                  key={cat.title}
-                  className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-md transition"
-                  data-ocid={`mobile-accessories.item.${i + 1}`}
-                >
-                  <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-4">
-                    <Icon className="w-6 h-6 text-primary" />
-                  </div>
-                  <h3 className="font-bold text-base text-gray-900 mb-2">
-                    {cat.title}
+            {products.map((product, i) => (
+              <div
+                key={product.name}
+                className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition flex flex-col"
+                data-ocid={`mobile-accessories.item.${i + 1}`}
+              >
+                <div className="p-5 flex flex-col gap-2 flex-1">
+                  <h3 className="font-bold text-base text-gray-900">
+                    {product.name}
                   </h3>
-                  <p className="text-gray-500 text-sm">{cat.desc}</p>
+                  <p className="text-gray-500 text-sm flex-1">{product.desc}</p>
+                  <a
+                    href={waLink(product.name)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-auto inline-flex items-center justify-center gap-1 bg-green-600 hover:bg-green-700 text-white text-xs font-semibold py-2 px-3 rounded-lg transition"
+                    data-ocid={`mobile-accessories.whatsapp_button.${i + 1}`}
+                  >
+                    💬 WhatsApp to Enquire
+                  </a>
                 </div>
-              );
-            })}
+              </div>
+            ))}
           </div>
         </div>
       </section>

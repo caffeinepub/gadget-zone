@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import { HotFab } from "./components/HotFab";
+import WhatsAppFloatingButton from "./components/WhatsAppFloatingButton";
 import { initializeClickTracking } from "./lib/clickTracking";
 import { initializeTracking } from "./lib/googleTracking";
 import { initializeScrollDepthTracking } from "./lib/scrollDepthTracking";
@@ -249,6 +250,7 @@ export default function App() {
           }}
         />
       )}
+      <WhatsAppFloatingButton />
     </div>
   );
 }

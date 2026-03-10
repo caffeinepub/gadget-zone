@@ -5,6 +5,7 @@ import {
   MapPin,
   MessageCircle,
   Phone,
+  Star,
 } from "lucide-react";
 import {
   trackCallConversion,
@@ -92,6 +93,30 @@ export default function Footer({ onNavigate }: FooterProps) {
               className="w-9 h-9 rounded-full bg-neutral-800 hover:bg-pink-600 flex items-center justify-center transition-colors"
             >
               <Instagram size={18} />
+            </a>
+          </div>
+
+          {/* Google Review Button */}
+          <div className="mt-4">
+            <a
+              href="https://g.page/r/CT_7R-H2HpBtEBM/review"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-ocid="footer.review_button"
+              data-ga-event="google_review_click"
+              data-ga-context="footer"
+              className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-sm text-neutral-300 hover:text-white transition-colors border border-neutral-700 hover:border-neutral-500"
+            >
+              <span className="flex items-center gap-0.5">
+                {[1, 2, 3, 4, 5].map((i) => (
+                  <Star
+                    key={i}
+                    size={13}
+                    className="text-yellow-400 fill-yellow-400"
+                  />
+                ))}
+              </span>
+              Leave us a Review
             </a>
           </div>
         </div>

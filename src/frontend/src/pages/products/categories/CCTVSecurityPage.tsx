@@ -1,4 +1,3 @@
-import { Camera, Eye, Home, Monitor, Settings, Shield } from "lucide-react";
 import { useEffect } from "react";
 import { updateSEO } from "../../../lib/seoHelpers";
 import {
@@ -9,36 +8,34 @@ import {
 const PHONE = "9840077591";
 const WA_NUMBER = "919840077591";
 
-const categories = [
+function waLink(product: string) {
+  return `https://wa.me/${WA_NUMBER}?text=Hi%2C%20I%27m%20interested%20in%20${encodeURIComponent(product)}.%20Please%20share%20availability%20and%20pricing.`;
+}
+
+const products = [
   {
-    icon: Camera,
-    title: "Dome CCTV Cameras",
-    desc: "Indoor dome cameras for offices, shops, and homes. Discreet and wide-angle coverage.",
+    name: "Dome CCTV Camera (Indoor)",
+    desc: "2MP full HD dome camera for indoor use. Night vision enabled.",
   },
   {
-    icon: Eye,
-    title: "Bullet CCTV Cameras",
-    desc: "Outdoor bullet cameras for entrances, parking areas, and perimeter security.",
+    name: "Bullet CCTV Camera (Outdoor)",
+    desc: "Weatherproof outdoor bullet camera with IR night vision up to 30m.",
   },
   {
-    icon: Shield,
-    title: "WiFi / Smart Cameras",
-    desc: "Modern WiFi-enabled CCTV cameras with remote viewing via smartphone app.",
+    name: "WiFi Smart Camera",
+    desc: "Smart WiFi camera with motion alerts and mobile app support.",
   },
   {
-    icon: Monitor,
-    title: "DVR & NVR Systems",
-    desc: "Digital and network video recorders for multi-camera setups with local storage.",
+    name: "4-Channel DVR Kit",
+    desc: "Complete 4-channel DVR set with cameras, cables, and installation guide.",
   },
   {
-    icon: Home,
-    title: "Home Security Kits",
-    desc: "Complete home CCTV packages with cameras, recorder, cables, and installation.",
+    name: "PTZ Camera",
+    desc: "Pan-Tilt-Zoom camera for wide-area monitoring with remote control.",
   },
   {
-    icon: Settings,
-    title: "Professional Installation",
-    desc: "Expert installation and configuration services for homes, shops, and offices.",
+    name: "NVR System (8-Channel)",
+    desc: "Network video recorder supporting up to 8 IP cameras.",
   },
 ];
 
@@ -91,33 +88,49 @@ export default function CCTVSecurityPage() {
           <h2 className="text-2xl font-bold text-gray-900 mb-2">
             Our CCTV Solutions
           </h2>
-          <p className="text-gray-500 text-sm mb-8">
+          <p className="text-gray-500 text-sm mb-6">
             Get assistance in selecting the right surveillance setup based on
             your space and requirement. We handle sales, installation, and basic
             configuration for all types of properties.
           </p>
+
+          {/* Hero Image */}
+          <div className="w-full rounded-xl overflow-hidden mb-8 shadow-sm">
+            <img
+              src="/assets/generated/cctv-security-hero.dim_800x500.jpg"
+              alt="CCTV cameras for home and office security in Chennai Thiruvanmiyur"
+              className="w-full h-56 md:h-72 object-cover"
+            />
+          </div>
+
+          {/* Product Cards */}
           <div
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
             data-ocid="cctv-security.list"
           >
-            {categories.map((cat, i) => {
-              const Icon = cat.icon;
-              return (
-                <div
-                  key={cat.title}
-                  className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-md transition"
-                  data-ocid={`cctv-security.item.${i + 1}`}
-                >
-                  <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-4">
-                    <Icon className="w-6 h-6 text-primary" />
-                  </div>
-                  <h3 className="font-bold text-base text-gray-900 mb-2">
-                    {cat.title}
+            {products.map((product, i) => (
+              <div
+                key={product.name}
+                className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition flex flex-col"
+                data-ocid={`cctv-security.item.${i + 1}`}
+              >
+                <div className="p-5 flex flex-col gap-2 flex-1">
+                  <h3 className="font-bold text-base text-gray-900">
+                    {product.name}
                   </h3>
-                  <p className="text-gray-500 text-sm">{cat.desc}</p>
+                  <p className="text-gray-500 text-sm flex-1">{product.desc}</p>
+                  <a
+                    href={waLink(product.name)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-auto inline-flex items-center justify-center gap-1 bg-green-600 hover:bg-green-700 text-white text-xs font-semibold py-2 px-3 rounded-lg transition"
+                    data-ocid={`cctv-security.whatsapp_button.${i + 1}`}
+                  >
+                    💬 WhatsApp to Enquire
+                  </a>
                 </div>
-              );
-            })}
+              </div>
+            ))}
           </div>
         </div>
       </section>

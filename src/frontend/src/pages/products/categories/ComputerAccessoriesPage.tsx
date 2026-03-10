@@ -1,11 +1,3 @@
-import {
-  HardDrive,
-  Keyboard,
-  Monitor,
-  Mouse,
-  Printer,
-  Wifi,
-} from "lucide-react";
 import { useEffect } from "react";
 import { updateSEO } from "../../../lib/seoHelpers";
 import {
@@ -16,36 +8,34 @@ import {
 const PHONE = "9840077591";
 const WA_NUMBER = "919840077591";
 
-const categories = [
+function waLink(product: string) {
+  return `https://wa.me/${WA_NUMBER}?text=Hi%2C%20I%27m%20interested%20in%20${encodeURIComponent(product)}.%20Please%20share%20availability%20and%20pricing.`;
+}
+
+const products = [
   {
-    icon: Monitor,
-    title: "Monitors & Displays",
-    desc: "LED, IPS, and gaming monitors for home, office, and professional use.",
+    name: "Wireless Keyboard & Mouse Combo",
+    desc: "Ergonomic wireless combo with long battery life and silent keys.",
   },
   {
-    icon: Keyboard,
-    title: "Keyboards & Mice",
-    desc: "Wired and wireless keyboards, gaming mice, and ergonomic input devices.",
+    name: "USB 3.0 Hub (7-Port)",
+    desc: "7-port USB 3.0 hub with individual power switches.",
   },
   {
-    icon: HardDrive,
-    title: "Storage Devices",
-    desc: "External hard drives, SSDs, USB flash drives, and memory cards.",
+    name: "Laptop Stand (Adjustable)",
+    desc: "Aluminium adjustable laptop stand for improved posture and cooling.",
   },
   {
-    icon: Wifi,
-    title: "Networking Accessories",
-    desc: "USB WiFi adapters, Ethernet cables, network switches, and hubs.",
+    name: "HDMI Cable (4K)",
+    desc: "4K HDMI 2.0 cable for crystal-clear display output.",
   },
   {
-    icon: Mouse,
-    title: "Laptop Accessories",
-    desc: "Laptop stands, cooling pads, laptop bags, and USB hubs.",
+    name: "External SSD 1TB",
+    desc: "Portable USB-C SSD with up to 1000MB/s transfer speed.",
   },
   {
-    icon: Printer,
-    title: "Printers & Scanners",
-    desc: "Inkjet and laser printers, scanner accessories, and printer cartridges.",
+    name: "Laptop Cooling Pad",
+    desc: "Dual-fan cooling pad compatible with 15.6 inch laptops.",
   },
 ];
 
@@ -99,32 +89,48 @@ export default function ComputerAccessoriesPage() {
           <h2 className="text-2xl font-bold text-gray-900 mb-2">
             Available Categories
           </h2>
-          <p className="text-gray-500 text-sm mb-8">
+          <p className="text-gray-500 text-sm mb-6">
             Visit our store in Thiruvanmiyur or WhatsApp us to check
             availability for specific products.
           </p>
+
+          {/* Hero Image */}
+          <div className="w-full rounded-xl overflow-hidden mb-8 shadow-sm">
+            <img
+              src="/assets/generated/computer-accessories-hero.dim_800x500.jpg"
+              alt="Computer accessories available at Gadget Zone Thiruvanmiyur Chennai"
+              className="w-full h-56 md:h-72 object-cover"
+            />
+          </div>
+
+          {/* Product Cards */}
           <div
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
             data-ocid="computer-accessories.list"
           >
-            {categories.map((cat, i) => {
-              const Icon = cat.icon;
-              return (
-                <div
-                  key={cat.title}
-                  className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-md transition"
-                  data-ocid={`computer-accessories.item.${i + 1}`}
-                >
-                  <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-4">
-                    <Icon className="w-6 h-6 text-primary" />
-                  </div>
-                  <h3 className="font-bold text-base text-gray-900 mb-2">
-                    {cat.title}
+            {products.map((product, i) => (
+              <div
+                key={product.name}
+                className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition flex flex-col"
+                data-ocid={`computer-accessories.item.${i + 1}`}
+              >
+                <div className="p-5 flex flex-col gap-2 flex-1">
+                  <h3 className="font-bold text-base text-gray-900">
+                    {product.name}
                   </h3>
-                  <p className="text-gray-500 text-sm">{cat.desc}</p>
+                  <p className="text-gray-500 text-sm flex-1">{product.desc}</p>
+                  <a
+                    href={waLink(product.name)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-auto inline-flex items-center justify-center gap-1 bg-green-600 hover:bg-green-700 text-white text-xs font-semibold py-2 px-3 rounded-lg transition"
+                    data-ocid={`computer-accessories.whatsapp_button.${i + 1}`}
+                  >
+                    💬 WhatsApp to Enquire
+                  </a>
                 </div>
-              );
-            })}
+              </div>
+            ))}
           </div>
         </div>
       </section>

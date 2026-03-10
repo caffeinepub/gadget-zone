@@ -97,6 +97,10 @@ export default function Header({ currentPath = "/", onNavigate }: HeaderProps) {
   );
   const [scrolled, setScrolled] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const closeDropdownTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const closeSubDropdownTimer = useRef<ReturnType<typeof setTimeout> | null>(
+    null,
+  );
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
@@ -134,6 +138,35 @@ export default function Header({ currentPath = "/", onNavigate }: HeaderProps) {
         event_label: path,
       });
     }
+  };
+
+  const openDropdownNow = (label: string) => {
+    if (closeDropdownTimer.current) {
+      clearTimeout(closeDropdownTimer.current);
+      closeDropdownTimer.current = null;
+    }
+    setOpenDropdown(label);
+  };
+
+  const closeDropdownDelayed = () => {
+    closeDropdownTimer.current = setTimeout(() => {
+      setOpenDropdown(null);
+      setOpenSubDropdown(null);
+    }, 150);
+  };
+
+  const openSubDropdownNow = (label: string) => {
+    if (closeSubDropdownTimer.current) {
+      clearTimeout(closeSubDropdownTimer.current);
+      closeSubDropdownTimer.current = null;
+    }
+    setOpenSubDropdown(label);
+  };
+
+  const closeSubDropdownDelayed = () => {
+    closeSubDropdownTimer.current = setTimeout(() => {
+      setOpenSubDropdown(null);
+    }, 150);
   };
 
   const isActive = (item: NavItem) => {
@@ -176,13 +209,8 @@ export default function Header({ currentPath = "/", onNavigate }: HeaderProps) {
               <div key={item.path} className="relative">
                 {item.subItems ? (
                   <div
-                    onMouseEnter={() => {
-                      setOpenDropdown(item.label);
-                    }}
-                    onMouseLeave={() => {
-                      setOpenDropdown(null);
-                      setOpenSubDropdown(null);
-                    }}
+                    onMouseEnter={() => openDropdownNow(item.label)}
+                    onMouseLeave={closeDropdownDelayed}
                   >
                     <button
                       type="button"
@@ -209,8 +237,8 @@ export default function Header({ currentPath = "/", onNavigate }: HeaderProps) {
                             <div
                               key={sub.path}
                               className="relative"
-                              onMouseEnter={() => setOpenSubDropdown(sub.label)}
-                              onMouseLeave={() => setOpenSubDropdown(null)}
+                              onMouseEnter={() => openSubDropdownNow(sub.label)}
+                              onMouseLeave={closeSubDropdownDelayed}
                             >
                               <button
                                 type="button"

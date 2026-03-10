@@ -1,4 +1,3 @@
-import { Activity, Cpu, Home, Lightbulb, Watch, Wifi } from "lucide-react";
 import { useEffect } from "react";
 import { updateSEO } from "../../../lib/seoHelpers";
 import {
@@ -9,36 +8,34 @@ import {
 const PHONE = "9840077591";
 const WA_NUMBER = "919840077591";
 
-const categories = [
+function waLink(product: string) {
+  return `https://wa.me/${WA_NUMBER}?text=Hi%2C%20I%27m%20interested%20in%20${encodeURIComponent(product)}.%20Please%20share%20availability%20and%20pricing.`;
+}
+
+const products = [
   {
-    icon: Watch,
-    title: "Smartwatches & Fitness Bands",
-    desc: "Smartwatches and fitness bands from top brands for health tracking and notifications.",
+    name: "Smartwatch (Bluetooth Calling)",
+    desc: "Feature-packed smartwatch with calling, health tracking, and IP68 rating.",
   },
   {
-    icon: Home,
-    title: "Smart Home Devices",
-    desc: "Smart bulbs, plugs, sensors, and home automation accessories.",
+    name: "Fitness Band",
+    desc: "Slim fitness band with heart rate, SpO2 monitoring, and sleep tracking.",
   },
   {
-    icon: Wifi,
-    title: "WiFi & Networking Gadgets",
-    desc: "WiFi routers, range extenders, and smart networking devices.",
+    name: "Smart Ring",
+    desc: "Lightweight smart ring for health and sleep monitoring.",
   },
   {
-    icon: Activity,
-    title: "Health & Fitness Gadgets",
-    desc: "Blood pressure monitors, pulse oximeters, and smart health devices.",
+    name: "Mini Portable Projector",
+    desc: "Compact pocket projector with HDMI and wireless screen mirroring.",
   },
   {
-    icon: Lightbulb,
-    title: "Smart Lighting",
-    desc: "RGB smart bulbs and lighting strips for home ambiance control.",
+    name: "Smart LED Bulb (WiFi)",
+    desc: "App-controlled RGB smart bulb compatible with voice assistants.",
   },
   {
-    icon: Cpu,
-    title: "Mini Tech Gadgets",
-    desc: "USB gadgets, OTG drives, Bluetooth trackers, and other smart tech accessories.",
+    name: "Wireless Earbuds with Translation",
+    desc: "Real-time language translation earbuds with 40 language support.",
   },
 ];
 
@@ -91,33 +88,49 @@ export default function SmartGadgetsPage() {
           <h2 className="text-2xl font-bold text-gray-900 mb-2">
             Our Smart Gadgets Range
           </h2>
-          <p className="text-gray-500 text-sm mb-8">
+          <p className="text-gray-500 text-sm mb-6">
             From smartwatches to home automation accessories, we stock a curated
             selection of smart gadgets at competitive prices. Visit us in
             Thiruvanmiyur or enquire via WhatsApp.
           </p>
+
+          {/* Hero Image */}
+          <div className="w-full rounded-xl overflow-hidden mb-8 shadow-sm">
+            <img
+              src="/assets/generated/smart-gadgets-hero.dim_800x500.jpg"
+              alt="Smart gadgets and tech accessories at Gadget Zone Thiruvanmiyur Chennai"
+              className="w-full h-56 md:h-72 object-cover"
+            />
+          </div>
+
+          {/* Product Cards */}
           <div
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
             data-ocid="smart-gadgets.list"
           >
-            {categories.map((cat, i) => {
-              const Icon = cat.icon;
-              return (
-                <div
-                  key={cat.title}
-                  className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-md transition"
-                  data-ocid={`smart-gadgets.item.${i + 1}`}
-                >
-                  <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-4">
-                    <Icon className="w-6 h-6 text-primary" />
-                  </div>
-                  <h3 className="font-bold text-base text-gray-900 mb-2">
-                    {cat.title}
+            {products.map((product, i) => (
+              <div
+                key={product.name}
+                className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition flex flex-col"
+                data-ocid={`smart-gadgets.item.${i + 1}`}
+              >
+                <div className="p-5 flex flex-col gap-2 flex-1">
+                  <h3 className="font-bold text-base text-gray-900">
+                    {product.name}
                   </h3>
-                  <p className="text-gray-500 text-sm">{cat.desc}</p>
+                  <p className="text-gray-500 text-sm flex-1">{product.desc}</p>
+                  <a
+                    href={waLink(product.name)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-auto inline-flex items-center justify-center gap-1 bg-green-600 hover:bg-green-700 text-white text-xs font-semibold py-2 px-3 rounded-lg transition"
+                    data-ocid={`smart-gadgets.whatsapp_button.${i + 1}`}
+                  >
+                    💬 WhatsApp to Enquire
+                  </a>
                 </div>
-              );
-            })}
+              </div>
+            ))}
           </div>
         </div>
       </section>

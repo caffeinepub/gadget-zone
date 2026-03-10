@@ -1,4 +1,3 @@
-import { Battery, Cable, Plug, Smartphone, Zap, ZapOff } from "lucide-react";
 import { useEffect } from "react";
 import { updateSEO } from "../../../lib/seoHelpers";
 import {
@@ -9,36 +8,34 @@ import {
 const PHONE = "9840077591";
 const WA_NUMBER = "919840077591";
 
-const categories = [
+function waLink(product: string) {
+  return `https://wa.me/${WA_NUMBER}?text=Hi%2C%20I%27m%20interested%20in%20${encodeURIComponent(product)}.%20Please%20share%20availability%20and%20pricing.`;
+}
+
+const products = [
   {
-    icon: Zap,
-    title: "Fast Chargers",
-    desc: "25W, 45W, 65W, and 120W+ fast chargers for all major smartphone brands.",
+    name: "65W GaN Fast Charger",
+    desc: "Compact GaN technology charger supporting PD and QC fast charging.",
   },
   {
-    icon: Cable,
-    title: "Charging Cables",
-    desc: "USB-C, Lightning, and Micro USB cables in various lengths and quality tiers.",
+    name: "20000mAh Power Bank",
+    desc: "High-capacity power bank with 65W PD output and dual USB-A ports.",
   },
   {
-    icon: Battery,
-    title: "Power Banks",
-    desc: "10000mAh to 20000mAh portable power banks with fast charging support.",
+    name: "Wireless Charging Pad (15W)",
+    desc: "Qi-certified 15W wireless charger with LED indicator.",
   },
   {
-    icon: Plug,
-    title: "Wireless Chargers",
-    desc: "Qi-compatible wireless charging pads and stands for compatible devices.",
+    name: "USB-C to USB-C Cable (3A)",
+    desc: "Durable 3A USB-C cable for fast charging and data transfer.",
   },
   {
-    icon: Smartphone,
-    title: "Car Chargers",
-    desc: "Dual and triple-port car chargers with fast charging for travel.",
+    name: "4-Port USB Charging Station",
+    desc: "Desktop charging hub with 4 ports supporting simultaneous fast charging.",
   },
   {
-    icon: ZapOff,
-    title: "Surge Protectors",
-    desc: "Multi-plug surge protectors and extension boards with USB ports.",
+    name: "Car Charger (Dual USB)",
+    desc: "Compact dual-port car charger with Type-C and USB-A output.",
   },
 ];
 
@@ -90,33 +87,49 @@ export default function PowerChargingPage() {
           <h2 className="text-2xl font-bold text-gray-900 mb-2">
             Our Charging Range
           </h2>
-          <p className="text-gray-500 text-sm mb-8">
+          <p className="text-gray-500 text-sm mb-6">
             We stock original and compatible charging accessories for all major
             brands at competitive prices. Visit us in Thiruvanmiyur or WhatsApp
             us for specific product enquiries.
           </p>
+
+          {/* Hero Image */}
+          <div className="w-full rounded-xl overflow-hidden mb-8 shadow-sm">
+            <img
+              src="/assets/generated/power-charging-hero.dim_800x500.jpg"
+              alt="Power and charging accessories at Gadget Zone Thiruvanmiyur Chennai"
+              className="w-full h-56 md:h-72 object-cover"
+            />
+          </div>
+
+          {/* Product Cards */}
           <div
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
             data-ocid="power-charging.list"
           >
-            {categories.map((cat, i) => {
-              const Icon = cat.icon;
-              return (
-                <div
-                  key={cat.title}
-                  className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-md transition"
-                  data-ocid={`power-charging.item.${i + 1}`}
-                >
-                  <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-4">
-                    <Icon className="w-6 h-6 text-primary" />
-                  </div>
-                  <h3 className="font-bold text-base text-gray-900 mb-2">
-                    {cat.title}
+            {products.map((product, i) => (
+              <div
+                key={product.name}
+                className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition flex flex-col"
+                data-ocid={`power-charging.item.${i + 1}`}
+              >
+                <div className="p-5 flex flex-col gap-2 flex-1">
+                  <h3 className="font-bold text-base text-gray-900">
+                    {product.name}
                   </h3>
-                  <p className="text-gray-500 text-sm">{cat.desc}</p>
+                  <p className="text-gray-500 text-sm flex-1">{product.desc}</p>
+                  <a
+                    href={waLink(product.name)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-auto inline-flex items-center justify-center gap-1 bg-green-600 hover:bg-green-700 text-white text-xs font-semibold py-2 px-3 rounded-lg transition"
+                    data-ocid={`power-charging.whatsapp_button.${i + 1}`}
+                  >
+                    💬 WhatsApp to Enquire
+                  </a>
                 </div>
-              );
-            })}
+              </div>
+            ))}
           </div>
         </div>
       </section>
