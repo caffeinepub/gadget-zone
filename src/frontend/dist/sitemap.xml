@@ -38,4 +38,12 @@
   <url><loc>https://gadgetzone-nz9.caffeine.xyz/privacy-policy</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
   <url><loc>https://gadgetzone-nz9.caffeine.xyz/terms-of-service</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
   <url><loc>https://gadgetzone-nz9.caffeine.xyz/refund-policy</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://gadgetzone-nz9.caffeine.xyz/contact/find-us</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://gadgetzone-nz9.caffeine.xyz/services/book-repair</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://gadgetzone-nz9.caffeine.xyz/blog</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://gadgetzone-nz9.caffeine.xyz/blog/best-phones-under-20000</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://gadgetzone-nz9.caffeine.xyz/blog/mobile-care-tips</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://gadgetzone-nz9.caffeine.xyz/blog/top-5-accessories</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://gadgetzone-nz9.caffeine.xyz/blog/phone-screen-protection</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://gadgetzone-nz9.caffeine.xyz/faq</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
 </urlset>

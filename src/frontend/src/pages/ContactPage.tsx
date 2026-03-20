@@ -177,7 +177,7 @@ export default function ContactPage() {
               <div className="mt-6 rounded-xl overflow-hidden border border-border h-48">
                 <iframe
                   title="Gadget Zone Location"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.5!2d80.2707!3d12.9827!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTLCsDU4JzU3LjciTiA4MMKwMTYnMTQuNSJF!5e0!3m2!1sen!2sin!4v1234567890"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.6812337977203!2d80.25369507507685!3d12.992228687325046!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5267c4f99e8763%3A0x6d901ef6e147fb3f!2sGadget%20Zone%2F%20MOBILES-CCTV-IPHONE-SAMSUNG-MI-REALME-REDMI-IPAD-APPLEWATCH-MOBILE%20SERVICE!5e0!3m2!1sen!2sin!4v1773675739210!5m2!1sen!2sin"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}

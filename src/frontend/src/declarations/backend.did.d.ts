@@ -10,7 +10,122 @@ import type { ActorMethod } from '@icp-sdk/core/agent';
 import type { IDL } from '@icp-sdk/core/candid';
 import type { Principal } from '@icp-sdk/core/principal';
 
-export interface _SERVICE {}
+export interface BannerSlide {
+  'id' : bigint,
+  'title' : string,
+  'imageUrl' : string,
+  'position' : bigint,
+  'subtitle' : string,
+}
+export interface BlogPost {
+  'id' : bigint,
+  'title' : string,
+  'content' : string,
+  'slug' : string,
+  'publishedAt' : bigint,
+  'imageUrl' : string,
+  'excerpt' : string,
+}
+export interface FaqItem {
+  'id' : bigint,
+  'question' : string,
+  'answer' : string,
+  'position' : bigint,
+}
+export interface Product {
+  'id' : bigint,
+  'whatsappMessage' : string,
+  'name' : string,
+  'imageUrl' : string,
+  'brand' : string,
+  'emiAvailable' : boolean,
+  'price' : bigint,
+  'storageOptions' : Array<string>,
+}
+export interface Testimonial {
+  'id' : bigint,
+  'customerName' : string,
+  'review' : string,
+  'rating' : bigint,
+  'product' : string,
+}
+export type UserRole = { 'admin' : null } |
+  { 'user' : null } |
+  { 'guest' : null };
+export interface _CaffeineStorageCreateCertificateResult {
+  'method' : string,
+  'blob_hash' : string,
+}
+export interface _CaffeineStorageRefillInformation {
+  'proposed_top_up_amount' : [] | [bigint],
+}
+export interface _CaffeineStorageRefillResult {
+  'success' : [] | [boolean],
+  'topped_up_amount' : [] | [bigint],
+}
+export interface _SERVICE {
+  '_caffeineStorageBlobIsLive' : ActorMethod<[Uint8Array], boolean>,
+  '_caffeineStorageBlobsToDelete' : ActorMethod<[], Array<Uint8Array>>,
+  '_caffeineStorageConfirmBlobDeletion' : ActorMethod<
+    [Array<Uint8Array>],
+    undefined
+  >,
+  '_caffeineStorageCreateCertificate' : ActorMethod<
+    [string],
+    _CaffeineStorageCreateCertificateResult
+  >,
+  '_caffeineStorageRefillCashier' : ActorMethod<
+    [[] | [_CaffeineStorageRefillInformation]],
+    _CaffeineStorageRefillResult
+  >,
+  '_caffeineStorageUpdateGatewayPrincipals' : ActorMethod<[], undefined>,
+  '_initializeAccessControlWithSecret' : ActorMethod<[string], undefined>,
+  'assignCallerUserRole' : ActorMethod<[Principal, UserRole], undefined>,
+  'createBannerSlide' : ActorMethod<[string, string, string, bigint], bigint>,
+  'createBlogPost' : ActorMethod<
+    [string, string, string, string, string],
+    bigint
+  >,
+  'createFaqItem' : ActorMethod<[string, string, bigint], bigint>,
+  'createProduct' : ActorMethod<
+    [string, string, bigint, Array<string>, boolean, string, string],
+    bigint
+  >,
+  'createTestimonial' : ActorMethod<[string, string, bigint, string], bigint>,
+  'deleteBannerSlide' : ActorMethod<[bigint], boolean>,
+  'deleteBlogPost' : ActorMethod<[bigint], boolean>,
+  'deleteFaqItem' : ActorMethod<[bigint], boolean>,
+  'deleteProduct' : ActorMethod<[bigint], boolean>,
+  'deleteTestimonial' : ActorMethod<[bigint], boolean>,
+  'getBannerSlides' : ActorMethod<[], Array<BannerSlide>>,
+  'getBlogPostBySlug' : ActorMethod<[string], [] | [BlogPost]>,
+  'getBlogPosts' : ActorMethod<[], Array<BlogPost>>,
+  'getCallerUserRole' : ActorMethod<[], UserRole>,
+  'getFaqItems' : ActorMethod<[], Array<FaqItem>>,
+  'getMarqueeText' : ActorMethod<[], string>,
+  'getProducts' : ActorMethod<[], Array<Product>>,
+  'getProductsByBrand' : ActorMethod<[string], Array<Product>>,
+  'getTestimonials' : ActorMethod<[], Array<Testimonial>>,
+  'isCallerAdmin' : ActorMethod<[], boolean>,
+  'setMarqueeText' : ActorMethod<[string], undefined>,
+  'updateBannerSlide' : ActorMethod<
+    [bigint, string, string, string, bigint],
+    boolean
+  >,
+  'updateBlogPost' : ActorMethod<
+    [bigint, string, string, string, string, string],
+    boolean
+  >,
+  'updateFaqItem' : ActorMethod<[bigint, string, string, bigint], boolean>,
+  'updateProduct' : ActorMethod<
+    [bigint, string, string, bigint, Array<string>, boolean, string, string],
+    boolean
+  >,
+  'updateTestimonial' : ActorMethod<
+    [bigint, string, string, bigint, string],
+    boolean
+  >,
+}
 export declare const idlService: IDL.ServiceClass;
 export declare const idlInitArgs: IDL.Type[];
 export declare const idlFactory: IDL.InterfaceFactory;

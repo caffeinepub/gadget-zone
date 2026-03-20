@@ -2,19 +2,21 @@
  * JSON-LD structured data helpers for schema.org markup.
  */
 
+const SITE_URL = "https://gadgetzone-nz9.caffeine.xyz";
+
 export function getLocalBusinessSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     name: "Gadget Zone",
-    image:
-      "https://gadgetzone.in/assets/generated/gadget-zone-logo.dim_512x512.png",
-    "@id": "https://gadgetzone.in",
-    url: "https://gadgetzone.in",
-    telephone: "+919884861111",
+    image: `${SITE_URL}/assets/generated/gadget-zone-logo.dim_512x512.png`,
+    "@id": SITE_URL,
+    url: SITE_URL,
+    telephone: "+919840077591",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Thiruvanmiyur",
+      streetAddress:
+        "73 KALKI, Lattice Bridge Road (LB ROAD), KRISHNAMURTHY SALAI, Thiruvanmiyur",
       addressLocality: "Chennai",
       addressRegion: "Tamil Nadu",
       postalCode: "600041",
@@ -41,8 +43,16 @@ export function getLocalBusinessSchema() {
         closes: "21:00",
       },
     ],
-    sameAs: ["https://www.instagram.com/gadgetzone_thiruvanmiyur"],
+    sameAs: [
+      "https://www.instagram.com/gadget_zone_ind",
+      "https://wa.me/919840077591",
+    ],
     priceRange: "₹₹",
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.8",
+      reviewCount: "150",
+    },
     description:
       "Gadget Zone – Your trusted mobile phone store in Thiruvanmiyur, Chennai. New mobiles, expert repair, exchange & upgrade, accessories, CCTV, and EMI options.",
   };
@@ -56,7 +66,7 @@ export function getBreadcrumbSchema(items: { name: string; url: string }[]) {
       "@type": "ListItem",
       position: index + 1,
       name: item.name,
-      item: `https://gadgetzone.in${item.url}`,
+      item: `${SITE_URL}${item.url}`,
     })),
   };
 }

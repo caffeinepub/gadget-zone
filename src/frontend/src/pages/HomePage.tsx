@@ -3,8 +3,10 @@ import { BusinessHighlightsStrip } from "../components/BusinessHighlightsStrip";
 import { HotPickSection } from "../components/HotPickSection";
 import { MobileCareSmartUsageGuideSection } from "../components/MobileCareSmartUsageGuideSection";
 import { SafeImage } from "../components/SafeImage";
+import TestimonialsSection from "../components/TestimonialsSection";
 import { TickerBanner } from "../components/TickerBanner";
 import { WhatsAppQuickMessages } from "../components/WhatsAppQuickMessages";
+import { useBannerSlides } from "../hooks/usePublicQueries";
 import { BRAND_LOGOS } from "../lib/brandLogos";
 import { updateSEO } from "../lib/seoHelpers";
 import {
@@ -27,7 +29,7 @@ const brands = [
   { name: "CCTV", key: "CCTV", path: "/services/cctv" },
 ];
 
-const BANNER_SLIDES = [
+const FALLBACK_BANNER_SLIDES = [
   {
     src: "/assets/generated/banner-gadgets.dim_1600x700.png",
     alt: "Gadget Zone – Premium Mobile Phones & Accessories in Chennai",
@@ -50,6 +52,17 @@ const SLIDE_INTERVAL_MS = 4500;
 
 export default function HomePage() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const { data: backendSlides } = useBannerSlides();
+
+  const bannerSlides =
+    backendSlides && backendSlides.length > 0
+      ? [...backendSlides]
+          .sort((a, b) => Number(a.position) - Number(b.position))
+          .map((s) => ({
+            src: s.imageUrl,
+            alt: s.title || s.subtitle || "Gadget Zone",
+          }))
+      : FALLBACK_BANNER_SLIDES;
 
   useEffect(() => {
     updateSEO({
@@ -69,10 +82,10 @@ export default function HomePage() {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % BANNER_SLIDES.length);
+      setCurrentSlide((prev) => (prev + 1) % bannerSlides.length);
     }, SLIDE_INTERVAL_MS);
     return () => clearInterval(timer);
-  }, []);
+  }, [bannerSlides.length]);
 
   return (
     <main>
@@ -86,7 +99,7 @@ export default function HomePage() {
       >
         <div className="relative h-[480px] md:h-[560px] lg:h-[640px]">
           {/* Slides */}
-          {BANNER_SLIDES.map((slide, index) => (
+          {bannerSlides.map((slide, index) => (
             <div
               key={slide.src}
               className="absolute inset-0 transition-opacity duration-1000"
@@ -110,7 +123,7 @@ export default function HomePage() {
             style={{ zIndex: 10 }}
           >
             <img
-              src="/assets/Gadget Zone-Logo-1.png"
+              src="/assets/gadget-zone-logo-1.png"
               alt="Gadget Zone Logo"
               className="h-20 md:h-28 mb-6 drop-shadow-xl"
             />
@@ -143,7 +156,7 @@ export default function HomePage() {
             className="absolute bottom-4 left-0 right-0 flex justify-center gap-2"
             style={{ zIndex: 10 }}
           >
-            {BANNER_SLIDES.map((slide, index) => (
+            {bannerSlides.map((slide, index) => (
               <button
                 key={slide.alt ?? index}
                 type="button"
@@ -269,6 +282,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Testimonials */}
+      <TestimonialsSection />
 
       {/* Mobile Care Guide */}
       <section id="tips" aria-label="Mobile care tips">

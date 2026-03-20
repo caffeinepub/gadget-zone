@@ -23,6 +23,10 @@ const QUICK_LINKS = [
   { label: "Brands", href: "/brands" },
   { label: "About Us", href: "/about" },
   { label: "Contact", href: "/contact" },
+  { label: "Blog", href: "/blog" },
+  { label: "Find Us", href: "/contact/find-us" },
+  { label: "FAQ", href: "/faq" },
+  { label: "Book Repair", href: "/services/book-repair" },
 ];
 
 const SERVICE_LINKS = [
@@ -31,6 +35,8 @@ const SERVICE_LINKS = [
   { label: "Accessories", href: "/services/accessories" },
   { label: "Exchange & Upgrade", href: "/services/exchange" },
   { label: "EMI & Finance", href: "/services/emi" },
+  { label: "Book a Repair", href: "/services/book-repair" },
+  { label: "FAQ", href: "/faq" },
 ];
 
 const POLICY_LINKS = [
@@ -61,7 +67,7 @@ export default function Footer({ onNavigate }: FooterProps) {
         <div className="lg:col-span-1">
           <div className="mb-4">
             <SafeImage
-              src="/assets/Gadget Zone-Logo.png"
+              src="/assets/gadget-zone-logo.png"
               alt="Gadget Zone Logo"
               className="h-14 w-auto object-contain"
               fallbackType="logo"
@@ -86,7 +92,7 @@ export default function Footer({ onNavigate }: FooterProps) {
               <MessageCircle size={18} />
             </a>
             <a
-              href="https://www.instagram.com/gadgetzone_thiruvanmiyur"
+              href="https://www.instagram.com/gadget_zone_ind"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"

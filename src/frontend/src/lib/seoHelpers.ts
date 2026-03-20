@@ -17,7 +17,7 @@ const DEFAULT_TITLE =
 const DEFAULT_DESCRIPTION =
   "Gadget Zone in Thiruvanmiyur, Chennai – Buy new mobiles (Apple, Samsung, Motorola, OnePlus), get expert repair, exchange & upgrade, accessories, CCTV installation, and EMI options.";
 const DEFAULT_OG_IMAGE = "/assets/generated/hero-showroom.dim_1600x900.jpg";
-const SITE_URL = "https://gadgetzone.in";
+const SITE_URL = "https://gadgetzone-nz9.caffeine.xyz";
 
 function setMeta(name: string, content: string, property = false) {
   const attr = property ? "property" : "name";
@@ -46,7 +46,11 @@ export function updateSEO(meta: SEOMeta) {
   const canonical = meta.canonical ? `${SITE_URL}${meta.canonical}` : SITE_URL;
   const ogTitle = meta.ogTitle ?? title;
   const ogDescription = meta.ogDescription ?? description;
-  const ogImage = meta.ogImage ?? DEFAULT_OG_IMAGE;
+  const ogImage = meta.ogImage
+    ? meta.ogImage.startsWith("http")
+      ? meta.ogImage
+      : `${SITE_URL}${meta.ogImage}`
+    : `${SITE_URL}${DEFAULT_OG_IMAGE}`;
   const ogUrl = meta.ogUrl ? `${SITE_URL}${meta.ogUrl}` : canonical;
 
   document.title = title;

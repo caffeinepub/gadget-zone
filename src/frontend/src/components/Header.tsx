@@ -41,6 +41,7 @@ const NAV_ITEMS: NavItem[] = [
       { label: "Realme", path: "/brands/realme" },
       { label: "Vivo", path: "/brands/vivo" },
       { label: "Xiaomi / Redmi", path: "/brands/xiaomi" },
+      { label: "Nothing Mobile", path: "/brands/nothing" },
     ],
   },
   {
@@ -69,6 +70,8 @@ const NAV_ITEMS: NavItem[] = [
       { label: "Accessories", path: "/services/accessories" },
       { label: "Exchange & Upgrade", path: "/services/exchange" },
       { label: "EMI & Finance", path: "/services/emi" },
+      { label: "Book a Repair", path: "/services/book-repair" },
+      { label: "FAQ", path: "/faq" },
     ],
   },
   {
@@ -79,7 +82,11 @@ const NAV_ITEMS: NavItem[] = [
       { label: "Why Choose Us", path: "/about/why-choose-us" },
     ],
   },
-  { label: "Contact", path: "/contact" },
+  {
+    label: "Contact",
+    path: "/contact",
+    subItems: [{ label: "Find Us", path: "/contact/find-us" }],
+  },
 ];
 
 interface HeaderProps {
@@ -192,7 +199,7 @@ export default function Header({ currentPath = "/", onNavigate }: HeaderProps) {
             aria-label="Gadget Zone Home"
           >
             <img
-              src="/assets/Gadget Zone-Logo.png"
+              src="/assets/gadget-zone-logo.png"
               alt="Gadget Zone Logo"
               className="h-12 w-auto object-contain"
               style={{ maxWidth: "180px" }}

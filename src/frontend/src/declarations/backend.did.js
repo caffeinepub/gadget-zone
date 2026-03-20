@@ -8,10 +8,340 @@
 
 import { IDL } from '@icp-sdk/core/candid';
 
-export const idlService = IDL.Service({});
+export const _CaffeineStorageCreateCertificateResult = IDL.Record({
+  'method' : IDL.Text,
+  'blob_hash' : IDL.Text,
+});
+export const _CaffeineStorageRefillInformation = IDL.Record({
+  'proposed_top_up_amount' : IDL.Opt(IDL.Nat),
+});
+export const _CaffeineStorageRefillResult = IDL.Record({
+  'success' : IDL.Opt(IDL.Bool),
+  'topped_up_amount' : IDL.Opt(IDL.Nat),
+});
+export const UserRole = IDL.Variant({
+  'admin' : IDL.Null,
+  'user' : IDL.Null,
+  'guest' : IDL.Null,
+});
+export const BannerSlide = IDL.Record({
+  'id' : IDL.Nat,
+  'title' : IDL.Text,
+  'imageUrl' : IDL.Text,
+  'position' : IDL.Nat,
+  'subtitle' : IDL.Text,
+});
+export const BlogPost = IDL.Record({
+  'id' : IDL.Nat,
+  'title' : IDL.Text,
+  'content' : IDL.Text,
+  'slug' : IDL.Text,
+  'publishedAt' : IDL.Int,
+  'imageUrl' : IDL.Text,
+  'excerpt' : IDL.Text,
+});
+export const FaqItem = IDL.Record({
+  'id' : IDL.Nat,
+  'question' : IDL.Text,
+  'answer' : IDL.Text,
+  'position' : IDL.Nat,
+});
+export const Product = IDL.Record({
+  'id' : IDL.Nat,
+  'whatsappMessage' : IDL.Text,
+  'name' : IDL.Text,
+  'imageUrl' : IDL.Text,
+  'brand' : IDL.Text,
+  'emiAvailable' : IDL.Bool,
+  'price' : IDL.Nat,
+  'storageOptions' : IDL.Vec(IDL.Text),
+});
+export const Testimonial = IDL.Record({
+  'id' : IDL.Nat,
+  'customerName' : IDL.Text,
+  'review' : IDL.Text,
+  'rating' : IDL.Nat,
+  'product' : IDL.Text,
+});
+
+export const idlService = IDL.Service({
+  '_caffeineStorageBlobIsLive' : IDL.Func(
+      [IDL.Vec(IDL.Nat8)],
+      [IDL.Bool],
+      ['query'],
+    ),
+  '_caffeineStorageBlobsToDelete' : IDL.Func(
+      [],
+      [IDL.Vec(IDL.Vec(IDL.Nat8))],
+      ['query'],
+    ),
+  '_caffeineStorageConfirmBlobDeletion' : IDL.Func(
+      [IDL.Vec(IDL.Vec(IDL.Nat8))],
+      [],
+      [],
+    ),
+  '_caffeineStorageCreateCertificate' : IDL.Func(
+      [IDL.Text],
+      [_CaffeineStorageCreateCertificateResult],
+      [],
+    ),
+  '_caffeineStorageRefillCashier' : IDL.Func(
+      [IDL.Opt(_CaffeineStorageRefillInformation)],
+      [_CaffeineStorageRefillResult],
+      [],
+    ),
+  '_caffeineStorageUpdateGatewayPrincipals' : IDL.Func([], [], []),
+  '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
+  'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
+  'createBannerSlide' : IDL.Func(
+      [IDL.Text, IDL.Text, IDL.Text, IDL.Nat],
+      [IDL.Nat],
+      [],
+    ),
+  'createBlogPost' : IDL.Func(
+      [IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text],
+      [IDL.Nat],
+      [],
+    ),
+  'createFaqItem' : IDL.Func([IDL.Text, IDL.Text, IDL.Nat], [IDL.Nat], []),
+  'createProduct' : IDL.Func(
+      [
+        IDL.Text,
+        IDL.Text,
+        IDL.Nat,
+        IDL.Vec(IDL.Text),
+        IDL.Bool,
+        IDL.Text,
+        IDL.Text,
+      ],
+      [IDL.Nat],
+      [],
+    ),
+  'createTestimonial' : IDL.Func(
+      [IDL.Text, IDL.Text, IDL.Nat, IDL.Text],
+      [IDL.Nat],
+      [],
+    ),
+  'deleteBannerSlide' : IDL.Func([IDL.Nat], [IDL.Bool], []),
+  'deleteBlogPost' : IDL.Func([IDL.Nat], [IDL.Bool], []),
+  'deleteFaqItem' : IDL.Func([IDL.Nat], [IDL.Bool], []),
+  'deleteProduct' : IDL.Func([IDL.Nat], [IDL.Bool], []),
+  'deleteTestimonial' : IDL.Func([IDL.Nat], [IDL.Bool], []),
+  'getBannerSlides' : IDL.Func([], [IDL.Vec(BannerSlide)], ['query']),
+  'getBlogPostBySlug' : IDL.Func([IDL.Text], [IDL.Opt(BlogPost)], ['query']),
+  'getBlogPosts' : IDL.Func([], [IDL.Vec(BlogPost)], ['query']),
+  'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
+  'getFaqItems' : IDL.Func([], [IDL.Vec(FaqItem)], ['query']),
+  'getMarqueeText' : IDL.Func([], [IDL.Text], ['query']),
+  'getProducts' : IDL.Func([], [IDL.Vec(Product)], ['query']),
+  'getProductsByBrand' : IDL.Func([IDL.Text], [IDL.Vec(Product)], ['query']),
+  'getTestimonials' : IDL.Func([], [IDL.Vec(Testimonial)], ['query']),
+  'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
+  'setMarqueeText' : IDL.Func([IDL.Text], [], []),
+  'updateBannerSlide' : IDL.Func(
+      [IDL.Nat, IDL.Text, IDL.Text, IDL.Text, IDL.Nat],
+      [IDL.Bool],
+      [],
+    ),
+  'updateBlogPost' : IDL.Func(
+      [IDL.Nat, IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text],
+      [IDL.Bool],
+      [],
+    ),
+  'updateFaqItem' : IDL.Func(
+      [IDL.Nat, IDL.Text, IDL.Text, IDL.Nat],
+      [IDL.Bool],
+      [],
+    ),
+  'updateProduct' : IDL.Func(
+      [
+        IDL.Nat,
+        IDL.Text,
+        IDL.Text,
+        IDL.Nat,
+        IDL.Vec(IDL.Text),
+        IDL.Bool,
+        IDL.Text,
+        IDL.Text,
+      ],
+      [IDL.Bool],
+      [],
+    ),
+  'updateTestimonial' : IDL.Func(
+      [IDL.Nat, IDL.Text, IDL.Text, IDL.Nat, IDL.Text],
+      [IDL.Bool],
+      [],
+    ),
+});
 
 export const idlInitArgs = [];
 
-export const idlFactory = ({ IDL }) => { return IDL.Service({}); };
+export const idlFactory = ({ IDL }) => {
+  const _CaffeineStorageCreateCertificateResult = IDL.Record({
+    'method' : IDL.Text,
+    'blob_hash' : IDL.Text,
+  });
+  const _CaffeineStorageRefillInformation = IDL.Record({
+    'proposed_top_up_amount' : IDL.Opt(IDL.Nat),
+  });
+  const _CaffeineStorageRefillResult = IDL.Record({
+    'success' : IDL.Opt(IDL.Bool),
+    'topped_up_amount' : IDL.Opt(IDL.Nat),
+  });
+  const UserRole = IDL.Variant({
+    'admin' : IDL.Null,
+    'user' : IDL.Null,
+    'guest' : IDL.Null,
+  });
+  const BannerSlide = IDL.Record({
+    'id' : IDL.Nat,
+    'title' : IDL.Text,
+    'imageUrl' : IDL.Text,
+    'position' : IDL.Nat,
+    'subtitle' : IDL.Text,
+  });
+  const BlogPost = IDL.Record({
+    'id' : IDL.Nat,
+    'title' : IDL.Text,
+    'content' : IDL.Text,
+    'slug' : IDL.Text,
+    'publishedAt' : IDL.Int,
+    'imageUrl' : IDL.Text,
+    'excerpt' : IDL.Text,
+  });
+  const FaqItem = IDL.Record({
+    'id' : IDL.Nat,
+    'question' : IDL.Text,
+    'answer' : IDL.Text,
+    'position' : IDL.Nat,
+  });
+  const Product = IDL.Record({
+    'id' : IDL.Nat,
+    'whatsappMessage' : IDL.Text,
+    'name' : IDL.Text,
+    'imageUrl' : IDL.Text,
+    'brand' : IDL.Text,
+    'emiAvailable' : IDL.Bool,
+    'price' : IDL.Nat,
+    'storageOptions' : IDL.Vec(IDL.Text),
+  });
+  const Testimonial = IDL.Record({
+    'id' : IDL.Nat,
+    'customerName' : IDL.Text,
+    'review' : IDL.Text,
+    'rating' : IDL.Nat,
+    'product' : IDL.Text,
+  });
+  
+  return IDL.Service({
+    '_caffeineStorageBlobIsLive' : IDL.Func(
+        [IDL.Vec(IDL.Nat8)],
+        [IDL.Bool],
+        ['query'],
+      ),
+    '_caffeineStorageBlobsToDelete' : IDL.Func(
+        [],
+        [IDL.Vec(IDL.Vec(IDL.Nat8))],
+        ['query'],
+      ),
+    '_caffeineStorageConfirmBlobDeletion' : IDL.Func(
+        [IDL.Vec(IDL.Vec(IDL.Nat8))],
+        [],
+        [],
+      ),
+    '_caffeineStorageCreateCertificate' : IDL.Func(
+        [IDL.Text],
+        [_CaffeineStorageCreateCertificateResult],
+        [],
+      ),
+    '_caffeineStorageRefillCashier' : IDL.Func(
+        [IDL.Opt(_CaffeineStorageRefillInformation)],
+        [_CaffeineStorageRefillResult],
+        [],
+      ),
+    '_caffeineStorageUpdateGatewayPrincipals' : IDL.Func([], [], []),
+    '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
+    'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
+    'createBannerSlide' : IDL.Func(
+        [IDL.Text, IDL.Text, IDL.Text, IDL.Nat],
+        [IDL.Nat],
+        [],
+      ),
+    'createBlogPost' : IDL.Func(
+        [IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text],
+        [IDL.Nat],
+        [],
+      ),
+    'createFaqItem' : IDL.Func([IDL.Text, IDL.Text, IDL.Nat], [IDL.Nat], []),
+    'createProduct' : IDL.Func(
+        [
+          IDL.Text,
+          IDL.Text,
+          IDL.Nat,
+          IDL.Vec(IDL.Text),
+          IDL.Bool,
+          IDL.Text,
+          IDL.Text,
+        ],
+        [IDL.Nat],
+        [],
+      ),
+    'createTestimonial' : IDL.Func(
+        [IDL.Text, IDL.Text, IDL.Nat, IDL.Text],
+        [IDL.Nat],
+        [],
+      ),
+    'deleteBannerSlide' : IDL.Func([IDL.Nat], [IDL.Bool], []),
+    'deleteBlogPost' : IDL.Func([IDL.Nat], [IDL.Bool], []),
+    'deleteFaqItem' : IDL.Func([IDL.Nat], [IDL.Bool], []),
+    'deleteProduct' : IDL.Func([IDL.Nat], [IDL.Bool], []),
+    'deleteTestimonial' : IDL.Func([IDL.Nat], [IDL.Bool], []),
+    'getBannerSlides' : IDL.Func([], [IDL.Vec(BannerSlide)], ['query']),
+    'getBlogPostBySlug' : IDL.Func([IDL.Text], [IDL.Opt(BlogPost)], ['query']),
+    'getBlogPosts' : IDL.Func([], [IDL.Vec(BlogPost)], ['query']),
+    'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
+    'getFaqItems' : IDL.Func([], [IDL.Vec(FaqItem)], ['query']),
+    'getMarqueeText' : IDL.Func([], [IDL.Text], ['query']),
+    'getProducts' : IDL.Func([], [IDL.Vec(Product)], ['query']),
+    'getProductsByBrand' : IDL.Func([IDL.Text], [IDL.Vec(Product)], ['query']),
+    'getTestimonials' : IDL.Func([], [IDL.Vec(Testimonial)], ['query']),
+    'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
+    'setMarqueeText' : IDL.Func([IDL.Text], [], []),
+    'updateBannerSlide' : IDL.Func(
+        [IDL.Nat, IDL.Text, IDL.Text, IDL.Text, IDL.Nat],
+        [IDL.Bool],
+        [],
+      ),
+    'updateBlogPost' : IDL.Func(
+        [IDL.Nat, IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text],
+        [IDL.Bool],
+        [],
+      ),
+    'updateFaqItem' : IDL.Func(
+        [IDL.Nat, IDL.Text, IDL.Text, IDL.Nat],
+        [IDL.Bool],
+        [],
+      ),
+    'updateProduct' : IDL.Func(
+        [
+          IDL.Nat,
+          IDL.Text,
+          IDL.Text,
+          IDL.Nat,
+          IDL.Vec(IDL.Text),
+          IDL.Bool,
+          IDL.Text,
+          IDL.Text,
+        ],
+        [IDL.Bool],
+        [],
+      ),
+    'updateTestimonial' : IDL.Func(
+        [IDL.Nat, IDL.Text, IDL.Text, IDL.Nat, IDL.Text],
+        [IDL.Bool],
+        [],
+      ),
+  });
+};
 
 export const init = ({ IDL }) => { return []; };

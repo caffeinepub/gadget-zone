@@ -307,7 +307,7 @@ export default function SamsungPhonesPage() {
             📞 Call Us
           </a>
           <a
-            href={`https://wa.me/${WA_NUMBER}?text=Hi%2C%20I%27m%20interested%20in%20Samsung%20phones.%20Please%20share%20availability%20and%20pricing.`}
+            href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent("Hi, I'm interested in Samsung phones at Gadget Zone Chennai")}`}
             target="_blank"
             rel="noopener noreferrer"
             className="bg-green-600 text-white font-bold px-7 py-3 rounded-full shadow hover:opacity-90 transition"

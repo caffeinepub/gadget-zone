@@ -1,8 +1,13 @@
-export function TickerBanner() {
-  const tickerText =
-    "Mobile Phone's \u00a0\u00a0|\u00a0\u00a0 Tablets \u00a0\u00a0|\u00a0\u00a0 CCTV \u00a0\u00a0|\u00a0\u00a0 Home and Shop Security Solutions \u00a0\u00a0|\u00a0\u00a0 Bluetooth \u00a0\u00a0|\u00a0\u00a0 Smart Watches \u00a0\u00a0|\u00a0\u00a0 Speakers \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0";
+import { useMarqueeText } from "../hooks/usePublicQueries";
 
-  const keys = ["t1", "t2", "t3", "t4", "t5", "t6"];
+const DEFAULT_TICKER_TEXT =
+  "Mobile Phone's \u00a0\u00a0|\u00a0\u00a0 Tablets \u00a0\u00a0|\u00a0\u00a0 CCTV \u00a0\u00a0|\u00a0\u00a0 Home and Shop Security Solutions \u00a0\u00a0|\u00a0\u00a0 Bluetooth \u00a0\u00a0|\u00a0\u00a0 Smart Watches \u00a0\u00a0|\u00a0\u00a0 Speakers \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0";
+
+const keys = ["t1", "t2", "t3", "t4", "t5", "t6"];
+
+export function TickerBanner() {
+  const { data: backendText } = useMarqueeText();
+  const tickerText = backendText?.trim() ? backendText : DEFAULT_TICKER_TEXT;
 
   return (
     <div className="w-full overflow-hidden bg-muted/30 border-y border-border py-3">

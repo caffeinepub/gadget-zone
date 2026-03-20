@@ -89,10 +89,645 @@ export class ExternalBlob {
         return this;
     }
 }
-export interface backendInterface {
+export interface _CaffeineStorageRefillResult {
+    success?: boolean;
+    topped_up_amount?: bigint;
 }
+export interface BlogPost {
+    id: bigint;
+    title: string;
+    content: string;
+    slug: string;
+    publishedAt: bigint;
+    imageUrl: string;
+    excerpt: string;
+}
+export interface BannerSlide {
+    id: bigint;
+    title: string;
+    imageUrl: string;
+    position: bigint;
+    subtitle: string;
+}
+export interface _CaffeineStorageRefillInformation {
+    proposed_top_up_amount?: bigint;
+}
+export interface _CaffeineStorageCreateCertificateResult {
+    method: string;
+    blob_hash: string;
+}
+export interface FaqItem {
+    id: bigint;
+    question: string;
+    answer: string;
+    position: bigint;
+}
+export interface Product {
+    id: bigint;
+    whatsappMessage: string;
+    name: string;
+    imageUrl: string;
+    brand: string;
+    emiAvailable: boolean;
+    price: bigint;
+    storageOptions: Array<string>;
+}
+export interface Testimonial {
+    id: bigint;
+    customerName: string;
+    review: string;
+    rating: bigint;
+    product: string;
+}
+export enum UserRole {
+    admin = "admin",
+    user = "user",
+    guest = "guest"
+}
+export interface backendInterface {
+    _caffeineStorageBlobIsLive(hash: Uint8Array): Promise<boolean>;
+    _caffeineStorageBlobsToDelete(): Promise<Array<Uint8Array>>;
+    _caffeineStorageConfirmBlobDeletion(blobs: Array<Uint8Array>): Promise<void>;
+    _caffeineStorageCreateCertificate(blobHash: string): Promise<_CaffeineStorageCreateCertificateResult>;
+    _caffeineStorageRefillCashier(refillInformation: _CaffeineStorageRefillInformation | null): Promise<_CaffeineStorageRefillResult>;
+    _caffeineStorageUpdateGatewayPrincipals(): Promise<void>;
+    _initializeAccessControlWithSecret(userSecret: string): Promise<void>;
+    assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
+    createBannerSlide(title: string, subtitle: string, imageUrl: string, position: bigint): Promise<bigint>;
+    createBlogPost(title: string, slug: string, content: string, excerpt: string, imageUrl: string): Promise<bigint>;
+    createFaqItem(question: string, answer: string, position: bigint): Promise<bigint>;
+    createProduct(brand: string, name: string, price: bigint, storageOptions: Array<string>, emiAvailable: boolean, whatsappMessage: string, imageUrl: string): Promise<bigint>;
+    createTestimonial(customerName: string, review: string, rating: bigint, product: string): Promise<bigint>;
+    deleteBannerSlide(id: bigint): Promise<boolean>;
+    deleteBlogPost(id: bigint): Promise<boolean>;
+    deleteFaqItem(id: bigint): Promise<boolean>;
+    deleteProduct(id: bigint): Promise<boolean>;
+    deleteTestimonial(id: bigint): Promise<boolean>;
+    getBannerSlides(): Promise<Array<BannerSlide>>;
+    getBlogPostBySlug(slug: string): Promise<BlogPost | null>;
+    getBlogPosts(): Promise<Array<BlogPost>>;
+    getCallerUserRole(): Promise<UserRole>;
+    getFaqItems(): Promise<Array<FaqItem>>;
+    getMarqueeText(): Promise<string>;
+    getProducts(): Promise<Array<Product>>;
+    getProductsByBrand(brand: string): Promise<Array<Product>>;
+    getTestimonials(): Promise<Array<Testimonial>>;
+    isCallerAdmin(): Promise<boolean>;
+    setMarqueeText(text: string): Promise<void>;
+    updateBannerSlide(id: bigint, title: string, subtitle: string, imageUrl: string, position: bigint): Promise<boolean>;
+    updateBlogPost(id: bigint, title: string, slug: string, content: string, excerpt: string, imageUrl: string): Promise<boolean>;
+    updateFaqItem(id: bigint, question: string, answer: string, position: bigint): Promise<boolean>;
+    updateProduct(id: bigint, brand: string, name: string, price: bigint, storageOptions: Array<string>, emiAvailable: boolean, whatsappMessage: string, imageUrl: string): Promise<boolean>;
+    updateTestimonial(id: bigint, customerName: string, review: string, rating: bigint, product: string): Promise<boolean>;
+}
+import type { BlogPost as _BlogPost, UserRole as _UserRole, _CaffeineStorageRefillInformation as __CaffeineStorageRefillInformation, _CaffeineStorageRefillResult as __CaffeineStorageRefillResult } from "./declarations/backend.did.d.ts";
 export class Backend implements backendInterface {
     constructor(private actor: ActorSubclass<_SERVICE>, private _uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, private _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, private processError?: (error: unknown) => never){}
+    async _caffeineStorageBlobIsLive(arg0: Uint8Array): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor._caffeineStorageBlobIsLive(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor._caffeineStorageBlobIsLive(arg0);
+            return result;
+        }
+    }
+    async _caffeineStorageBlobsToDelete(): Promise<Array<Uint8Array>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor._caffeineStorageBlobsToDelete();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor._caffeineStorageBlobsToDelete();
+            return result;
+        }
+    }
+    async _caffeineStorageConfirmBlobDeletion(arg0: Array<Uint8Array>): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor._caffeineStorageConfirmBlobDeletion(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor._caffeineStorageConfirmBlobDeletion(arg0);
+            return result;
+        }
+    }
+    async _caffeineStorageCreateCertificate(arg0: string): Promise<_CaffeineStorageCreateCertificateResult> {
+        if (this.processError) {
+            try {
+                const result = await this.actor._caffeineStorageCreateCertificate(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor._caffeineStorageCreateCertificate(arg0);
+            return result;
+        }
+    }
+    async _caffeineStorageRefillCashier(arg0: _CaffeineStorageRefillInformation | null): Promise<_CaffeineStorageRefillResult> {
+        if (this.processError) {
+            try {
+                const result = await this.actor._caffeineStorageRefillCashier(to_candid_opt_n1(this._uploadFile, this._downloadFile, arg0));
+                return from_candid__CaffeineStorageRefillResult_n4(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor._caffeineStorageRefillCashier(to_candid_opt_n1(this._uploadFile, this._downloadFile, arg0));
+            return from_candid__CaffeineStorageRefillResult_n4(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async _caffeineStorageUpdateGatewayPrincipals(): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor._caffeineStorageUpdateGatewayPrincipals();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor._caffeineStorageUpdateGatewayPrincipals();
+            return result;
+        }
+    }
+    async _initializeAccessControlWithSecret(arg0: string): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor._initializeAccessControlWithSecret(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor._initializeAccessControlWithSecret(arg0);
+            return result;
+        }
+    }
+    async assignCallerUserRole(arg0: Principal, arg1: UserRole): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.assignCallerUserRole(arg0, to_candid_UserRole_n8(this._uploadFile, this._downloadFile, arg1));
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.assignCallerUserRole(arg0, to_candid_UserRole_n8(this._uploadFile, this._downloadFile, arg1));
+            return result;
+        }
+    }
+    async createBannerSlide(arg0: string, arg1: string, arg2: string, arg3: bigint): Promise<bigint> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.createBannerSlide(arg0, arg1, arg2, arg3);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.createBannerSlide(arg0, arg1, arg2, arg3);
+            return result;
+        }
+    }
+    async createBlogPost(arg0: string, arg1: string, arg2: string, arg3: string, arg4: string): Promise<bigint> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.createBlogPost(arg0, arg1, arg2, arg3, arg4);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.createBlogPost(arg0, arg1, arg2, arg3, arg4);
+            return result;
+        }
+    }
+    async createFaqItem(arg0: string, arg1: string, arg2: bigint): Promise<bigint> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.createFaqItem(arg0, arg1, arg2);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.createFaqItem(arg0, arg1, arg2);
+            return result;
+        }
+    }
+    async createProduct(arg0: string, arg1: string, arg2: bigint, arg3: Array<string>, arg4: boolean, arg5: string, arg6: string): Promise<bigint> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.createProduct(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.createProduct(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
+            return result;
+        }
+    }
+    async createTestimonial(arg0: string, arg1: string, arg2: bigint, arg3: string): Promise<bigint> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.createTestimonial(arg0, arg1, arg2, arg3);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.createTestimonial(arg0, arg1, arg2, arg3);
+            return result;
+        }
+    }
+    async deleteBannerSlide(arg0: bigint): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.deleteBannerSlide(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.deleteBannerSlide(arg0);
+            return result;
+        }
+    }
+    async deleteBlogPost(arg0: bigint): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.deleteBlogPost(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.deleteBlogPost(arg0);
+            return result;
+        }
+    }
+    async deleteFaqItem(arg0: bigint): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.deleteFaqItem(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.deleteFaqItem(arg0);
+            return result;
+        }
+    }
+    async deleteProduct(arg0: bigint): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.deleteProduct(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.deleteProduct(arg0);
+            return result;
+        }
+    }
+    async deleteTestimonial(arg0: bigint): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.deleteTestimonial(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.deleteTestimonial(arg0);
+            return result;
+        }
+    }
+    async getBannerSlides(): Promise<Array<BannerSlide>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getBannerSlides();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getBannerSlides();
+            return result;
+        }
+    }
+    async getBlogPostBySlug(arg0: string): Promise<BlogPost | null> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getBlogPostBySlug(arg0);
+                return from_candid_opt_n10(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getBlogPostBySlug(arg0);
+            return from_candid_opt_n10(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getBlogPosts(): Promise<Array<BlogPost>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getBlogPosts();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getBlogPosts();
+            return result;
+        }
+    }
+    async getCallerUserRole(): Promise<UserRole> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getCallerUserRole();
+                return from_candid_UserRole_n11(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getCallerUserRole();
+            return from_candid_UserRole_n11(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getFaqItems(): Promise<Array<FaqItem>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getFaqItems();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getFaqItems();
+            return result;
+        }
+    }
+    async getMarqueeText(): Promise<string> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getMarqueeText();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getMarqueeText();
+            return result;
+        }
+    }
+    async getProducts(): Promise<Array<Product>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getProducts();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getProducts();
+            return result;
+        }
+    }
+    async getProductsByBrand(arg0: string): Promise<Array<Product>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getProductsByBrand(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getProductsByBrand(arg0);
+            return result;
+        }
+    }
+    async getTestimonials(): Promise<Array<Testimonial>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getTestimonials();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getTestimonials();
+            return result;
+        }
+    }
+    async isCallerAdmin(): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.isCallerAdmin();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.isCallerAdmin();
+            return result;
+        }
+    }
+    async setMarqueeText(arg0: string): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.setMarqueeText(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.setMarqueeText(arg0);
+            return result;
+        }
+    }
+    async updateBannerSlide(arg0: bigint, arg1: string, arg2: string, arg3: string, arg4: bigint): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.updateBannerSlide(arg0, arg1, arg2, arg3, arg4);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.updateBannerSlide(arg0, arg1, arg2, arg3, arg4);
+            return result;
+        }
+    }
+    async updateBlogPost(arg0: bigint, arg1: string, arg2: string, arg3: string, arg4: string, arg5: string): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.updateBlogPost(arg0, arg1, arg2, arg3, arg4, arg5);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.updateBlogPost(arg0, arg1, arg2, arg3, arg4, arg5);
+            return result;
+        }
+    }
+    async updateFaqItem(arg0: bigint, arg1: string, arg2: string, arg3: bigint): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.updateFaqItem(arg0, arg1, arg2, arg3);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.updateFaqItem(arg0, arg1, arg2, arg3);
+            return result;
+        }
+    }
+    async updateProduct(arg0: bigint, arg1: string, arg2: string, arg3: bigint, arg4: Array<string>, arg5: boolean, arg6: string, arg7: string): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.updateProduct(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.updateProduct(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
+            return result;
+        }
+    }
+    async updateTestimonial(arg0: bigint, arg1: string, arg2: string, arg3: bigint, arg4: string): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.updateTestimonial(arg0, arg1, arg2, arg3, arg4);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.updateTestimonial(arg0, arg1, arg2, arg3, arg4);
+            return result;
+        }
+    }
+}
+function from_candid_UserRole_n11(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _UserRole): UserRole {
+    return from_candid_variant_n12(_uploadFile, _downloadFile, value);
+}
+function from_candid__CaffeineStorageRefillResult_n4(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: __CaffeineStorageRefillResult): _CaffeineStorageRefillResult {
+    return from_candid_record_n5(_uploadFile, _downloadFile, value);
+}
+function from_candid_opt_n10(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_BlogPost]): BlogPost | null {
+    return value.length === 0 ? null : value[0];
+}
+function from_candid_opt_n6(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [boolean]): boolean | null {
+    return value.length === 0 ? null : value[0];
+}
+function from_candid_opt_n7(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [bigint]): bigint | null {
+    return value.length === 0 ? null : value[0];
+}
+function from_candid_record_n5(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    success: [] | [boolean];
+    topped_up_amount: [] | [bigint];
+}): {
+    success?: boolean;
+    topped_up_amount?: bigint;
+} {
+    return {
+        success: record_opt_to_undefined(from_candid_opt_n6(_uploadFile, _downloadFile, value.success)),
+        topped_up_amount: record_opt_to_undefined(from_candid_opt_n7(_uploadFile, _downloadFile, value.topped_up_amount))
+    };
+}
+function from_candid_variant_n12(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    admin: null;
+} | {
+    user: null;
+} | {
+    guest: null;
+}): UserRole {
+    return "admin" in value ? UserRole.admin : "user" in value ? UserRole.user : "guest" in value ? UserRole.guest : value;
+}
+function to_candid_UserRole_n8(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: UserRole): _UserRole {
+    return to_candid_variant_n9(_uploadFile, _downloadFile, value);
+}
+function to_candid__CaffeineStorageRefillInformation_n2(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _CaffeineStorageRefillInformation): __CaffeineStorageRefillInformation {
+    return to_candid_record_n3(_uploadFile, _downloadFile, value);
+}
+function to_candid_opt_n1(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _CaffeineStorageRefillInformation | null): [] | [__CaffeineStorageRefillInformation] {
+    return value === null ? candid_none() : candid_some(to_candid__CaffeineStorageRefillInformation_n2(_uploadFile, _downloadFile, value));
+}
+function to_candid_record_n3(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    proposed_top_up_amount?: bigint;
+}): {
+    proposed_top_up_amount: [] | [bigint];
+} {
+    return {
+        proposed_top_up_amount: value.proposed_top_up_amount ? candid_some(value.proposed_top_up_amount) : candid_none()
+    };
+}
+function to_candid_variant_n9(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: UserRole): {
+    admin: null;
+} | {
+    user: null;
+} | {
+    guest: null;
+} {
+    return value == UserRole.admin ? {
+        admin: null
+    } : value == UserRole.user ? {
+        user: null
+    } : value == UserRole.guest ? {
+        guest: null
+    } : value;
 }
 export interface CreateActorOptions {
     agent?: Agent;

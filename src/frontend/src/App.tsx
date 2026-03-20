@@ -1,3 +1,4 @@
+import { Toaster } from "@/components/ui/sonner";
 import { useEffect, useRef, useState } from "react";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
@@ -10,6 +11,7 @@ import { initializeSPAPageViews } from "./lib/spaPageViews";
 
 import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
+import FAQPage from "./pages/FAQPage";
 import HomePage from "./pages/HomePage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import ProductsPage from "./pages/ProductsPage";
@@ -46,7 +48,14 @@ import MobileAccessoriesPage from "./pages/products/categories/MobileAccessories
 import PowerChargingPage from "./pages/products/categories/PowerChargingPage";
 import SmartGadgetsPage from "./pages/products/categories/SmartGadgetsPage";
 
+import BestPhonesUnder20000Page from "./pages/blog/BestPhonesUnder20000Page";
+import BlogPage from "./pages/blog/BlogPage";
+import MobileCareTipsPage from "./pages/blog/MobileCareTipsPage";
+import PhoneScreenProtectionPage from "./pages/blog/PhoneScreenProtectionPage";
+import Top5AccessoriesPage from "./pages/blog/Top5AccessoriesPage";
+import FindUsPage from "./pages/contact/FindUsPage";
 import AccessoriesPage from "./pages/services/AccessoriesPage";
+import BookRepairPage from "./pages/services/BookRepairPage";
 import CCTVPage from "./pages/services/CCTVPage";
 import EMIPage from "./pages/services/EMIPage";
 import ExchangePage from "./pages/services/ExchangePage";
@@ -56,6 +65,9 @@ import RepairPage from "./pages/services/RepairPage";
 // About sub-pages
 import StoryPage from "./pages/about/StoryPage";
 import WhyChooseUsPage from "./pages/about/WhyChooseUsPage";
+
+// Admin page
+import AdminPage from "./pages/admin/AdminPage";
 
 type Route = string;
 
@@ -67,6 +79,13 @@ const ALL_ROUTES: Route[] = [
   "/services/accessories",
   "/services/exchange",
   "/services/emi",
+  "/services/book-repair",
+  "/contact/find-us",
+  "/blog",
+  "/blog/best-phones-under-20000",
+  "/blog/phone-screen-protection",
+  "/blog/top-5-accessories",
+  "/blog/mobile-care-tips",
   "/brands",
   "/brands/apple",
   "/brands/samsung",
@@ -99,7 +118,9 @@ const ALL_ROUTES: Route[] = [
   "/contact",
   "/privacy-policy",
   "/terms-of-service",
+  "/faq",
   "/refund-policy",
+  "/admin",
 ];
 
 function getInitialRoute(): Route {
@@ -147,6 +168,15 @@ export default function App() {
     return () => window.removeEventListener("popstate", handlePopState);
   }, []);
 
+  // Admin page renders standalone (no Header/Footer)
+  if (currentPath === "/admin") {
+    return (
+      <>
+        <AdminPage />
+      </>
+    );
+  }
+
   const renderPage = () => {
     switch (currentPath) {
       case "/services":
@@ -161,6 +191,8 @@ export default function App() {
         return <ExchangePage onNavigate={navigate} />;
       case "/services/emi":
         return <EMIPage onNavigate={navigate} />;
+      case "/services/book-repair":
+        return <BookRepairPage />;
       case "/brands":
         return <ProductsPage />;
       case "/brands/apple":
@@ -219,10 +251,24 @@ export default function App() {
         return <WhyChooseUsPage onNavigate={navigate} />;
       case "/contact":
         return <ContactPage />;
+      case "/contact/find-us":
+        return <FindUsPage />;
+      case "/blog":
+        return <BlogPage onNavigate={navigate} />;
+      case "/blog/best-phones-under-20000":
+        return <BestPhonesUnder20000Page />;
+      case "/blog/phone-screen-protection":
+        return <PhoneScreenProtectionPage />;
+      case "/blog/top-5-accessories":
+        return <Top5AccessoriesPage />;
+      case "/blog/mobile-care-tips":
+        return <MobileCareTipsPage />;
       case "/privacy-policy":
         return <PrivacyPolicyPage />;
       case "/terms-of-service":
         return <TermsOfServicePage />;
+      case "/faq":
+        return <FAQPage />;
       case "/refund-policy":
         return <RefundPolicyPage />;
       default:
@@ -234,6 +280,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
+      <Toaster position="top-right" />
       <Header currentPath={currentPath} onNavigate={navigate} />
       <div className="flex-1">{renderPage()}</div>
       <Footer onNavigate={navigate} />
